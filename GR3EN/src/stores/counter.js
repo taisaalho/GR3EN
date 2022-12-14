@@ -1,6 +1,15 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 
+export const User = defineStore('user', {
+  state: () => ({
+    users: [{
+      name:
+    }]
+  })
+  
+})
+
 export const Atividade = defineStore('atividade',{
   state: () => ({
     atividades: [{
@@ -61,6 +70,7 @@ export const Ocorrência = defineStore('ocorrência',{
     getAtividadesUserUser: (state) =>
     (pontos) => state.atividades.filter(atividade => atividade.pontos == pontos),
 
+    /* Ocorrências */
     //Nome da Ocorrência
     getOcorrênciasNome: (state) =>
     (nome) => state.ocorrências.filter(ocorrência => ocorrência.nome == nome),
