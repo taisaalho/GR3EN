@@ -1,10 +1,12 @@
+
+
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 
 export const User = defineStore('user', {
   state: () => ({
     users: [{
-      name:
+      name:"",
     }]
   })
   
