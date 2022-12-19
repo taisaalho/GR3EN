@@ -1,4 +1,6 @@
-/* color palette from <https://github.com/vuejs/theme> */
+/* 
+
+
 :root {
   --vt-c-white: #ffffff;
   --vt-c-white-soft: #f8f8f8;
@@ -21,7 +23,6 @@
   --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
 }
 
-/* semantic color variables for this project */
 :root {
   --color-background: var(--vt-c-white);
   --color-background-soft: var(--vt-c-white-soft);
@@ -57,10 +58,10 @@
   margin: 0;
   position: relative;
   font-weight: normal;
+  min-height:0vh;
 }
 
 body {
-  min-height: 100vh;
   color: var(--color-text);
   background: var(--color-background);
   transition: color 0.5s, background-color 0.5s;
@@ -72,3 +73,13 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+#app {
+ 
+  min-height: 0px !important;
+  margin: 0 auto;
+  padding: 2rem;
+
+  font-weight: normal;
+}
+  */
