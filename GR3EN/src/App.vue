@@ -6,15 +6,11 @@ import NavBar from '../src/components/NavBar.vue'
 
 </script>
 
+
 <template>
-  
-      
-
-
-    
-      <RouterView />
-  
+<RouterView />
 </template>
+
 
 <style scoped>
 

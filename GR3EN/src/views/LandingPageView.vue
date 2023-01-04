@@ -18,25 +18,30 @@ export default {
 
 </script>
 <template >
-    <div class="page">
+    <div class="page pa-10 ma-6">
 
+        <!-- NavBar -->
         <NavBar />
-        <v-carousel class="carousel">
-            <v-carousel-item
-            src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-            cover
-            ></v-carousel-item>
+
+        <!-- Carousel -->
+        <div class="carousel">
+            <v-carousel class="carousel">
+                <v-carousel-item
+                src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+                cover
+                ></v-carousel-item>
+                
+                <v-carousel-item
+                src="https://cdn.vuetifyjs.com/images/cards/hotel.jpg"
+                cover
+                ></v-carousel-item>
             
-            <v-carousel-item
-            src="https://cdn.vuetifyjs.com/images/cards/hotel.jpg"
-            cover
-            ></v-carousel-item>
-        
-            <v-carousel-item
-            src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-            cover
-            ></v-carousel-item>
-        </v-carousel>
+                <v-carousel-item
+                src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+                cover
+                ></v-carousel-item>
+            </v-carousel>
+        </div>
             
             
         <v-row class="background">
@@ -112,8 +117,6 @@ export default {
     </div>
 
         
-
-
 </template>
 
 
