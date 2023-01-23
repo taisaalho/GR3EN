@@ -16,29 +16,46 @@ export default {
     }
 };
 
-</script>
+</script>   
+
 <template >
-    <div class="page">
+            <v-sheet class="bg-deep-purple pa-15 mx-auto my-auto" width="40vw" rounded>
+                <v-card class="mx-auto px-6 py-8" >
+                    <v-form v-model="form" @submit.prevent="onSubmit">
+                        <v-text-field
+                        v-model="email"
+                        :readonly="loading"
+                        :rules="[required]"
+                        class="mb-2"
+                            clearable
+                            label="Email"
+                            ></v-text-field>
 
-        <NavBar />
-        
-        <v-card class="background">
-
-        </v-card>
-        
-
-
-
-
-
-        <Footer />
-            
-            
-
-    </div>
-
-        
-
+                            <v-text-field
+                            v-model="password"
+                            :readonly="loading"
+                            :rules="[required]"
+                            clearable
+                            label="Password"
+                            placeholder="Enter your password"
+                            ></v-text-field>            
+                            
+                            <br>
+                            
+                            <v-btn
+                            :disabled="!form"
+                            :loading="loading"
+                            block
+                            color="success"
+                            size="large"
+                            type="submit"
+                            variant="elevated"
+                            >
+                            Sign In
+                        </v-btn>
+                    </v-form>
+                </v-card>    
+            </v-sheet>
 
 </template>
 
@@ -53,11 +70,5 @@ export default {
         src: url(../assets/Rubik-Regular.ttf);
     }
 
-    .background{
-        background-color:rgba(0, 115, 98, 0.8);
-        border-radius: 30px;
-        height:60vh;
-        margin-top: 10vh;
-    }
-    
+  
 </style>
