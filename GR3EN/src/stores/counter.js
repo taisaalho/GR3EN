@@ -4,6 +4,7 @@ import { defineStore } from 'pinia'
 export const User = defineStore('user', {
   state: () => ({
     users: [{
+      id:"",
       primeiroNome: "",
       ultimoNome: "",
       escola: "",
@@ -25,6 +26,7 @@ export const User = defineStore('user', {
 export const Atividade = defineStore('atividade',{
   state: () => ({
     atividades: [{
+      id:"",
       nome: " ",
       descrição: " ",
       numInscrições: 0,
@@ -39,6 +41,7 @@ export const Atividade = defineStore('atividade',{
 export const Ocorrência = defineStore('ocorrência',{
   state: () => ({
     ocorrências: [{
+      id:"",
       nome: " ",
       descrição: " ",
       estado: " ",
