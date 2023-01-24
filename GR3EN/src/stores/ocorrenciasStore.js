@@ -9,7 +9,6 @@ if (!JSON.parse(localStorage.getItem('ocorrencias'))){
     nomeOcorrencia: " ",
     descriçaoOcorrencia: " ",
     localOcorrencia: " ",
-    estado: " ",
     dataHoraOcorrencia: " ",
     idUser: 0,
     fotoOcorrencia: " ",
@@ -28,7 +27,7 @@ export const Ocorrencia = defineStore('ocorrencia',{
   }),
 
   getters:{
-    /* Ocorrências */ //Não completo
+    /* Ocorrências */ 
     //Nome da Ocorrência
     getOcorrênciasNome: (state) =>
     (nome) => state.ocorrencias.filter(ocorrencia => ocorrencia.nome == nome),

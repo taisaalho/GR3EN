@@ -74,7 +74,7 @@ export const Atividade = defineStore('atividade',{
 
     //addAtividadeTeste1
     addAtividade(nomeAt,desAtv,imgAtv,dataHoraAtv,localAtv,pontosAtv){
-        this.users.push({
+        this.atividades.push({
             idUser: this.users[this.users.length - 1].id + 1,
             nomeAtividade: nomeAt,
             idUser: [],
