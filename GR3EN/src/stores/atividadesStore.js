@@ -10,7 +10,7 @@ if (!JSON.parse(localStorage.getItem('atividades'))){
     idUser: [],
     descAtividade: " ",
     imagemAtividade: " ",
-    dataHoraAtividade: " ",
+    dataHoraAtividade: (newDate).toString().split(' '),
     localAtividade: " ",
     coordenadorAtividade: [],
     pontosAtividades: 0,
@@ -73,14 +73,14 @@ export const Atividade = defineStore('atividade',{
     },
 
     //addAtividadeTeste1
-    addAtividade(nomeAt,desAtv,imgAtv,dataHoraAtv,localAtv,pontosAtv){
+    addAtividade(nomeAt,desAtv,imgAtv,localAtv,pontosAtv){
         this.atividades.push({
-            idUser: this.users[this.users.length - 1].id + 1,
+            idUser: this.users[this.users.length - 1].idUser + 1,
             nomeAtividade: nomeAt,
             idUser: [],
             descAtividade: desAtv,
             imagemAtividade: imgAtv,
-            dataHoraAtividade: dataHoraAtv,
+            dataHoraAtividade: (newDate).toString().split(' '),
             localAtividade: localAtv,
             coordenadorAtividade: [0, 1],
             pontosAtividades: Int(pontosAtv),

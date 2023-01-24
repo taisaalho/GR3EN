@@ -72,7 +72,7 @@ export const User = defineStore('user', {
     //Adicionar User
     addUser(primeiroNome1,ultimoNome1,email1,escola1,password1){
       this.users.push({
-        idUser: 0,
+        idUser: this.users[this.users.length - 1].idUser + 1,
         primeiroNome: primeiroNome1,
         ultimoNome: ultimoNome1,
         escola: escola1,
@@ -110,7 +110,7 @@ export const User = defineStore('user', {
       })
     },
 
-    
+
 
     
   }

@@ -10,6 +10,7 @@ if (!JSON.parse(localStorage.getItem('rank'))){
     pontosTotal: 0,
     ranking: 0,
     top3Rank: false,
+    quadroHonra: [],
   }]
   localStorage.setItem('rank', JSON.stringify(rank))
 }else{

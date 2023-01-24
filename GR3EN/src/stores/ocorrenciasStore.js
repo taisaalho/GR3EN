@@ -9,7 +9,7 @@ if (!JSON.parse(localStorage.getItem('ocorrencias'))){
     nomeOcorrencia: " ",
     descriçaoOcorrencia: " ",
     localOcorrencia: " ",
-    dataHoraOcorrencia: " ",
+    dataHoraOcorrencia: (newDate).toString().split(' '),
     idUser: 0,
     fotoOcorrencia: " ",
     pontosOcorrencias: 0,
@@ -29,23 +29,58 @@ export const Ocorrencia = defineStore('ocorrencia',{
   getters:{
     /* Ocorrências */ 
     //Nome da Ocorrência
-    getOcorrênciasNome: (state) =>
-    (nome) => state.ocorrencias.filter(ocorrencia => ocorrencia.nome == nome),
+    getNomeOcorrencias: (state) =>
+    (nomeOcorrencia) => state.ocorrencias.filter(ocorrencia => ocorrencia.nomeOcorrencia == nomeOcorrencia),
 
     //Descrição da Ocorrência
-    getOcorrênciasDescrição: (state) =>
-    (descrição) => state.ocorrencias.filter(ocorrencia => ocorrencia.descrição == descrição),
+    getDescOcorrencias: (state) =>
+    (descriçaoOcorrencia) => state.ocorrencias.filter(ocorrencia => ocorrencia.descriçaoOcorrencia == descriçaoOcorrencia),
 
     //Estado da Ocorrência
-    getOcorrênciasEstado: (state) =>
-    (estado) => state.ocorrências.filter(ocorrência => ocorrência.estado == estado),
+    getStatusOcorrencia: (state) =>
+    (statusOcorrencia) => state.ocorrencias.filter(ocorrencia => ocorrencia.statusOcorrencia == statusOcorrencia),
 
     //Data da Ocorrência
-    getOcorrênciasData: (state) =>
-    (data) => state.ocorrências.filter(ocorrência => ocorrência.data == data),
+    getDataHoraOcorrencia: (state) =>
+    (dataHoraOcorrencia) => state.ocorrencias.filter(ocorrencia => ocorrencia.dataHoraOcorrencia == dataHoraOcorrencia),
 
-    //User que reportou a Ocorrência
-    getOcorrênciasUser: (state) =>
-    (user) => state.atividades.filter(atividade => atividade.user == user),
+    //Local da Ocorrência
+    getLocalOcorrência: (state) =>
+    (localOcorrencia) => state.ocorrencias.filter(ocorrencia => ocorrencia.localOcorrencia == localOcorrencia),
+
+    //Local da Ocorrência
+    getUserOcorrência: (state) =>
+    (idUser) => state.ocorrencias.filter(ocorrencia => ocorrencia.idUser == idUser),
+
+    //Foto da Ocorrência
+    getFotoOcorrência: (state) =>
+    (fotoOcorrencia) => state.ocorrencias.filter(ocorrencia => ocorrencia.fotoOcorrencia == fotoOcorrencia),
+
+    //Foto da Ocorrência
+    getPontosOcorrência: (state) =>
+    (pontosOcorrencias) => state.ocorrencias.filter(ocorrencia => ocorrencia.pontosOcorrencias == pontosOcorrencias),
+
+    //Categoria da Ocorrência
+    getCategoriaOcorrência: (state) =>
+    (categoriaOcorrencia) => state.ocorrencias.filter(ocorrencia => ocorrencia.categoriaOcorrencia == categoriaOcorrencia),
+    
+  },
+
+  actions: {
+    addOcorrencia(nome,desc,local,idUser,foto,categoria){
+        this.ocorrencias.push({
+            idOcorrencia: this.ocorrencias[this.ocorrencias.length - 1].idOcorrencia + 1,
+            nomeOcorrencia: nome,
+            descriçaoOcorrencia: desc,
+            localOcorrencia: local,
+            dataHoraOcorrencia: (newDate).toString().split(' '),
+            idUser:idUser,
+            fotoOcorrencia: foto,
+            pontosOcorrencias: 0,
+            categoriaOcorrencia: categoria,
+            statusOcorrencia: false,
+        })
+        localStorage.setItem('users',JSON.stringify(this.users))
+    },
   },
 })
