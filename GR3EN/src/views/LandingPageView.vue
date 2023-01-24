@@ -1,5 +1,5 @@
 <script>
-import {User} from '../stores/counter.js'
+import {User} from '../stores/userStore.js'
 
 
 export default {

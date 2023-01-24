@@ -1,17 +1,16 @@
 <script>
-    
+import {User} from '../stores/userStore.js'
 export default {
-    data:() =>({
-        icons: [
-        'mdi-facebook',
-        'mdi-twitter',
-        'mdi-linkedin',
-        'mdi-instagram',]
-    }),
-    components:{
-    NavBar,
-    Footer,
-    }
+    data() {
+        return {
+
+            User:User(),
+        }
+    },
+    
+    methods: {
+
+    },
 };
 
 </script>   
@@ -20,7 +19,7 @@ export default {
     <div class="sheet">
         <v-sheet color="rgba(0, 115, 98, 0.8)" class="pa-15 mx-auto my-auto" width="45vw"  rounded>
             <div class="card">
-                <h1>Sing In</h1>
+                <h1>Sign In</h1>
                 <v-card color="rgba(0, 120, 108, 0.8)" class="mx-auto px-6 py-8" >
                     <v-form v-model="form" @submit.prevent="onSubmit">
                         <v-text-field
@@ -43,33 +42,35 @@ export default {
                             ></v-text-field>            
                             
                             <br>
-                        
+                            <v-row class="buttons">
 
-                            <RouterLink to ="/signup"><v-btn
-                            :disabled="!form"
-                            :loading="loading"
-                            block
-                            color="success"
-                            size="large"
-                            type="submit"
-                            variant="elevated"
-                            >
-                            Sign Up
-                            </v-btn></RouterLink>
+                                    
+                                    <RouterLink to ="/signup"><v-btn
+                                        :disabled="!form"
+                                        :loading="loading"
+                                        block
+                                        color="warning"
+                                        size="large"
+                                        type="submit"
+                                        variant="elevated"
+                                        >
+                                            Sign Up
+                                        </v-btn></RouterLink>
 
-                            <br>
-
-                            <RouterLink to ="/"><v-btn class="btn1"
-                            :disabled="!form"
-                            :loading="loading"
-                            block
-                            color="success"
-                            size="large"
-                            type="submit"
-                            variant="elevated"
-                            >
-                            Confirmar
-                            </v-btn></RouterLink>
+                            
+                            
+                                    <RouterLink to ="/"><v-btn class="btn1"
+                                    :disabled="!form"
+                                    :loading="loading"
+                                    block
+                                    color="warning"
+                                    size="large"
+                                    type="submit"
+                                    variant="elevated"
+                                    >
+                                    Confirmar
+                                </v-btn></RouterLink>
+                            </v-row>
                     </v-form>
                 </v-card>
             </div>    
@@ -93,12 +94,20 @@ export default {
     margin: 8vw;
 
 }
+.buttons{
+    display:flex;
+    justify-content: space-between;
+    margin-left:8vw;
+    margin-top:3vh;
+    margin-right:8vw;
+}
 
 .card{
     margin-top: 10px;
     margin-bottom: 10px;
     margin-left: 20px;
     margin-right: 20px;
+   
 }
 
 h1{

@@ -1,100 +1,124 @@
 <script>
-
+import {User} from '../stores/userStore.js'
 export default {
-    data:() =>({
-        icons: [
-        'mdi-facebook',
-        'mdi-twitter',
-        'mdi-linkedin',
-        'mdi-instagram',]
-    }),
-    components:{
-    NavBar,
-    Footer,
-    }
+    data(){
+        return{
+            User:User()
+
+        }
+    },
+    methods: {
+        createAcc() {
+            if ((User.find(user => user.email == email)) != -1){
+                
+            }       
+        }
+    },
 };
 
 </script>
 
 <template >
         <div class="sheet">
-            <v-sheet color="rgba(0, 115, 98, 0.8)" class="pa-15 mx-auto my-auto" width="45vw"  rounded>
+            <v-sheet color="rgba(0, 115, 98, 0.8)" class="pa-15 mx-auto my-auto rounded" width="45vw">
                 <div class="card">
-                    <h1>Sing Up</h1>
+                    <h1>Sign Up</h1>
                     <v-card color="rgba(0, 120, 108, 0.8)" class="mx-auto px-6 py-8" >
                         <v-form v-model="form" @submit.prevent="onSubmit">
-                            <v-text-field
-                            v-model="email"
-                            :readonly="loading"
-                            :rules="[required]"
-                            class="mb-2"
-                                clearable
-                                label="Email"
-                                placeholder = "Enter your email address"
-                                ></v-text-field>
-
-                                <v-text-field
-                                v-model="name"
-                                :readonly="loading"
-                                :rules="[required]"
-                                clearable
-                                label="Name"
-                                placeholder="Enter your name"
-                                ></v-text-field>    
-
-                                <v-text-field
-                                v-model="password"
-                                :readonly="loading"
-                                :rules="[required]"
-                                clearable
-                                label="Password"
-                                placeholder="Enter your password"
-                                ></v-text-field>  
+                            <v-row>
+                                <v-col col="6">
+                                    <v-text-field
+                                    v-model="firstName"
+                                    :readonly="loading"
+                                    :rules="[required]"
+                                    class="mb-2"
+                                    clearable
+                                    label="Primeiro Nome"
+                                    placeholder = "Enter your email address"
+                                    
+                                    ></v-text-field>
+                                    
+                                    <v-text-field
+                                    v-model="email"
+                                    :readonly="loading"
+                                    :rules="[required]"
+                                    clearable
+                                    label="Email"
+                                    placeholder="Enter your name"
+                                    class=""
+                                    ></v-text-field>    
+                                    
+                                    <v-text-field
+                                    v-model="password"
+                                    :readonly="loading"
+                                    :rules="[required]"
+                                    clearable
+                                    label="Password"
+                                    placeholder="Enter your password"
+                                    ></v-text-field>  
+                                
+                                </v-col>
+                                <v-col col="6">
+                                    <v-text-field
+                                    v-model="lastName"
+                                    :readonly="loading"
+                                    :rules="[required]"
+                                    class="mb-2"
+                                    clearable
+                                    label="Último Nome"
+                                    placeholder = "Enter your email address" 
+                                    ></v-text-field>
+                                        
+                                    
+                                    <input class="forms green" v-model="date" type="date" >
+                                    <v-select
+                                    v-model="school"
+                                    class="green"
+                                    label="Select"
+                                    :items="['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']"
+                                    variant="solo"
+                                    ></v-select> 
+                                </v-col>
+                            </v-row>
                             
-
-                                <v-text-field
-                                v-model="confirmPassword"
-                                :readonly="loading"
-                                :rules="[required]"
-                                clearable
-                                label="Confirm Password"
-                                placeholder="Confirm your Password"
-                                ></v-text-field>
                                 
-                                <br>
+                            <v-row class="buttons">
                                 
-                                <RouterLink to ="/signin"><v-btn class="btn1"
+                                
+                                <RouterLink to ="/"><v-btn
                                 :disabled="!form"
                                 :loading="loading"
                                 block
-                                color="success"
+                                color="warning"
+                                size="large"
+                                type="submit"
+                                variant="elevated"
+                                class="btn1"
+                                >
+                                Confirmar
+                                </v-btn></RouterLink>
+                                <RouterLink to ="/signin"><v-btn class="btn1"
+                                    :disabled="!form"
+                                :loading="loading"
+                                block
+                                color="warning"
                                 size="large"
                                 type="submit"
                                 variant="elevated"
                                 >
                                 Sign In
                                 </v-btn></RouterLink>
-
-                                <br>
-
-                                <RouterLink to ="/"><v-btn
-                                :disabled="!form"
-                                :loading="loading"
-                                block
-                                color="success"
-                                size="large"
-                                type="submit"
-                                variant="elevated"
-                                >
-                                Confirmar
-                                </v-btn></RouterLink>
+                            
+                            
+                            
+                            </v-row>
                         </v-form>
                     </v-card>
                 </div>    
             </v-sheet>
         </div>
 
-</template>
+    </template>
 
 <style lang="scss" scoped>
     @font-face{
@@ -105,10 +129,35 @@ export default {
         font-family: Rubik;
         src: url(../assets/Rubik-Regular.ttf);
     }
+    .btn1{
+        color:white;
+        
+    }
 
+
+    .buttons{
+        display:flex;
+        justify-content: space-between;
+        margin-left:5vw;
+        margin-top:3vh;
+        margin-right:5vw
+    }
     .sheet{
         margin: 7.5vw;
 
+    }
+
+    .rounded{
+        border-radius:30px
+    }
+    .green{
+        background-color: rgba(0, 120, 108, 0.8);
+    }
+
+    .forms{
+        margin-bottom:3vh;
+        padding: 1.3vh;
+        width: 17vw;
     }
 
     .card{
