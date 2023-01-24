@@ -19,6 +19,21 @@ if (!JSON.parse(localStorage.getItem('users'))){
     idOcorrencia: [], 
     idAtividade: [],
     conselhoEco: false,
+  },
+  {
+    idUser: 1,
+    primeiroNome: "João",
+    ultimoNome: "Pais",
+    escola: " ",
+    email: "123",
+    password: "123",
+    idBadge: [],
+    idTitulo: [],
+    questionario: false,
+    ranking: 0,
+    idOcorrencia: [], 
+    idAtividade: [],
+    conselhoEco: false,
   }]
   localStorage.setItem('users', JSON.stringify(users))
 }else{
@@ -32,7 +47,7 @@ export const User = defineStore('user', {
   
   getters: {
     //Get de toda a informação
-    getUser: (state) => state.users, //Não deverá ser usar
+    getUsers: (state) => state.users, //Não deverá ser usar
 
     //Escola
     getEscola: (state) =>
@@ -60,8 +75,16 @@ export const User = defineStore('user', {
 
     //Atividades
     getAtividades: (state) =>
-    (atividades) => state.users.find(user => user.idAtividades == atividades)
+    (atividades) => state.users.find(user => user.idAtividades == atividades),
     
+    //ID
+    getID: (state) =>
+    (email) =>{let emailChecked = state.users.find(user => user.email ==email)
+    return emailChecked.idUser
+    },
+
+    // BY ID
+    getByID : (state) => (idUser) => state.users.find(user => user.idUser == idUser)
   },
   actions: {
     //Nome Completo
@@ -70,7 +93,7 @@ export const User = defineStore('user', {
     },
 
     //Adicionar User
-    addUser(primeiroNome1,ultimoNome1,email1,escola1,password1){
+    addUser(primeiroNome1,ultimoNome1,email1,escola1,password1,date){
       this.users.push({
         idUser: this.users[this.users.length - 1].idUser + 1,
         primeiroNome: primeiroNome1,

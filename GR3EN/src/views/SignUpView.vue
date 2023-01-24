@@ -3,14 +3,22 @@ import {User} from '../stores/userStore.js'
 export default {
     data(){
         return{
-            User:User()
+            User:User(),
+            email:'',
+            firstName:'',
+            lastName:'',
+            school:'',
+            password:'',
+            date:'',
 
         }
     },
     methods: {
         createAcc() {
-            if ((User.find(user => user.email == email)) != -1){
-                
+            if (!(this.User.getUsers.find(user => user.email == this.email))){
+                this.User.addUser(this.firstName,this.lastName,this.email,this.school,this.password,this.date)
+            }else{
+                alert('Account Already Exists')
             }       
         }
     },
@@ -56,7 +64,7 @@ export default {
                                     label="Password"
                                     placeholder="Enter your password"
                                     ></v-text-field>  
-                                
+                                    
                                 </v-col>
                                 <v-col col="6">
                                     <v-text-field
@@ -85,27 +93,22 @@ export default {
                             <v-row class="buttons">
                                 
                                 
-                                <RouterLink to ="/"><v-btn
-                                :disabled="!form"
-                                :loading="loading"
-                                block
+                                <v-btn
                                 color="warning"
                                 size="large"
                                 type="submit"
                                 variant="elevated"
                                 class="btn1"
+                                @click="createAcc"
                                 >
                                 Confirmar
-                                </v-btn></RouterLink>
+                                </v-btn>
                                 <RouterLink to ="/signin"><v-btn class="btn1"
-                                    :disabled="!form"
-                                :loading="loading"
-                                block
-                                color="warning"
-                                size="large"
-                                type="submit"
-                                variant="elevated"
-                                >
+                                    color="warning"
+                                    size="large"
+                                    type="submit"
+                                    variant="elevated"
+                                    >
                                 Sign In
                                 </v-btn></RouterLink>
                             
@@ -133,8 +136,8 @@ export default {
         color:white;
         
     }
-
-
+    
+    
     .buttons{
         display:flex;
         justify-content: space-between;
@@ -144,29 +147,29 @@ export default {
     }
     .sheet{
         margin: 7.5vw;
-
+        
     }
-
+    
     .rounded{
         border-radius:30px
     }
     .green{
         background-color: rgba(0, 120, 108, 0.8);
     }
-
+    
     .forms{
         margin-bottom:3vh;
         padding: 1.3vh;
         width: 17vw;
     }
-
+    
     .card{
         margin-top: 10px;
         margin-bottom: 10px;
         margin-left: 20px;
         margin-right: 20px;
     }
-
+    
     h1{
         font-family: norquay;
         font-weight: 100;
@@ -174,13 +177,13 @@ export default {
         text-shadow: 5px 1px 1px #8D5836;
         margin-left: 300px;
     }
-
+    
     .v-btn:hover{
         box-shadow: 0 5px 15px rgba(145, 92, 182, .4);
     }
-
-
-
-
-  
+    
+    
+    
+    
+    
 </style>

@@ -4,25 +4,38 @@ import {User} from '../stores/userStore.js'
 
 export default {
     data:() =>({
-        userStore: User(),
+        User: User(),
         icons: [
         'mdi-facebook',
         'mdi-twitter',
         'mdi-linkedin',
-        'mdi-instagram',]
+        'mdi-instagram',],
+        currentUser: localStorage.getItem('currentUser')
     })
 };
+
+
 
 </script>
 <template>
 
     <v-app >
             <v-app-bar color="rgba(0, 115, 98, 0.8)">
-                <v-btn variant="text"><img src="GR3EN\src\assets\Logo 2.svg"></v-btn>
+                <!-- <v-btn variant="text"><img src="GR3EN\src\assets\Logo 2.svg"></v-btn> -->
                     <v-btn variant="text" class="navBtn" color="white">Atividades</v-btn>
                         <RouterLink to ="/occurrencereport"><v-btn variant="text" class="navBtn" color="white">Ocorrências</v-btn></RouterLink>
                     <v-btn variant="text" class="navBtn" color="white ">Ranking</v-btn>
-                    <template v-slot:append>
+                    <template v-if="!!currentUser" v-slot:append>
+                    
+
+                        
+                        <RouterLink to ="/profile"><v-btn variant="text" color="white" class="navBtn">Perfil</v-btn></RouterLink>
+                    </template>
+                
+                    <template v-else v-slot:append>
+                    
+
+                        
                         <RouterLink to ="/signin"><v-btn variant="text" color="white" class="navBtn">Sign In</v-btn></RouterLink>
                     </template>
                 
@@ -69,11 +82,11 @@ export default {
     <div class="">
         
         <h1 class="title">Atividades</h1>
-        <h1 class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
+        <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
             tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, 
             consectetur adipiscing elit,
             sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        </h1>
+        </p>
     </div>
 </v-col>
 
@@ -86,11 +99,11 @@ export default {
     <div class="">
         
         <h1 class="title">Atividades</h1>
-        <h1 class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
+        <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
             tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, 
             consectetur adipiscing elit,
             sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        </h1>
+        </p>
     </div>
 </v-col>
 <v-col  cols="4" >
@@ -113,11 +126,11 @@ export default {
     <div class="">
         
         <h1 class="title">Junta-te ao conselho Eco-Escolas!</h1>
-        <h1 class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
+        <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
             tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, 
             consectetur adipiscing elit,
             sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        </h1>
+        </p>
     </div>
     <v-btn size="x-large"  class="buttons" id="mainPageButton">Inscrever</v-btn>
 </v-col>
@@ -220,7 +233,7 @@ export default {
         margin-right:3vw;
     }
     .page{
-        background-image:src("GR3EN/src/assets/Mask group.svg");
+        // background-image:src("GR3EN/src/assets/Mask group.svg");
         height:300vh;
     }
 

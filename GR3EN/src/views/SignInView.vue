@@ -5,10 +5,22 @@ export default {
         return {
 
             User:User(),
+            email:'',
+            password:'',
+            idUser:''
         }
     },
     
     methods: {
+        checkLogin(){
+            if(this.User.getUsers.find(user => user.email == this.email && user.password == this.password)){
+                this.idUser = this.User.getID(this.email)
+                localStorage.setItem('currentUser',JSON.stringify(this.User.getByID(this.idUser)))
+                this.$router.push({name :'home'})
+            }else{
+                alert('Wrong email or password')
+            }
+        }
 
     },
 };
@@ -46,9 +58,6 @@ export default {
 
                                     
                                     <RouterLink to ="/signup"><v-btn
-                                        :disabled="!form"
-                                        :loading="loading"
-                                        block
                                         color="warning"
                                         size="large"
                                         type="submit"
@@ -60,13 +69,11 @@ export default {
                             
                             
                                     <RouterLink to ="/"><v-btn class="btn1"
-                                    :disabled="!form"
-                                    :loading="loading"
-                                    block
                                     color="warning"
                                     size="large"
                                     type="submit"
                                     variant="elevated"
+                                    @click="checkLogin"
                                     >
                                     Confirmar
                                 </v-btn></RouterLink>
