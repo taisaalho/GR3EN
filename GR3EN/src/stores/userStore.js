@@ -110,7 +110,11 @@ export const User = defineStore('user', {
       })
     },
 
-
+    inscriçaoEcoEscolas(){
+      this.users.push({
+        conselhoEco : true
+      })
+    }
 
     
   }

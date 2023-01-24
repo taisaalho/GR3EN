@@ -82,5 +82,7 @@ export const Ocorrencia = defineStore('ocorrencia',{
         })
         localStorage.setItem('users',JSON.stringify(this.users))
     },
+
+    
   },
 })
