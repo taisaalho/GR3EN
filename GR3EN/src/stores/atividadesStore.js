@@ -14,7 +14,7 @@ if (!JSON.parse(localStorage.getItem('atividades'))){
     localAtividade: " ",
     coordenadorAtividade: [],
     pontosAtividades: 0,
-    statusAtivdidade: false,
+    statusAtivididade: false,
 
   }]
   localStorage.setItem('atividades', JSON.stringify(atividades))
@@ -33,28 +33,61 @@ export const Atividade = defineStore('atividade',{
     getAtividade: (state) => state.atividades,
 
     //Nome da Atividade
-    getAtividadesNome: (state) =>
+    getNomeAtividade: (state) =>
     (nomeAtividade) => state.atividades.find(atividade => atividade.nomeAtividade == nomeAtividade),
 
     //Descrição da Ativadade
-    getAtividadesDescrição: (state) => 
-    (descrição) => state.atividades.filter(atividade => atividade.descrição == descrição),
+    getDescAtividade: (state) => 
+    (descAtividade) => state.atividades.filter(atividade => atividade.descAtividade == descAtividade),
 
-    //Data da Atividade
-    getAtividadesData: (state) =>
-    (data) => state.atividades.filter(atividade => atividade.data == data),
+    //Data e Hora da Atividade
+    getDataHoraAtividade: (state) =>
+    (dataHoraAtividade) => state.atividades.filter(atividade => atividade.dataHoraAtividade == dataHoraAtividade),
 
     //Organizador da Atividade
-    getAtividadesOrganizador: (state) =>
-    (organizador) => state.atividades.filter(atividade => atividade.organizador ==  organizador),
+    getCoordenadorAtividade: (state) =>
+    (coordenadorAtividade) => state.atividades.filter(atividade => atividade.coordenadorAtividade ==  coordenadorAtividade),
 
-    //User a participar na Atividade
+    //Users na Atividade
     getAtividadesUser: (state) =>
-    (user) => state.atividades.filter(atividade => atividade.user == user),
+    (idUser) => state.atividades.filter(atividade => atividade.idUser == idUser),
 
     //Pontos que a Atividade dá ao User
-    getAtividadesUserUser: (state) =>
-    (pontos) => state.atividades.filter(atividade => atividade.pontos == pontos),
+    getPontosAtividade: (state) =>
+    (pontosAtividades) => state.atividades.filter(atividade => atividade.pontosAtividades == pontosAtividades),
+
+    //Localização da Atividade
+    getLocalizaçãoAtividade: (state) =>
+    (localAtividade) => state.atividades.filter(atividade => atividade.localAtividade == localAtividade),
+
+    
+    //Status da Atividade (A decorrer ou passada)
+    getStatusAtividade: (state) =>
+    (statusAtivididade) => state.atividades.filter(atividade => atividade.statusAtivididade == statusAtivididade),
+  },
+
+  actions:{
+    //Inscrição na Atividade
+    inscriçãoUser(userID){
+        this.atividades.idUser.push(userID)
+    },
+
+    //addAtividadeTeste1
+    addAtividade(nomeAt,desAtv,imgAtv,dataHoraAtv,localAtv,pontosAtv){
+        this.users.push({
+            idUser: this.users[this.users.length - 1].id + 1,
+            nomeAtividade: nomeAt,
+            idUser: [],
+            descAtividade: desAtv,
+            imagemAtividade: imgAtv,
+            dataHoraAtividade: dataHoraAtv,
+            localAtividade: localAtv,
+            coordenadorAtividade: [0, 1],
+            pontosAtividades: Int(pontosAtv),
+            statusAtivididade: false,
+        })
+        localStorage.setItem('users',JSON.stringify(this.users))
+      },
   }
 })
 
