@@ -114,8 +114,11 @@ export const User = defineStore('user', {
       this.users.push({
         conselhoEco : true
       })
-    }
+    },
 
+    confirmSignUp(){
+      
+    }
     
   }
 })
