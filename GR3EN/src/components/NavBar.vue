@@ -25,6 +25,7 @@
         z-index: 2;
         font-family: Rubik;
         font-weight: bold;
+        -webkit-text-stroke: 2px #8D5836;
     }
 
     a{

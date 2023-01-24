@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LandingPage from '../views/LandingPageView.vue'
-import SignUp from '../views/SignInView.vue'
+import SignIn from '../views/SignInView.vue'
+import occurrenceReport from '../views/OccurrenceReportView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -13,7 +14,12 @@ const router = createRouter({
     {
       path: '/signin',
       name: 'signin',
-      component: SignUp,
+      component: SignIn,
+    },
+    {
+      path: '/occurrenceReport',
+      name: 'occurenceReport',
+      component: occurrenceReport,
     }
   
   ]

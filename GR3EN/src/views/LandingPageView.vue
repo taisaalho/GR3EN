@@ -1,7 +1,4 @@
 <script>
-   
-import NavBar from '../components/NavBar.vue'
-import Footer from '../components/Footer.vue'
 export default {
     data:() =>({
         icons: [
@@ -9,11 +6,7 @@ export default {
         'mdi-twitter',
         'mdi-linkedin',
         'mdi-instagram',]
-    }),
-    components:{
-    NavBar,
-    Footer,
-    }
+    })
 };
 
 </script>
@@ -23,7 +16,7 @@ export default {
             <v-app-bar color="rgba(0, 115, 98, 0.8)">
                 <v-btn variant="text"><img src="GR3EN\src\assets\Logo 2.svg"></v-btn>
                     <v-btn variant="text" class="navBtn" color="white">Atividades</v-btn>
-                    <v-btn variant="text" class="navBtn" color="white">Ocorrências</v-btn>
+                        <RouterLink to ="/occurrencereport"><v-btn variant="text" class="navBtn" color="white">Ocorrências</v-btn></RouterLink>
                     <v-btn variant="text" class="navBtn" color="white ">Ranking</v-btn>
                     <template v-slot:append>
                         <RouterLink to ="/signin"><v-btn variant="text" color="white" class="navBtn">Sign In</v-btn></RouterLink>
@@ -161,8 +154,7 @@ export default {
         width: 70vw; 
         border-radius: 30px;
         margin: auto;
-        /* margin-top: 15vh;
-        margin-bottom: 10vh; */
+        margin-top: 5vh;
     }
         
     .buttons{
@@ -177,11 +169,11 @@ export default {
         margin-top: 5vh;
     }
 
-        .background{
-            margin-top:5vh;
+    .background{
+        margin-top:5vh;
         background-color:rgba(0, 115, 98, 0.8);
         border-radius: 30px;
-        height:60vh;
+        height:40vh;
         display: flex;
         align-items: center;
         
@@ -197,7 +189,7 @@ export default {
         margin-left:3vw;
         
         font-family: Norquay;
-        font-size: 4em;
+        font-size: 3em;
         color: white;
         text-shadow: 5px 1px 1px #8D5836 ;   /* text shadow?????? */
         
@@ -205,20 +197,20 @@ export default {
 
     .description{
         margin-right:3vw;
-        margin-LEFT:3vw;
+        margin-left:3vw;
         color: white;
         font-family: Rubik;
-        font-size: 2rem;
+        font-size: 1.5rem;
     }
     .homeIMG{
-        width:30vw;
+        width:25vw;
         border-radius:30px;
         margin-left:3vw;
         margin-right:3vw;
     }
     
     .homeIMG2{
-        width:30vw;
+        width:25vw;
         border-radius:30px;
         
         margin-right:3vw;
