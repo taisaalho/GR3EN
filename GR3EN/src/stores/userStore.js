@@ -1,0 +1,123 @@
+import { ref, computed } from 'vue'
+import { defineStore } from 'pinia'
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//USERS
+let users 
+if (!JSON.parse(localStorage.getItem('users'))){
+  users = [{
+    idUser: 0,
+    primeiroNome: " ",
+    ultimoNome: " ",
+    escola: " ",
+    email: " ",
+    password: " ",
+    idBadge: [],
+    idTitulo: [],
+    questionario: false,
+    ranking: 0,
+    idOcorrencia: [], 
+    idAtividade: [],
+    conselhoEco: false,
+  }]
+  localStorage.setItem('users', JSON.stringify(users))
+}else{
+  users = JSON.parse(localStorage.getItem('users'))
+}
+
+export const User = defineStore('user', {
+  state: () => ({
+    users: users
+  }),
+  
+  getters: {
+    //Get de toda a informação
+    getUser: (state) => state.users, //Não deverá ser usar
+
+    //Escola
+    getEscola: (state) =>
+    (escola) => state.users.find(user => user.escola == escola),  
+
+    //Email
+    getEmail: (state) =>
+    (email) => state.users.find(user => user.email == email),  
+
+    //Password
+    getPassword: (state) =>
+    (password) => state.users.find(user => user.password == password), 
+
+    //Badges
+    getBadges : (state) =>
+    (badges) => state.users.find(user => user.idBadges == badges),
+
+    //Títulos
+    getTitulos : (state) =>
+    (titulos) => state.users.find(user => user.idTitulo == titulos),
+    
+    //Ocorrencias
+    getOcorrencias: (state) => 
+    (ocorrencias) => state.users.find(user => user.idOcorrencia == ocorrencias),
+
+    //Atividades
+    getAtividades: (state) =>
+    (atividades) => state.users.find(user => user.idAtividades == atividades)
+    
+  },
+  actions: {
+    //Nome Completo
+    nomeUser(){
+      nome = this.users.primeiroNome + " " + this.users.ultimoNome
+    },
+
+    //Adicionar User
+    addUser(primeiroNome1,ultimoNome1,email1,escola1,password1){
+      this.users.push({
+        idUser: 0,
+        primeiroNome: primeiroNome1,
+        ultimoNome: ultimoNome1,
+        escola: escola1,
+        email: email1,
+        password: password1,
+        idBadge: [],
+        idTitulo: [],
+        questionario: false,
+        ranking: undefined,
+        idOcorrencia: [], 
+        idAtividade: [],
+        conselhoEco: false,
+      })
+      localStorage.setItem('users',JSON.stringify(this.users))
+    },
+
+    //Modificação do Email
+    newEmail(newEmail){
+      this.users.push({
+        email: newEmail
+      })
+    },
+
+    //Modifificação da Escola
+    newEscola(newEscola){
+      this.users.push({
+        escola: newEscola
+      })
+    },
+
+    //Modificação da Password
+    newPassword(newPassword){
+      this.users.push({
+        password : newPassword
+      })
+    },
+
+    
+  }
+})
+
+
+
+
+
+
+
+
