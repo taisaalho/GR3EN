@@ -12,12 +12,10 @@ if (!JSON.parse(localStorage.getItem('users'))){
     escola: " ",
     email: " ",
     password: " ",
-    dataNascimento: " ",
     idBadge: [],
     idTitulo: [],
     questionario: false,
-    biografia: " ",
-    ranking: " ",
+    ranking: 0,
     idOcorrencia: [], 
     idAtividade: [],
     conselhoEco: false,
@@ -48,24 +46,48 @@ export const User = defineStore('user', {
     getPassword: (state) =>
     (password) => state.users.find(user => user.password == password), 
 
-    //Biografia
-    getBiografia: (state) =>
-    (biografia) => state.users.find(user => user.biografia == biografia),
-
     //Badges
     getBadges : (state) =>
-    (badges) => state.users.find(user => user.badges == badges),
+    (badges) => state.users.find(user => user.idBadges == badges),
 
     //Títulos
-    getTít
+    getTitulos : (state) =>
+    (titulos) => state.users.find(user => user.idTitulo == titulos),
     
+    //Ocorrencias
+    getOcorrencias: (state) => 
+    (ocorrencias) => state.users.find(user => user.idOcorrencia == ocorrencias),
+
+    //Atividades
+    getAtividades: (state) =>
+    (atividades) => state.users.find(user => user.idAtividades == atividades)
     
   },
   actions: {
+    //Nome Completo
     nomeUser(){
       nome = this.users.primeiroNome + " " + this.users.ultimoNome
-    }
+    },
 
+    //Adicionar User
+    addUser(primeiroNome1,ultimoNome1,email1,escola1,password1){
+      this.users.push({
+        idUser: 0,
+        primeiroNome: primeiroNome1,
+        ultimoNome: ultimoNome1,
+        escola: escola1,
+        email: email1,
+        password: password1,
+        idBadge: [],
+        idTitulo: [],
+        questionario: false,
+        ranking: undefined,
+        idOcorrencia: [], 
+        idAtividade: [],
+        conselhoEco: false,
+      })
+      localStorage.setItem('users',JSON.stringify(this.users))
+    }
   }
 })
 
@@ -81,7 +103,7 @@ if (!JSON.parse(localStorage.getItem('atividades'))){
     descAtividade: " ",
     imagemAtividade: " ",
     dataHoraAtividade: " ",
-    localAtividade: [],
+    localAtividade: " ",
     coordenadorAtividade: [],
     pontosAtividades: 0,
     statusAtivdidade: false,
