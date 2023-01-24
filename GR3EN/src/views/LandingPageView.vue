@@ -1,6 +1,9 @@
 <script>
+import {User} from '../stores/counter.js'
+
 export default {
     data:() =>({
+        userStore: User(),
         icons: [
         'mdi-facebook',
         'mdi-twitter',
@@ -21,7 +24,7 @@ export default {
                     <template v-slot:append>
                         <RouterLink to ="/signin"><v-btn variant="text" color="white" class="navBtn">Sign In</v-btn></RouterLink>
                     </template>
-            
+                
             </v-app-bar>
 
             <v-main>
