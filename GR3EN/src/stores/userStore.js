@@ -7,15 +7,15 @@ let users
 if (!JSON.parse(localStorage.getItem('users'))){
   users = [{
     idUser: 0,
-    primeiroNome: " ",
-    ultimoNome: " ",
-    escola: " ",
-    email: " ",
-    password: " ",
+    primeiroNome: "Taísa",
+    ultimoNome: "Alho",
+    escola: "ESMAD",
+    email: "taisaalho@gmail.com",
+    password: "123",
     idBadge: [],
     idTitulo: [],
     questionario: false,
-    ranking: 0,
+    ranking: 1500,
     idOcorrencia: [], 
     idAtividade: [],
     conselhoEco: false,
@@ -24,8 +24,38 @@ if (!JSON.parse(localStorage.getItem('users'))){
     idUser: 1,
     primeiroNome: "João",
     ultimoNome: "Pais",
-    escola: " ",
-    email: "123",
+    escola: "ESHT",
+    email: "joao@gmail.com",
+    password: "123",
+    idBadge: [],
+    idTitulo: [],
+    questionario: false,
+    ranking: 2000,
+    idOcorrencia: [], 
+    idAtividade: [],
+    conselhoEco: false,
+  },
+  {
+    idUser:2,
+    primeiroNome: "Gustavo",
+    ultimoNome: "Silva",
+    escola: "ESMAD",
+    email: "gustavo@gmail.com",
+    password: "123",
+    idBadge: [],
+    idTitulo: [],
+    questionario: false,
+    ranking: 1000,
+    idOcorrencia: [], 
+    idAtividade: [],
+    conselhoEco: true,
+  },
+  {
+    idUser:3,
+    primeiroNome: "Bernardo",
+    ultimoNome: "Macedo",
+    escola: "ESMAD",
+    email: "bernardo@gmail.com",
     password: "123",
     idBadge: [],
     idTitulo: [],
@@ -33,8 +63,9 @@ if (!JSON.parse(localStorage.getItem('users'))){
     ranking: 0,
     idOcorrencia: [], 
     idAtividade: [],
-    conselhoEco: false,
-  }]
+    conselhoEco: true,
+  },
+  ]
   localStorage.setItem('users', JSON.stringify(users))
 }else{
   users = JSON.parse(localStorage.getItem('users'))
@@ -93,7 +124,7 @@ export const User = defineStore('user', {
     },
 
     //Adicionar User
-    addUser(primeiroNome1,ultimoNome1,email1,escola1,password1,date){
+    addUser(primeiroNome1,ultimoNome1,email1,escola1,password1){
       this.users.push({
         idUser: this.users[this.users.length - 1].idUser + 1,
         primeiroNome: primeiroNome1,
@@ -139,10 +170,6 @@ export const User = defineStore('user', {
       })
     },
 
-    confirmSignUp(){
-      
-    }
-    
   }
 })
 

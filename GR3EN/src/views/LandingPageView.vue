@@ -22,7 +22,7 @@ export default {
     <v-app >
             <v-app-bar color="rgba(0, 115, 98, 0.8)">
                 <!-- <v-btn variant="text"><img src="GR3EN\src\assets\Logo 2.svg"></v-btn> -->
-                    <v-btn variant="text" class="navBtn" color="white">Atividades</v-btn>
+                    <RouterLink to ="/activities"><v-btn variant="text" class="navBtn" color="white">Atividades</v-btn></RouterLink>>
                         <RouterLink to ="/occurrencereport"><v-btn variant="text" class="navBtn" color="white">Ocorrências</v-btn></RouterLink>
                     <v-btn variant="text" class="navBtn" color="white ">Ranking</v-btn>
                     <template v-if="!!currentUser" v-slot:append>

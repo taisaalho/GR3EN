@@ -28,7 +28,7 @@
                         </v-row>
                         <v-row>
                             <p class="title">title</p>
-                            <v-divider class="dividers"></v-divider>
+                            <v-divider class="dividersHor"></v-divider>
                             <v-tabs class="tabs"
                             v-model="tab"
                             color="white"
@@ -39,15 +39,73 @@
                             <v-tab :value="3">Info</v-tab>
                             <v-tab :value="4">Conquistas</v-tab>
                             </v-tabs>
-                            <v-window v-model="tab">
-                            <v-window-item
-                                v-for="n in 4"
-                                :key="n"
-                                :value="n"
-                            >
-                        </v-window-item>
-                        </v-window>
-                            <v-divider class="dividers"></v-divider>
+                            <v-divider class="dividersHor"></v-divider>
+                        </v-row>
+                        <v-row>
+                            
+                                    <v-window v-model="tab">
+                                        <v-window-item
+                                        :key="1"
+                                        :value="1">
+                                        <p>1</p>
+                                    </v-window-item>
+                                    
+                                    <v-window-item
+                                    :key="2"
+                                    :value="2">
+                                    <p>2</p>
+                                </v-window-item>
+                        
+                                <v-window-item
+                                :key="3"
+                                :value="3">
+                                <v-row class="tabWindow">
+                                    <h1 class="tabsTitles">Conselho</h1>
+                                    
+                                    <v-divider class="dividersVer" vertical></v-divider>
+                                    <v-btn size="x-large" id="registerButton">Inscrever</v-btn>
+                                </v-row>
+                                <v-row class="tabWindow">
+                                    <h1 class="tabsTitles">Crachás</h1>
+                                    
+                                    <v-divider class="dividersVer" vertical></v-divider>
+                                    <v-btn size="x-large" id="registerButton">Inscrever</v-btn>
+                                </v-row>
+                                <v-row class="tabWindow">
+                                    
+                                    
+
+                                        <h1 id="infoAtt" class="tabsTitles">Info</h1>
+                                    
+                                    <v-divider class="dividersVer" vertical></v-divider>
+                                    
+                                    
+                                    <div class="changeInfo">
+                                        
+                                        <v-row>
+                                            <v-text-field label="Estabelecimento de Ensino" variant="solo"></v-text-field>
+                                            <v-btn color="warning" class="attBtn" size="x-large">Atualizar</v-btn>
+                                        </v-row>
+                                        
+                                        <v-row>
+                                            <v-text-field label="Email" variant="solo"></v-text-field>
+                                            <v-btn class="attBtn" color="warning" size="x-large">Atualizar</v-btn>
+                                        </v-row>
+                                        
+                                        <v-row>
+                                            <v-text-field label="Palavra-Passe" variant="solo"></v-text-field>
+                                            <v-btn class="attBtn" color="warning" size="x-large">Atualizar</v-btn>
+                                        </v-row>
+                                    </div>
+                                </v-row>
+                                </v-window-item>
+                                
+                                <v-window-item
+                                :key="4"
+                                :value="4">
+                                <p>4</p>
+                                </v-window-item>
+                            </v-window>
                         </v-row>
                     </v-sheet>
                 </v-container>
@@ -64,7 +122,7 @@
                 User: User(),
                 currentUser: JSON.parse(localStorage.getItem('currentUser')),
                 tab:null,
-                
+
             }   
         },
         created () {
@@ -88,6 +146,37 @@
 #pfp{
     margin:auto;
     top: -10vh
+}
+#infoAtt{
+    margin-top:5vh;
+}
+
+
+#registerButton{
+    font-family:Norquay;
+    margin-left: 5vw;
+    background-color:#FF6500;
+    color:white;
+    font-size: 1.5rem;
+}
+.attBtn{
+    border-radius: 15px;
+    margin-left:3vw;
+}
+.changeInfo{
+    margin-left:5vw;
+    min-width:30vw;
+}
+.tabWindow{
+    margin:5vw;
+    margin-left:10vw
+}
+.tabsTitles{
+    font-family:Norquay;
+    padding-top: 2vh;
+    color:white;
+    text-shadow: 3px 1px 1px #8D5836;
+    font-size: 3rem;
 }
 .title{
     margin:auto;
@@ -113,13 +202,18 @@
     margin: auto;
     margin-top:10vh;
     width:80vw;
-    height:60vh;
+    height:150vh;
     border-radius: 30px;
 }
 
-.dividers{
+.dividersHor{
     max-width: 80vw;
     margin: auto;
-    color:white;
 }
+
+.dividersVer{
+    margin-left: 2vw;
+}
+
+
 </style>

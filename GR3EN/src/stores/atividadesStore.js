@@ -4,19 +4,34 @@ import { defineStore } from 'pinia'
 //ATIVIDADES
 let atividades
 if (!JSON.parse(localStorage.getItem('atividades'))){
-  atividades = [{
+  atividades = [
+    {
     idAtividade: 0,
-    nomeAtividade: "",
+    nomeAtividade:"Reunião Anual",
     idUser: [],
-    descAtividade: " ",
-    imagemAtividade: " ",
-    dataHoraAtividade: (newDate).toString().split(' '),
-    localAtividade: " ",
-    coordenadorAtividade: [],
+    descAtividade: "Reunão anual com membros do Eco-Escolas para celebrar a continuidade do projeto",
+    imagemAtividade: "/src/assets/img/imagemAtividade.png",
+    dataHoraAtividade:"05-05-2000", /* (newDate).toString().split(' '), */
+    localAtividade: "Vila do Conde",
+    coordenadorAtividade: "João Pais",
     pontosAtividades: 0,
     statusAtivididade: false,
 
-  }]
+    },
+    {
+    idAtividade: 1,
+    nomeAtividade:"Reunião Anual 2",
+    idUser: [],
+    descAtividade: "Reunião anual com membros do Eco-Escolas para celebrar a continuidade do projeto 2",
+    imagemAtividade: "/src/assets/img/imagemAtividade.png",
+    dataHoraAtividade:"23-11-2023" /* (newDate).toString().split(' ') */,
+    localAtividade: "Porto",
+    coordenadorAtividade:"Taísa Alho",
+    pontosAtividades: 0,
+    statusAtivididade: false,
+
+    },
+]
   localStorage.setItem('atividades', JSON.stringify(atividades))
 }else{
   atividades = JSON.parse(localStorage.getItem('atividades'))
@@ -64,6 +79,12 @@ export const Atividade = defineStore('atividade',{
     //Status da Atividade (A decorrer ou passada)
     getStatusAtividade: (state) =>
     (statusAtivididade) => state.atividades.filter(atividade => atividade.statusAtivididade == statusAtivididade),
+
+
+    getAtividadeByID: (state) =>
+    (idAtividade) => state.atividades.find(atividade => atividade.idAtividade == idAtividade),
+
+
   },
 
   actions:{
@@ -73,16 +94,16 @@ export const Atividade = defineStore('atividade',{
     },
 
     //addAtividadeTeste1
-    addAtividade(nomeAt,desAtv,imgAtv,localAtv,pontosAtv){
+    addAtividade(nomeAt,desAtv,imgAtv,localAtv,pontosAtv,horaAtv){
         this.atividades.push({
             idUser: this.users[this.users.length - 1].idUser + 1,
             nomeAtividade: nomeAt,
             idUser: [],
             descAtividade: desAtv,
             imagemAtividade: imgAtv,
-            dataHoraAtividade: (newDate).toString().split(' '),
+            dataHoraAtividade:horaAtv, /* (newDate).toString().split(' '), */
             localAtividade: localAtv,
-            coordenadorAtividade: [0, 1],
+            coordenadorAtividade: "",
             pontosAtividades: Int(pontosAtv),
             statusAtivididade: false,
         })
