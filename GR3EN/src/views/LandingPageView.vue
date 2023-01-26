@@ -59,7 +59,7 @@ export default {
 
 <v-col  cols="4" >
 
-    <img  src="https://images.theoutbound.com/uploads/1409240279880/pzozm86m91ux47vi/03460ef5b7c07b97816071b2194d0b42?w=900&fit=crop&dpr=2"
+    <img  src="/src/assets/img/main1.svg"
     class="homeIMG" alt="">
 </v-col>
 <v-col cols="8"  class="">
@@ -91,7 +91,7 @@ export default {
 </v-col>
 <v-col  cols="4" >
 
-    <img  src="https://images.theoutbound.com/uploads/1409240279880/pzozm86m91ux47vi/03460ef5b7c07b97816071b2194d0b42?w=900&fit=crop&dpr=2"
+    <img  src="/src/assets/img/main1.svg"
     class="homeIMG2" alt="">
 </v-col>
 
@@ -101,7 +101,7 @@ export default {
 
 <v-col  cols="4" >
 
-    <img  src="https://images.theoutbound.com/uploads/1409240279880/pzozm86m91ux47vi/03460ef5b7c07b97816071b2194d0b42?w=900&fit=crop&dpr=2"
+    <img  src="/src/assets/img/main1.svg"
     class="homeIMG" alt="">
 </v-col>
 <v-col cols="8"  class="">
@@ -231,14 +231,14 @@ export default {
         font-size: 1.5rem;
     }
     .homeIMG{
-        width:25vw;
+        width:15vw;
         border-radius:30px;
         margin-left:3vw;
-        margin-right:3vw;
+        margin-right:0vw;
     }
     
     .homeIMG2{
-        width:25vw;
+        width:15vw;
         border-radius:30px;
         
         margin-right:3vw;

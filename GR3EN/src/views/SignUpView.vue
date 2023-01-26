@@ -142,6 +142,15 @@ export default {
         text-decoration: none;
     }
 
+    .v-app{
+    background-image: url('/src/assets/img/Mask group.svg') !important;
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+    background-size: auto 400% !important;
+    height: 220vh !important;
+    width: 100vw !important;
+    // background-attachment: fixed !important;
+    }
     
     
     .buttons{
