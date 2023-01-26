@@ -4,18 +4,19 @@ import { defineStore } from 'pinia'
 //OCORRÊNCIAS
 let ocorrencias
 if (!JSON.parse(localStorage.getItem('ocorrencias'))){
-  ocorrencias: [{
+  ocorrencias = [{
     idOcorrencia: 0,
-    nomeOcorrencia: " ",
-    descriçaoOcorrencia: " ",
-    localOcorrencia: " ",
-    dataHoraOcorrencia: (newDate).toString().split(' '),
+    nomeOcorrencia: "Fuga de Água",
+    descriçaoOcorrencia: "Fuga de água num dos lavatórios da cantina). Água constantemente a cair.",
+    localOcorrencia: "Cantina da ESMAD",
+    dataHoraOcorrencia: "24-1-2022",
     idUser: 0,
-    fotoOcorrencia: " ",
-    pontosOcorrencias: 0,
-    categoriaOcorrencia: " ",
+    fotoOcorrencia:"/src/assets/img/imagemOcorrencia.svg",
+    pontosOcorrencias: 0, 
+    categoriaOcorrencia: "",
     statusOcorrencia: false,
-  }]
+  },]
+  console.log(ocorrencias);
   localStorage.setItem('ocorrencias', JSON.stringify(ocorrencias))
 }else{
   ocorrencias = JSON.parse(localStorage.getItem('ocorrencias'))
@@ -73,14 +74,14 @@ export const Ocorrencia = defineStore('ocorrencia',{
             nomeOcorrencia: nome,
             descriçaoOcorrencia: desc,
             localOcorrencia: local,
-            dataHoraOcorrencia: (newDate).toString().split(' '),
+            dataHoraOcorrencia: new Date().toString().split(' '),
             idUser:idUser,
             fotoOcorrencia: foto,
             pontosOcorrencias: 0,
             categoriaOcorrencia: categoria,
             statusOcorrencia: false,
         })
-        localStorage.setItem('users',JSON.stringify(this.users))
+        localStorage.setItem('ocorrencias',JSON.stringify(this.ocorrencias))
     },
 
     

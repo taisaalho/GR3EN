@@ -46,6 +46,7 @@ export default {
 
                             <v-text-field
                             v-model="password"
+                            type="password"
                             :readonly="loading"
                             :rules="[required]"
                             clearable
@@ -96,6 +97,11 @@ export default {
     font-family: Rubik;
     src: url(../assets/Rubik-Regular.ttf);
 }
+
+*{
+        text-decoration: none;
+}
+
 
 .sheet{
     margin: 8vw;

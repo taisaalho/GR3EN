@@ -1,19 +1,9 @@
 <template>
     <v-app >
-            <v-app-bar color="rgba(0, 115, 98, 0.8)">
-                <!-- <v-btn variant="text"><img src="GR3EN\src\assets\Logo 2.svg"></v-btn> -->
-                    <v-btn variant="text" class="navBtn" color="white">Atividades</v-btn>
-                        <RouterLink to ="/occurrencereport"><v-btn variant="text" class="navBtn" color="white">Ocorrências</v-btn></RouterLink>
-                    <v-btn variant="text" class="navBtn" color="white ">Ranking</v-btn>
-                    <template v-slot:append>
-                    
-
-                        
-                        <RouterLink to ="/profile"><v-btn variant="text" color="white" class="navBtn">Perfil</v-btn></RouterLink>
-                    </template>
-
-            </v-app-bar>
-
+        
+            
+            <NavBar/>
+            
             <v-main>
                 <v-container>
 
@@ -24,10 +14,8 @@
                         </v-row>
                         <v-row>
                             <h1 class="userName">{{currentUser.primeiroNome}} {{currentUser.ultimoNome}}</h1>
-                            
                         </v-row>
                         <v-row>
-                            <p class="title">title</p>
                             <v-divider class="dividersHor"></v-divider>
                             <v-tabs class="tabs"
                             v-model="tab"
@@ -43,33 +31,32 @@
                         </v-row>
                         <v-row>
                             
-                                    <v-window v-model="tab">
-                                        <v-window-item
-                                        :key="1"
-                                        :value="1">
-                                        <p>1</p>
-                                    </v-window-item>
-                                    
+                                <v-window v-model="tab">
                                     <v-window-item
-                                    :key="2"
-                                    :value="2">
-                                    <p>2</p>
+                                    :key="1"
+                                    :value="1">
+                                    <p>1</p>
                                 </v-window-item>
-                        
+                                
+                                <v-window-item
+                                :key="2"
+                                :value="2">
+                                <p>2</p>
+                                </v-window-item>
+                    
                                 <v-window-item
                                 :key="3"
                                 :value="3">
                                 <v-row class="tabWindow">
-                                    <h1 class="tabsTitles">Conselho</h1>
+                                    <h1 class="tabsTitles">Questionário</h1>
                                     
                                     <v-divider class="dividersVer" vertical></v-divider>
-                                    <v-btn size="x-large" id="registerButton">Inscrever</v-btn>
+                                    <a href="https://docs.google.com/forms/d/e/1FAIpQLScWbU2S4SZAoyH25BrU0SXLisDfWPFnr-IDyP7dH5FB3_KBBA/viewform?usp=sf_link"><v-btn size="x-large"  id="registerButton">Fazer</v-btn></a>
                                 </v-row>
                                 <v-row class="tabWindow">
                                     <h1 class="tabsTitles">Crachás</h1>
                                     
                                     <v-divider class="dividersVer" vertical></v-divider>
-                                    <v-btn size="x-large" id="registerButton">Inscrever</v-btn>
                                 </v-row>
                                 <v-row class="tabWindow">
                                     
@@ -116,7 +103,12 @@
 
 <script>
     import {User} from '../stores/userStore.js'
+    import NavBar from '../components/NavBar.vue'
     export default {
+        
+        components: {
+            NavBar,
+        },
         data() {
             return {
                 User: User(),
@@ -151,6 +143,9 @@
     margin-top:5vh;
 }
 
+*{
+        text-decoration: none;
+}
 
 #registerButton{
     font-family:Norquay;

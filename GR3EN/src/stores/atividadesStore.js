@@ -9,7 +9,7 @@ if (!JSON.parse(localStorage.getItem('atividades'))){
     idAtividade: 0,
     nomeAtividade:"Reunião Anual",
     idUser: [],
-    descAtividade: "Reunão anual com membros do Eco-Escolas para celebrar a continuidade do projeto",
+    descAtividade: "Reunião anual com membros do Eco-Escolas para celebrar a continuidade do projeto",
     imagemAtividade: "/src/assets/img/imagemAtividade.png",
     dataHoraAtividade:"05-05-2000", /* (newDate).toString().split(' '), */
     localAtividade: "Vila do Conde",
@@ -27,6 +27,19 @@ if (!JSON.parse(localStorage.getItem('atividades'))){
     dataHoraAtividade:"23-11-2023" /* (newDate).toString().split(' ') */,
     localAtividade: "Porto",
     coordenadorAtividade:"Taísa Alho",
+    pontosAtividades: 0,
+    statusAtivididade: false,
+
+    },
+    {
+    idAtividade: 2,
+    nomeAtividade:"Reunião com o Gaspar",
+    idUser: [],
+    descAtividade: "Reunião anual com membros do Eco-Escolas para celebrar a continuidade do projeto 2",
+    imagemAtividade: "/src/assets/img/imagemAtividade.png",
+    dataHoraAtividade:"23-11-2023" /* (newDate).toString().split(' ') */,
+    localAtividade: "Porto",
+    coordenadorAtividade:"Gaspar Vieira",
     pontosAtividades: 0,
     statusAtivididade: false,
 
@@ -89,14 +102,32 @@ export const Atividade = defineStore('atividade',{
 
   actions:{
     //Inscrição na Atividade
-    inscriçãoUser(userID){
-        this.atividades.idUser.push(userID)
+    inscricaoUser(userID,atividadeID){
+      console.log(userID);
+      console.log(atividadeID);
+      let checkAtivity = this.atividades.find(atividade => atividade.idAtividade == atividadeID)
+      console.log(checkAtivity)
+      checkAtivity.idUser.push(userID)
+
+      localStorage.setItem('atividades',JSON.stringify(this.atividades))
+    },
+    removerUser(userID,atividadeID){
+      console.log(userID);
+      console.log(atividadeID);
+
+      let checkAtivity = this.atividades.find(atividade => atividade.idAtividade == atividadeID)
+      console.log(checkAtivity)
+      let checkRemove = checkAtivity.idUser.indexOf(user => user == userID)
+      
+      checkAtivity.idUser.splice(checkRemove,1)
+
+      localStorage.setItem('atividades',JSON.stringify(this.atividades))
     },
 
     //addAtividadeTeste1
     addAtividade(nomeAt,desAtv,imgAtv,localAtv,pontosAtv,horaAtv){
         this.atividades.push({
-            idUser: this.users[this.users.length - 1].idUser + 1,
+            idAtividade: this.users[this.users.length - 1].idUser + 1,
             nomeAtividade: nomeAt,
             idUser: [],
             descAtividade: desAtv,
@@ -107,7 +138,7 @@ export const Atividade = defineStore('atividade',{
             pontosAtividades: Int(pontosAtv),
             statusAtivididade: false,
         })
-        localStorage.setItem('users',JSON.stringify(this.users))
+        localStorage.setItem('atividades',JSON.stringify(this.atividades))
       },
   }
 })

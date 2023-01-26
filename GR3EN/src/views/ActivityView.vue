@@ -1,24 +1,6 @@
 <template>
     <v-app>
-        <v-app-bar color="rgba(0, 115, 98, 0.8)">
-        <!-- <v-btn variant="text"><img src="GR3EN\src\assets\Logo 2.svg"></v-btn> -->
-            <v-btn variant="text" class="navBtn" color="white">Atividades</v-btn>
-                <RouterLink to ="/occurrencereport"><v-btn variant="text" class="navBtn" color="white">Ocorrências</v-btn></RouterLink>
-            <v-btn variant="text" class="navBtn" color="white ">Ranking</v-btn>
-            <template v-if="!!currentUser" v-slot:append>
-            
-
-                
-                <RouterLink to ="/profile"><v-btn variant="text" color="white" class="navBtn">Perfil</v-btn></RouterLink>
-            </template>
-        
-            <template v-else v-slot:append>
-            
-
-                
-                <RouterLink to ="/signin"><v-btn variant="text" color="white" class="navBtn">Sign In</v-btn></RouterLink>
-            </template>
-        </v-app-bar>
+        <NavBar/>
         
         <v-sheet class="background">
             <v-row>
@@ -40,7 +22,7 @@
                 <v-divider class="top" vertical></v-divider>
                 
                 <v-col class="top">
-                    <h1  class="bottom">{{atividade.nomeAtividade}}</h1>
+                    <h1  class="bottom2">{{atividade.nomeAtividade}}</h1>
                     <h1>{{atividade.coordenadorAtividade}}</h1>
                     
                 </v-col>
@@ -72,6 +54,13 @@
                     <h1>{{ atividade.descAtividade }}</h1>
                 </v-col>
             </v-row>
+            
+            
+
+                <v-btn @click="inscreverAtt" class="top btnInscrever" size="x-large" color="warning">Inscrever</v-btn>
+                <v-btn @click="removerAtt" class="top btnRemover" size="x-large" color="warning">Remover Inscrição</v-btn>
+            
+            
 
         </v-sheet>
     </v-app>
@@ -80,17 +69,56 @@
 <script>
     import {User} from '../stores/userStore.js'
     import {Atividade} from '../stores/atividadesStore.js'
+    import NavBar from '../components/NavBar.vue'
     export default {
+        components: {
+            NavBar,
+        },
         data:() =>({
             userStore: User(),
             atividadesStore: Atividade(),
             atividade:"",
-
+            
+            currentUser: JSON.parse(localStorage.getItem('currentUser'))
         }),
-
+        
         created () {
-            console.log(this.$route.params.id); 
             this.atividade = this.atividadesStore.getAtividadeByID(this.$route.params.id);
+
+            
+        },
+
+        methods: {
+            
+            inscreverAtt() {
+                if(!!this.currentUser){
+                    let atividade = this.atividadesStore.getAtividadeByID(this.atividade.idAtividade)
+                    
+                    if(!atividade.idUser.find(user => user == this.currentUser.idUser)){
+
+                        
+                        this.atividadesStore.inscricaoUser(this.currentUser.idUser, this.atividade.idAtividade)
+                    }else{
+                        alert('Já inscrito')
+                    }
+                    
+                }else{
+                    alert('É necessário login')
+                }
+            },
+
+            removerAtt(){
+                if(!!this.currentUser){
+                    let atividade = this.atividadesStore.getAtividadeByID(this.atividade.idAtividade)
+
+                    if(atividade.idUser.find(user => user == this.currentUser.idUser)){
+
+                        this.atividadesStore.removerUser(this.currentUser.idUser, this.atividade.idAtividade)                   
+                    }else{
+                        alert('Não inscrito na atividade')
+                    }
+                }
+            }
         },
     };
 </script>
@@ -109,13 +137,23 @@
 .background{
     background-color:rgba(0, 115, 98, 0.8);
     border-radius: 30px;
-    height:100vh;
+    height:110vh;
     width:80vw;
     margin: auto;
     margin-top:10vh;
 }
+*{
+        text-decoration: none;
+}
+
+
 .leftTitles{
     margin-left: 2.5vw;
+}
+
+.btnInscrever{
+    margin-left: 20vw ;
+    margin-right: 5vw ;
 }
 .title{
     font-family: Norquay;
@@ -139,5 +177,8 @@
 }
 .bottom{
     margin-bottom:2vh;
+}
+.bottom2{
+    margin-bottom:7vh;
 }
 </style>

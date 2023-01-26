@@ -164,7 +164,7 @@ export const User = defineStore('user', {
       })
     },
 
-    inscriçaoEcoEscolas(){
+    inscricaoEcoEscolas(){
       this.users.push({
         conselhoEco : true
       })

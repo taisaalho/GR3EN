@@ -1,39 +1,115 @@
 <template>
         
-            <v-app class="nav pa-1">
-                <v-app-bar :elevation="2" color="rgba(0, 115, 98, 0.8)">
-                    <v-btn variant="text"><img src="GR3EN\src\assets\Logo 2.svg"></v-btn>
-                    <v-btn variant="text" class="navBtn" color="white">Atividades</v-btn>
-                    <v-btn variant="text" class="navBtn" color="white">Ocorrências</v-btn>
-                    <v-btn variant="text" class="navBtn" color="white ">Ranking</v-btn>
-                    <template v-slot:append>
-                        <RouterLink to ="/signin"><v-btn variant="text" color="white" class="navBtn">Sign In</v-btn></RouterLink>
-                    </template>
-                </v-app-bar>
-            </v-app>
-        
+        <v-app-bar color="rgba(0, 115, 98, 1)">
+                <RouterLink to="/"><img class="logo" src="\src\assets\img\Logo 2.svg"></RouterLink>
+                <RouterLink to="/activities"><v-btn variant="text" class="navBtn" color="white">Atividades</v-btn></RouterLink>
+                <v-btn @click="checkRouter" variant="text" class="navBtn" color="white">Ocorrências</v-btn>
+                
+                <RouterLink to="/ranking"><v-btn variant="text" class="navBtn" color="white ">Ranking</v-btn></RouterLink>
+                <template v-if="(!!currentUser)" v-slot:append>
+                    <RouterLink to="/profile"><v-btn variant="text" color="white" class="navBtn">Perfil</v-btn></RouterLink>
+                </template>
+                <template v-else v-slot:append>
+                    <RouterLink to="/signin"><v-btn variant="text" color="white" class="navBtn">Sign In</v-btn></RouterLink>
+                </template>
+        </v-app-bar>    
+
 </template>
 
 <script>
     import {RouterLink, RouterView} from 'vue-router'
-    export default {};
+    export default {
+        data() {
+            return {
+                currentUser: JSON.parse(localStorage.getItem('currentUser'))
+            }
+        },
+
+        methods: {
+            checkRouter() {
+                if(!!this.currentUser){
+                    this.$router.push('/occurrenceReport')
+                }else{
+                    alert("Login Necessário")
+                }
+            }
+        },
+    };
 </script>
 
 <style lang="scss" scoped>
-    .navBtn{
+    /* .navBtn{
         top: 0px;
         z-index: 2;
         font-family: Rubik;
         font-weight: bold;
         -webkit-text-stroke: 2px #8D5836;
-    }
+    } */
 
-    a{
+    *{
         text-decoration: none;
     }
 
+    .logo{
+        width: 55%;
+    }
 
-    .v-application__wrap{
-        min-height: 0 !important;
+    .buttons{
+        font-family:Norquay;
+        padding-top: 0.3vh;
+        background-color:#FF6500;
+        color:white;
+        font-size: 1.5rem;
+    }
+    #mainPageButton{
+        margin-left: 25vw;
+        margin-top: 5vh;
+    }
+
+    .background{
+        margin-top:5vh;
+        background-color:rgba(0, 115, 98, 0.8);
+        border-radius: 30px;
+        height:40vh;
+        display: flex;
+        align-items: center;
+        
+    }
+    
+    .textBox{
+        margin-left: 3vw;
+        
+    }
+    
+    .title{
+        margin-top:1vh;
+        margin-left:3vw;
+        
+        font-family: Norquay;
+        font-size: 3em;
+        color: white;
+        text-shadow: 5px 1px 1px #8D5836 ;   /* text shadow?????? */
+        
+    }
+
+    .description{
+        margin-right:3vw;
+        margin-left:3vw;
+        color: white;
+        font-family: Rubik;
+        font-size: 1.5rem;
+    }
+    .homeIMG{
+        width:25vw;
+        border-radius:30px;
+        margin-left:3vw;
+        margin-right:3vw;
+    }
+    
+    .homeIMG2{
+        width:25vw;
+        border-radius:30px;
+        
+        margin-right:3vw;
     }
 </style>

@@ -1,8 +1,12 @@
 <script>
 import {User} from '../stores/userStore.js'
+import NavBar from '../components/NavBar.vue'
 
 
 export default {
+    components: {
+        NavBar,
+    },
     data:() =>({
         User: User(),
         icons: [
@@ -20,26 +24,7 @@ export default {
 <template>
 
     <v-app >
-            <v-app-bar color="rgba(0, 115, 98, 0.8)">
-                <!-- <v-btn variant="text"><img src="GR3EN\src\assets\Logo 2.svg"></v-btn> -->
-                    <RouterLink to ="/activities"><v-btn variant="text" class="navBtn" color="white">Atividades</v-btn></RouterLink>>
-                        <RouterLink to ="/occurrencereport"><v-btn variant="text" class="navBtn" color="white">Ocorrências</v-btn></RouterLink>
-                    <v-btn variant="text" class="navBtn" color="white ">Ranking</v-btn>
-                    <template v-if="!!currentUser" v-slot:append>
-                    
-
-                        
-                        <RouterLink to ="/profile"><v-btn variant="text" color="white" class="navBtn">Perfil</v-btn></RouterLink>
-                    </template>
-                
-                    <template v-else v-slot:append>
-                    
-
-                        
-                        <RouterLink to ="/signin"><v-btn variant="text" color="white" class="navBtn">Sign In</v-btn></RouterLink>
-                    </template>
-                
-            </v-app-bar>
+            <NavBar/>
 
             <v-main>
             <v-container>
@@ -50,17 +35,17 @@ export default {
     <div class="carousel">
         <v-carousel class="carousel">
             <v-carousel-item
-            src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+            src="https://images.unsplash.com/photo-1612441804231-77a36b284856?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8bW91bnRhaW4lMjBsYW5kc2NhcGV8ZW58MHx8MHx8&w=1000&q=80"
             cover
             ></v-carousel-item>
             
             <v-carousel-item
-            src="https://cdn.vuetifyjs.com/images/cards/hotel.jpg"
+            src="https://photographylife.com/wp-content/uploads/2017/01/What-is-landscape-photography.jpg"
             cover
             ></v-carousel-item>
             
             <v-carousel-item
-            src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+            src="https://cdn.pixabay.com/photo/2012/08/27/14/19/mountains-55067__340.png"
             cover
             ></v-carousel-item>
         </v-carousel>
@@ -81,11 +66,11 @@ export default {
 
     <div class="">
         
-        <h1 class="title">Atividades</h1>
-        <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
-            tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, 
-            consectetur adipiscing elit,
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        <h1 class="title">Ocorrências!</h1>
+        <p class="description">Ao reportares ocorrências ganhas:
+            -XP , para subires nas Tabelas de Classificação,
+            -Badges e Títulos , para mostrares a todos as tuas conquistas, e,
+            -Ajudas o ambiente com pequenos passos.
         </p>
     </div>
 </v-col>
@@ -99,10 +84,8 @@ export default {
     <div class="">
         
         <h1 class="title">Atividades</h1>
-        <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
-            tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, 
-            consectetur adipiscing elit,
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        <p class="description">Para promover a socialização e as boas práticas na boa conservação do meio Ambiente, organizamos várias atividades ao longo do ano para aprenderes e divertires enquanto ajudas o ambiente.
+            Tal como as ocorrências, ganhas sempre algo ao participares.
         </p>
     </div>
 </v-col>
@@ -126,11 +109,7 @@ export default {
     <div class="">
         
         <h1 class="title">Junta-te ao conselho Eco-Escolas!</h1>
-        <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
-            tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, 
-            consectetur adipiscing elit,
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        </p>
+        
     </div>
     <v-btn size="x-large"  class="buttons" id="mainPageButton">Inscrever</v-btn>
 </v-col>
@@ -162,17 +141,49 @@ export default {
         font-family: Rubik;
         src: url(../assets/Rubik-Regular.ttf);
     }
-    .override {
-        .v-application__wrap {
-            min-height: 0vh !important;
-        }
-    }
+
+.v-application__wrap {
+    height: 10vh !important;
+}
+
+
+
+::v-deep .v-application__wrap {     min-height: fit-content;   }
+
+
+.v-application__wrap{
+    backface-visibility: hidden;
+    // display: flex;
+    flex-direction: column;
+    // flex: 1 1 auto;
+    max-width: 100%;
+    /* min-height: 100vh; */
+    position: relative;
+
+}        
+
+    
+.v-theme--light {
+    --v-theme-background: none;
+}
     .carousel{
+        
         width: 70vw; 
         border-radius: 30px;
         margin: auto;
+        margin-bottom: 0vh;
         margin-top: 5vh;
     }
+    .v-main{
+    background-image: url('/src/assets/img/Mask group.svg') !important;
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+    background-size: auto 400% !important;
+    height: 220vh !important;
+    width: 100vw !important;
+    // background-attachment: fixed !important;
+}
+
         
     .buttons{
         font-family:Norquay;

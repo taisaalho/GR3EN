@@ -1,29 +1,14 @@
 <template>
+    
+    
     <v-app>
-        <v-app-bar color="rgba(0, 115, 98, 0.8)">
-        <!-- <v-btn variant="text"><img src="GR3EN\src\assets\Logo 2.svg"></v-btn> -->
-            <v-btn variant="text" class="navBtn" color="white">Atividades</v-btn>
-                <RouterLink to ="/occurrencereport"><v-btn variant="text" class="navBtn" color="white">Ocorrências</v-btn></RouterLink>
-            <v-btn variant="text" class="navBtn" color="white ">Ranking</v-btn>
-            <template v-if="!!currentUser" v-slot:append>
-            
-
+        <NavBar />
+        <v-main>
+            <v-container>
                 
-                <RouterLink to ="/profile"><v-btn variant="text" color="white" class="navBtn">Perfil</v-btn></RouterLink>
-            </template>
-        
-            <template v-else v-slot:append>
-            
-
-                
-                <RouterLink to ="/signin"><v-btn variant="text" color="white" class="navBtn">Sign In</v-btn></RouterLink>
-            </template>
-        </v-app-bar>
-                
-        
-        <div class="carousel">
-        <v-carousel class="carousel">
-            <v-carousel-item
+                <div class="carousel">
+                <v-carousel class="carousel">
+                    <v-carousel-item
             src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
             cover
             ></v-carousel-item>
@@ -40,73 +25,89 @@
         </v-carousel>
         </div>
         <v-sheet class="background">
-            <v-row class="search">
-                <v-text-field label="Pesquisa" variant="solo"></v-text-field>
-
-                <v-select
-                id="coordSelect"
-                label="Coordenador"
-                :items="['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']"
-                variant="solo"
-                ></v-select>
-                <v-select
-                label="Categoria"
-                :items="['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']"
-                variant="solo"
-                ></v-select>
-
-                <v-btn id="searchBtn" size="x-large" color="warning">Procurar</v-btn>
-            </v-row>
-
+           
             
+                <div class="scroll">
 
-            <v-row class="listAtivity" v-for="atividade in atividadesStore.getAtividade">
-                <v-col class="leftTitles" col="2">
-                    <h1>Atividade Disponível</h1>
-                    <v-img width="200" :src="atividade.imagemAtividade"></v-img>
-                </v-col>
-                
-                
-                <v-col  col="8">
-                    
-                    <h1>{{atividade.nomeAtividade}}</h1>
-                    <h1>{{atividade.dataHoraAtividade}}</h1>
-                    <h1>{{atividade.coordenadorAtividade}}</h1>
-                    <h1>{{atividade.localAtividade}}</h1>
-
-                </v-col>
-
-                <v-col>
-                    <RouterLink :to="{name: 'activity', params: {id:atividade.idAtividade}}">
+                    <v-row class="listAtivity" v-for="atividade in atividadesStore.getAtividade">
+                        <v-divider></v-divider>
+                        <v-col class="leftTitles" col="2">
+                            <h3>Atividade Disponível</h3>
+                            <v-img width="200" :src="atividade.imagemAtividade"></v-img>
+                        </v-col>
                         
-                        <v-btn class="verBtn">
-                            VER
-                        </v-btn>
-                    </RouterLink>
-                </v-col>
-            </v-row>
+                        
+                        <v-col class="verBtn" col="8">
+                            
+                            <h3>{{atividade.nomeAtividade}}</h3>
+                            <h3>{{atividade.dataHoraAtividade}}</h3>
+                            <h3>{{atividade.coordenadorAtividade}}</h3>
+                            <h3>{{atividade.localAtividade}}</h3>
+                            
+                        </v-col>
+                        
+                        <v-col> 
+                            <RouterLink :to="{name: 'activity', params: {id:atividade.idAtividade}}">
+                                
+                                <v-btn size="x-large" color="warning" class="verBtn">
+                                    VER
+                                </v-btn>
+                            </RouterLink>
+                        </v-col>
+                    </v-row>
+                </div>
         </v-sheet>
-                
+        
+    </v-container>
+        </v-main>
     </v-app>
 </template>
 
 <script>
-    import {User} from '../stores/userStore.js'
-    import {Atividade} from '../stores/atividadesStore.js'
-    
-    export default {
+import {User} from '../stores/userStore.js'
+import {Atividade} from '../stores/atividadesStore.js'
+import NavBar from '../components/NavBar.vue'
+
+export default {
+    components: {
+        NavBar,
+        },
         data:() =>({
             userStore: User(),
             atividadesStore: Atividade(),
+            
         })
     };
 </script>
 
 <style lang="scss" scoped>
+
+.v-main{
+    background-image: url('/src/assets/img/Mask group.svg') !important;
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+    background-size: auto 400% !important;
+    height: 174vh !important;
+    width: 100vw !important;
+    // background-attachment: fixed !important;
+}
+
+*{
+        text-decoration: none;
+}
+
+
+.scroll{
+    overflow: hidden;
+    overflow-y: scroll;
+    max-height: 50vh;
+    margin-top: 10vh;
+}
+
 .background{
     background-color:rgba(0, 115, 98, 0.8);
     border-radius: 30px;
-    height:100vh;
+    height:80vh;
     width:80vw;
     margin: auto;
 }
@@ -129,7 +130,7 @@
 
 .search{
     margin: auto;
-    margin-top: 10vh;
+    padding-top: 5vh;
     margin-bottom: 10vh;
     max-width: 50vw;
 }

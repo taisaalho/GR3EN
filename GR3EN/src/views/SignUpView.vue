@@ -58,6 +58,7 @@ export default {
                                     
                                     <v-text-field
                                     v-model="password"
+                                    type="password"
                                     :readonly="loading"
                                     :rules="[required]"
                                     clearable
@@ -83,7 +84,7 @@ export default {
                                     v-model="school"
                                     class="green"
                                     label="Select"
-                                    :items="['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']"
+                                    :items="['Primário', 'Secundário', 'Superior']"
                                     variant="solo"
                                     ></v-select> 
                                 </v-col>
@@ -136,6 +137,11 @@ export default {
         color:white;
         
     }
+
+    *{
+        text-decoration: none;
+    }
+
     
     
     .buttons{

@@ -1,25 +1,6 @@
 <template>
-    <v-app >
-            <v-app-bar color="rgba(0, 115, 98, 0.8)">
-                <!-- <v-btn variant="text"><img src="GR3EN\src\assets\Logo 2.svg"></v-btn> -->
-                    <v-btn variant="text" class="navBtn" color="white">Atividades</v-btn>
-                        <RouterLink to ="/occurrencereport"><v-btn variant="text" class="navBtn" color="white">Ocorrências</v-btn></RouterLink>
-                    <v-btn variant="text" class="navBtn" color="white ">Ranking</v-btn>
-                    <template v-if="!!currentUser" v-slot:append>
-                    
-
-                        
-                        <RouterLink to ="/profile"><v-btn variant="text" color="white" class="navBtn">Perfil</v-btn></RouterLink>
-                    </template>
-                
-                    <template v-else v-slot:append>
-                    
-
-                        
-                        <RouterLink to ="/signin"><v-btn variant="text" color="white" class="navBtn">Sign In</v-btn></RouterLink>
-                    </template>
-                
-            </v-app-bar>
+<!--     <v-app >
+            <NavBar/>
 
             
             <v-sheet class="background" color="rgba(0, 115, 98, 0.8)">
@@ -32,9 +13,15 @@
                 <div class="flex">
                     
                     
-                    <v-col col="4">
-                        <p id="number2" class="center">João Pais</p>
-
+                    <v-col col="4" class="center">
+                        <p id="number2" class="">João Pais</p>
+                        
+                        <v-img
+                        id="podium2"
+                        src="..\src\assets\img\podium2.svg"
+                        ></v-img>
+                    
+                    
                     </v-col>
                     
                     
@@ -52,15 +39,8 @@
                     
                     
                 </div>
-                <v-row id="podium" >
-                    <v-col col="4">
+              <v-row id="podium" >
 
-                        <v-img
-                        id="podium2"
-                        src="..\src\assets\img\podium2.svg"
-                        ></v-img>
-                    </v-col>
-                    
                     
                     <v-col col="4">
                         <v-img
@@ -85,12 +65,15 @@
             </v-sheet>
 
             
-    </v-app>
+    </v-app> -->
 </template>
 
 <script>
-
+    import NavBar from '../components/NavBar.vue'
     export default {
+        components: {
+            NavBar,
+        },
         data() {
             
         },
@@ -109,8 +92,22 @@
 
 .flex{
     display: flex;
+    justify-content: center;
+    align-items: center;
     margin-top:10vh ;
 
+}
+
+*{
+        text-decoration: none;
+}
+
+
+.center{
+    display: flex;
+    justify-content : center;
+    align-items:center;
+    
 }
 
 #podium{
@@ -130,9 +127,6 @@
 #podium3{
     max-width: 50%;
     
-}
-.center{
-    margin: auto;
 }
 
 .background{
