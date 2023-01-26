@@ -9,17 +9,17 @@
                 <div class="carousel">
                 <v-carousel class="carousel">
                     <v-carousel-item
-            src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+            src="https://images.unsplash.com/photo-1612441804231-77a36b284856?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8bW91bnRhaW4lMjBsYW5kc2NhcGV8ZW58MHx8MHx8&w=1000&q=80"
             cover
             ></v-carousel-item>
             
             <v-carousel-item
-            src="https://cdn.vuetifyjs.com/images/cards/hotel.jpg"
+            src="https://photographylife.com/wp-content/uploads/2017/01/What-is-landscape-photography.jpg"
             cover
             ></v-carousel-item>
             
             <v-carousel-item
-            src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+            src="https://cdn.pixabay.com/photo/2012/08/27/14/19/mountains-55067__340.png"
             cover
             ></v-carousel-item>
         </v-carousel>
