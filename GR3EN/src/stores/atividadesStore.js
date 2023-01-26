@@ -11,7 +11,7 @@ if (!JSON.parse(localStorage.getItem('atividades'))){
     idUser: [],
     descAtividade: "Reunião anual com membros do Eco-Escolas para celebrar a continuidade do projeto",
     imagemAtividade: "/src/assets/img/imagemAtividade.png",
-    dataHoraAtividade:"05-05-2000", /* (newDate).toString().split(' '), */
+    dataHoraAtividade:"01-01-2024", /* (newDate).toString().split(' '), */
     localAtividade: "Vila do Conde",
     coordenadorAtividade: "João Pais",
     pontosAtividades: 0,
@@ -20,11 +20,11 @@ if (!JSON.parse(localStorage.getItem('atividades'))){
     },
     {
     idAtividade: 1,
-    nomeAtividade:"Reunião Anual 2",
+    nomeAtividade:"Apanhar Lixo na praia",
     idUser: [],
-    descAtividade: "Reunião anual com membros do Eco-Escolas para celebrar a continuidade do projeto 2",
+    descAtividade: "Apanhar lixo na praia para termos um mundo melhor",
     imagemAtividade: "/src/assets/img/imagemAtividade.png",
-    dataHoraAtividade:"23-11-2023" /* (newDate).toString().split(' ') */,
+    dataHoraAtividade:"15-02-2023" /* (newDate).toString().split(' ') */,
     localAtividade: "Porto",
     coordenadorAtividade:"Taísa Alho",
     pontosAtividades: 0,
@@ -37,7 +37,7 @@ if (!JSON.parse(localStorage.getItem('atividades'))){
     idUser: [],
     descAtividade: "Reunião anual com membros do Eco-Escolas para celebrar a continuidade do projeto 2",
     imagemAtividade: "/src/assets/img/imagemAtividade.png",
-    dataHoraAtividade:"23-11-2023" /* (newDate).toString().split(' ') */,
+    dataHoraAtividade:"27-01-2023" /* (newDate).toString().split(' ') */,
     localAtividade: "Porto",
     coordenadorAtividade:"Gaspar Vieira",
     pontosAtividades: 0,

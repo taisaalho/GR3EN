@@ -9,7 +9,7 @@ if (!JSON.parse(localStorage.getItem('ocorrencias'))){
     nomeOcorrencia: "Fuga de Água",
     descriçaoOcorrencia: "Fuga de água num dos lavatórios da cantina). Água constantemente a cair.",
     localOcorrencia: "Cantina da ESMAD",
-    dataHoraOcorrencia: "24-1-2022",
+    dataHoraOcorrencia: "24-1-2023",
     idUser: 0,
     fotoOcorrencia:"/src/assets/img/imagemOcorrencia.svg",
     pontosOcorrencias: 0, 
