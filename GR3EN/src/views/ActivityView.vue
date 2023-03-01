@@ -55,18 +55,15 @@
                 </v-col>
             </v-row>
             
-            
 
-                <v-btn @click="inscreverAtt" class="top btnInscrever" size="x-large" color="warning">Inscrever</v-btn>
-                <v-btn @click="removerAtt" class="top btnRemover" size="x-large" color="warning">Remover Inscrição</v-btn>
-            
-            
+                <v-btn @click="toggleAtt" class="top btnInscrever" :color=" ToggleButtonClass">{{ ToggleButtonText }}</v-btn>
 
         </v-sheet>
     </v-app>
 </template>
 
 <script>
+
     import {User} from '../stores/userStore.js'
     import {Atividade} from '../stores/atividadesStore.js'
     import NavBar from '../components/NavBar.vue'
@@ -81,6 +78,33 @@
             
             currentUser: JSON.parse(localStorage.getItem('currentUser'))
         }),
+        computed: {
+            ToggleButtonText(){
+                let atividade = this.atividadesStore.getAtividadeByID(this.atividade.idAtividade)
+    
+                if(atividade.idUser.find(user => user == this.currentUser.idUser)){
+                    return 'Inscrever'
+                }
+                else{
+                    return 'Remover Inscrição'
+    
+                }
+    
+            },
+            ToggleButtonClass(){
+                let atividade = this.atividadesStore.getAtividadeByID(this.atividade.idAtividade)
+    
+                if(atividade.idUser.find(user => user == this.currentUser.idUser)){
+                    return 'success'
+                }
+                else{
+                    return 'red'
+    
+                }
+    
+            },
+
+        },
         
         created () {
             this.atividade = this.atividadesStore.getAtividadeByID(this.$route.params.id);
@@ -89,36 +113,27 @@
         },
 
         methods: {
-            
-            inscreverAtt() {
+
+            toggleAtt(){
+                let atividade = this.atividadesStore.getAtividadeByID(this.atividade.idAtividade)
                 if(!!this.currentUser){
-                    let atividade = this.atividadesStore.getAtividadeByID(this.atividade.idAtividade)
                     
                     if(!atividade.idUser.find(user => user == this.currentUser.idUser)){
 
                         
                         this.atividadesStore.inscricaoUser(this.currentUser.idUser, this.atividade.idAtividade)
-                    }else{
-                        alert('Já inscrito')
+
+                    }else if(atividade.idUser.find(user => user == this.currentUser.idUser)){
+
+                        this.atividadesStore.removerUser(this.currentUser.idUser, this.atividade.idAtividade)                   
                     }
-                    
                 }else{
                     alert('É necessário login')
                 }
             },
-
-            removerAtt(){
-                if(!!this.currentUser){
-                    let atividade = this.atividadesStore.getAtividadeByID(this.atividade.idAtividade)
-
-                    if(atividade.idUser.find(user => user == this.currentUser.idUser)){
-
-                        this.atividadesStore.removerUser(this.currentUser.idUser, this.atividade.idAtividade)                   
-                    }else{
-                        alert('Não inscrito na atividade')
-                    }
-                }
-            }
+            
+          
+        
         },
     };
 </script>
