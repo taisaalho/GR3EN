@@ -4,14 +4,15 @@
                 <RouterLink to="/"><img class="logo" src="\src\assets\img\Logo 2.svg"></RouterLink>
                 <RouterLink to="/activities"><v-btn variant="text" class="navBtn" color="white">Atividades</v-btn></RouterLink>
                 <v-btn @click="checkRouter" variant="text" class="navBtn" color="white">Ocorrências</v-btn>
-                
                 <RouterLink to="/ranking"><v-btn variant="text" class="navBtn" color="white ">Ranking</v-btn></RouterLink>
+                <v-btn v-if="checkAdmin" color="white" to="/ocurrences">Conselho Eco-Escolas</v-btn>
                 <template v-if="(!!currentUser)" v-slot:append>
                     <RouterLink to="/profile"><v-btn variant="text" color="white" class="navBtn">Perfil</v-btn></RouterLink>
                 </template>
                 <template v-else v-slot:append>
                     <RouterLink to="/signin"><v-btn variant="text" color="white" class="navBtn">Sign In</v-btn></RouterLink>
                 </template>
+                
         </v-app-bar>    
 
 </template>
@@ -31,6 +32,11 @@
                     this.$router.push('/occurrenceReport')
                 }else{
                     alert("Login Necessário")
+                }
+            },
+            checkAdmin() {
+                if(this.currentUser.conselhoEco){
+                    return true
                 }
             }
         },

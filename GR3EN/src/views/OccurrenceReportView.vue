@@ -9,9 +9,10 @@
                         <v-row>
                             <h1 class="title">Reportar Ocorrência</h1>
                         </v-row>
-
+                        <v-form @submit.prevent="addOcc">
                         <v-row>
                             <v-text-field
+                                :rules="rules"
                                 class="inputOcc"
                                 label="Nome"
                                 v-model="nome"
@@ -19,12 +20,14 @@
                             ></v-text-field>
               
                             <v-text-field
+                              :rules="rules"
                                 v-model="local"
                                 class="inputOcc"
                                 label="Local"
                                 variant="solo"
                             ></v-text-field>
                             <v-select
+                                :rules="rules"
                                 v-model="select"
                                 class="inputOcc"
                                 label="Categoria"
@@ -48,6 +51,7 @@
                         <v-row>
                             <v-col style="max-height: 20vh">
                                 <v-textarea
+                                :rules="rules"
                                 autogrow
                                 v-model="desc"
                                 class="inputOcc description"
@@ -55,10 +59,10 @@
                                 variant="solo"
                                 ></v-textarea>
 
-                                <v-btn @click="addOcc" class="buttons submit" size="x-large">Reportar</v-btn>
+                                <v-btn type="submit" class="buttons submit" size="x-large">Reportar</v-btn>
                             </v-col>
                         </v-row>
-            
+                      </v-form>
                     </v-sheet>
                 </v-container>
             </v-main>
@@ -84,12 +88,26 @@ export default {
         local:'',
         img:'',
         select:'',
+        rules: [
+        value => {
+          if (value) return true
+
+          return 'Preenchimento obrigatorio'
+        }],
         
     }),
     methods: {
         addOcc() {
-            this.ocorrenciasStore.addOcorrencia(this.nome,this.desc,this.local,this.currentUser.idUser,this.img,this.select)
-        }
+
+            if(this.nome && this.local && this.desc && this.select) {
+              this.ocorrenciasStore.addOcorrencia(this.nome,this.desc,this.local,this.currentUser.idUser,this.img,this.select)
+
+              this.$router.push('/')
+            }
+        },
+        
+
+        
     },
 };
 </script>

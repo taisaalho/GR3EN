@@ -142,6 +142,17 @@ export const User = defineStore('user', {
       })
       localStorage.setItem('users',JSON.stringify(this.users))
     },
+    
+    
+    inscricaoEcoEscolas(userId){
+      this.users.find(user => user.idUser === userId).conselhoEco = true
+
+      localStorage.setItem('users',JSON.stringify(this.users))
+
+      localStorage.setItem('currentUser',JSON.stringify(this.users.find(user => user.idUser === userId)))
+
+    },
+
 
     //Modificação do Email
     newEmail(newEmail){
@@ -164,11 +175,6 @@ export const User = defineStore('user', {
       })
     },
 
-    inscricaoEcoEscolas(){
-      this.users.push({
-        conselhoEco : true
-      })
-    },
 
   }
 })

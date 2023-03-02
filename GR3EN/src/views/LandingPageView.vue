@@ -14,8 +14,14 @@ export default {
         'mdi-twitter',
         'mdi-linkedin',
         'mdi-instagram',],
-        currentUser: localStorage.getItem('currentUser')
-    })
+        currentUser: JSON.parse(localStorage.getItem('currentUser')) || 'null'
+    }), 
+    methods: {
+        inscricaoEco(){
+            this.User.inscricaoEcoEscolas(this.currentUser.idUser)
+            this.currentUser = JSON.parse(localStorage.getItem('currentUser')) 
+        }
+    }
 };
 
 
@@ -88,47 +94,45 @@ export default {
             Tal como as ocorrências, ganhas sempre algo ao participares.
         </p>
     </div>
-</v-col>
-<v-col  cols="4" >
+    </v-col>
+    <v-col  cols="4" >
 
-    <img  src="/src/assets/img/main1.svg"
-    class="homeIMG2" alt="">
-</v-col>
+        <img  src="/src/assets/img/main1.svg"
+        class="homeIMG2" alt="">
+    </v-col>
 
-</v-row>
+    </v-row>
 
-<v-row class="background">
+    <v-row class="background">
 
-<v-col  cols="4" >
+    <v-col  cols="4" >
 
-    <img  src="/src/assets/img/main1.svg"
-    class="homeIMG" alt="">
-</v-col>
-<v-col cols="8"  class="">
+        <img  src="/src/assets/img/main1.svg"
+        class="homeIMG" alt="">
+    </v-col>
+    
+    <v-col cols="8"  class="">
 
     <div class="">
         
         <h1 class="title">Junta-te ao conselho Eco-Escolas!</h1>
         
     </div>
-    <v-btn size="x-large"  class="buttons" id="mainPageButton">Inscrever</v-btn>
-</v-col>
 
-</v-row>
+    <v-btn size="x-large" v-if="currentUser == 'null'" to="/signin" class="buttons" id="mainPageButton">Inscrever</v-btn>
+
+    <v-btn size="x-large" v-else-if="!currentUser.conselhoEco" @click="inscricaoEco()" class="buttons" id="mainPageButton">Inscrever</v-btn>
+
+    <v-btn size="x-large" v-else disabled class="buttons" id="mainPageButton">Inscrito</v-btn>
+
+    </v-col>
+
+    </v-row>
             
-            </v-container>
-            </v-main>
-    </v-app>
-        
+        </v-container>
+    </v-main>
+</v-app>
 
-
-
-        
-
-
-            
-
-        
 </template>
 
 

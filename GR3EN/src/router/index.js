@@ -8,6 +8,24 @@ import Ranking from '../views/RankingView.vue'
 import Activities from '../views/ActivitiesView.vue'
 import Atividade from '../views/ActivityView.vue'
 
+//Admin 
+import Ocurrence from '../views/Admin/OcurrenceView.vue'
+import Ocurrences from '../views/Admin/OcurrencesView.vue'
+
+//Validation Functions
+
+function CheckIfAdmin() {
+  if(!JSON.parse(localStorage.getItem('currentUser')).conselhoEco){
+    return '/'
+  }
+}
+
+function CheckIfLogged(){
+  if(!localStorage.getItem('currentUser')){
+    return '/'
+  }
+}
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -15,6 +33,7 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: LandingPage,
+      
     },
     {
       path: '/signin',
@@ -25,6 +44,7 @@ const router = createRouter({
       path: '/occurrenceReport',
       name: 'occurenceReport',
       component: occurrenceReport,
+      beforeEnter: [CheckIfLogged]
     },
     {
       path: '/signup',
@@ -35,6 +55,7 @@ const router = createRouter({
       path: '/profile',
       name: 'profile',
       component: Profile,
+      beforeEnter: [CheckIfLogged]
     },
     
     {
@@ -51,6 +72,18 @@ const router = createRouter({
       path: '/activities/:id',
       name: 'activity',
       component:Atividade ,
+    },
+    {
+      path: '/ocurrence/:id',
+      name: 'ocurrence',
+      component:Ocurrence ,
+      beforeEnter: [CheckIfLogged,CheckIfAdmin]
+    },
+    {
+      path: '/ocurrences/',
+      name: 'ocurrences',
+      component:Ocurrences ,
+      beforeEnter: [CheckIfLogged,CheckIfAdmin]
     },
 
 

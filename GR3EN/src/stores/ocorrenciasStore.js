@@ -5,7 +5,7 @@ import { defineStore } from 'pinia'
 let ocorrencias
 if (!JSON.parse(localStorage.getItem('ocorrencias'))){
   ocorrencias = [{
-    idOcorrencia: 0,
+    idOcorrencia: 1,
     nomeOcorrencia: "Fuga de Água",
     descriçaoOcorrencia: "Fuga de água num dos lavatórios da cantina). Água constantemente a cair.",
     localOcorrencia: "Cantina da ESMAD",
@@ -23,7 +23,7 @@ if (!JSON.parse(localStorage.getItem('ocorrencias'))){
 }
 
 export const Ocorrencia = defineStore('ocorrencia',{
-  state: () => ({
+  state: () => ({   
     ocorrencias: ocorrencias
   }),
 
@@ -46,31 +46,37 @@ export const Ocorrencia = defineStore('ocorrencia',{
     (dataHoraOcorrencia) => state.ocorrencias.filter(ocorrencia => ocorrencia.dataHoraOcorrencia == dataHoraOcorrencia),
 
     //Local da Ocorrência
-    getLocalOcorrência: (state) =>
+    getLocalOcorrencia: (state) =>
     (localOcorrencia) => state.ocorrencias.filter(ocorrencia => ocorrencia.localOcorrencia == localOcorrencia),
 
     //Local da Ocorrência
-    getUserOcorrência: (state) =>
+    getUserOcorrencia: (state) =>
     (idUser) => state.ocorrencias.filter(ocorrencia => ocorrencia.idUser == idUser),
 
     //Foto da Ocorrência
-    getFotoOcorrência: (state) =>
+    getFotoOcorrencia: (state) =>
     (fotoOcorrencia) => state.ocorrencias.filter(ocorrencia => ocorrencia.fotoOcorrencia == fotoOcorrencia),
 
     //Foto da Ocorrência
-    getPontosOcorrência: (state) =>
+    getPontosOcorrencia: (state) =>
     (pontosOcorrencias) => state.ocorrencias.filter(ocorrencia => ocorrencia.pontosOcorrencias == pontosOcorrencias),
 
     //Categoria da Ocorrência
     getCategoriaOcorrência: (state) =>
     (categoriaOcorrencia) => state.ocorrencias.filter(ocorrencia => ocorrencia.categoriaOcorrencia == categoriaOcorrencia),
+
+    //Get Todas as Ocorrencias
+    getOcorrencias: (state) => state.ocorrencias,
+    
+    //Get Ocorrencia por id
+    getOcorrenciaById: (state) => (id) => state.ocorrencias.find(ocorrencia => ocorrencia.idOcorrencia = id)
     
   },
 
   actions: {
     addOcorrencia(nome,desc,local,idUser,foto,categoria){
         this.ocorrencias.push({
-            idOcorrencia: this.ocorrencias[this.ocorrencias.length - 1].idOcorrencia + 1,
+            idOcorrencia: this.ocorrencias[this.ocorrencias.length - 1].idOcorrencia +   1 ,
             nomeOcorrencia: nome,
             descriçaoOcorrencia: desc,
             localOcorrencia: local,
@@ -83,6 +89,14 @@ export const Ocorrencia = defineStore('ocorrencia',{
         })
         localStorage.setItem('ocorrencias',JSON.stringify(this.ocorrencias))
     },
+    ChangeOcorrenciaStatus(id){
+
+      let ocorrencia = this.ocorrencias.find(ocorrencia => ocorrencia.idOcorrencia == id)
+
+      ocorrencia.statusOcorrencia = !ocorrencia.statusOcorrencia
+
+      localStorage.setItem('ocorrencias',JSON.stringify(this.ocorrencias))
+    }
 
     
   },
