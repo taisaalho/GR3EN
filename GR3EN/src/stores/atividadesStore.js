@@ -87,13 +87,12 @@ export const Atividade = defineStore('atividade',{
     //Localização da Atividade
     getLocalizaçãoAtividade: (state) =>
     (localAtividade) => state.atividades.filter(atividade => atividade.localAtividade == localAtividade),
-
     
     //Status da Atividade (A decorrer ou passada)
     getStatusAtividade: (state) =>
     (statusAtivididade) => state.atividades.filter(atividade => atividade.statusAtivididade == statusAtivididade),
 
-
+    //Id da Atividade
     getAtividadeByID: (state) =>
     (idAtividade) => state.atividades.find(atividade => atividade.idAtividade == idAtividade),
 

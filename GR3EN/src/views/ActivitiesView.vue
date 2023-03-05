@@ -100,8 +100,9 @@ export default {
 .scroll{
     overflow: hidden;
     overflow-y: scroll;
-    max-height: 50vh;
+    max-height: 80vh;
     margin-top: 10vh;
+    margin-bottom: 10vh;
 }
 
 .background{
