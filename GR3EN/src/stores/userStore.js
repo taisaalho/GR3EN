@@ -80,6 +80,16 @@ export const User = defineStore('user', {
     //Get de toda a informação
     getUsers: (state) => state.users, //Não deverá ser usar
 
+    //Get top 10 users no presente
+    getTop10Present: (state) => state.users.sort((a,b) => { 
+      if(a.ranking > b.ranking){
+        return -1
+      }
+      else{
+        return 1
+      }}).slice(0,10),
+  
+
     //Escola
     getEscola: (state) =>
     (escola) => state.users.find(user => user.escola == escola),  
@@ -135,7 +145,7 @@ export const User = defineStore('user', {
         idBadge: [],
         idTitulo: [],
         questionario: false,
-        ranking: undefined,
+        ranking: 0,
         idOcorrencia: [], 
         idAtividade: [],
         conselhoEco: false,

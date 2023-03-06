@@ -1,5 +1,6 @@
 <template>
-<!--     <v-app >
+<v-app >
+
             <NavBar/>
 
             
@@ -7,76 +8,156 @@
                 
                 <v-row class="title">
                     <h1 class="title">Top 3</h1>
-                    
                 </v-row>
                 
-                <div class="flex">
-                    
-                    
-                    <v-col col="4" class="center">
-                        <p id="number2" class="">João Pais</p>
-                        
-                        <v-img
-                        id="podium2"
-                        src="..\src\assets\img\podium2.svg"
-                        ></v-img>
-                    
-                    
-                    </v-col>
-                    
-                    
-                    <v-col col="4">
-                        <p id="number1" class="center">João Pais</p>
-                    </v-col>
-                    
-                    <v-col col="4">
+             
+                 <v-row>
+                     <v-col col="4" class="center">
+                         <p id="number2" class="">{{TopPresent[1].primeiroNome}} || {{TopPresent[1].ranking}} pts</p>
+                         
+                     </v-col>
+                     
+                     
+                     <v-col col="4">
+                         <p id="number1" class="center">{{TopPresent[0].primeiroNome}} || {{TopPresent[0].ranking}} pts</p>
+                     </v-col>
+                     
+                     <v-col col="4">
+    
+                         <p id="number3" class="center">{{TopPresent[2].primeiroNome}} || {{TopPresent[2].ranking}} pts</p>
+                         
+                     </v-col>    
+                     
 
-                        <p id="number3" class="center">João Pais</p>
-                        
-                    </v-col>    
+                 </v-row>   
                     
                     
                     
                     
-                </div>
+               
               <v-row id="podium" >
 
-                    
+                  
+                  <v-col col="4">
+                        2º
+                  </v-col>
+                  
                     <v-col col="4">
-                        <v-img
-                        id="podium1"
-                        src="..\src\assets\img\podium1.svg"
-                        ></v-img>
-                    
+                        1º
                     </v-col>
-                    
+
 
                     <v-col col="4">
-                        <v-img
-                        id="podium3"
-                        src="..\src\assets\img\podium3.svg"
-                        ></v-img>
+                        3º
                     </v-col>
                 </v-row>
-                
-                
-            
+
+                <v-container>
+                    
+
+
+                    <!-- CURRENT YEAR -->
+                    <v-row >
+                            <v-col col ="4">
+                                <h1 class="title">Ranking  <br> {{ new Date().getFullYear()-1 }} / {{ new Date().getFullYear() }} </h1>
+                            </v-col>
+
+                            <v-col col="8">
+
+                                <v-row v-for="user,i in TopPresent">
+                                    <v-col col="12">
+                                        
+                                        {{ i + 1 + 'º' }} {{ user.primeiroNome }} {{ user.ranking }} pts
+                                        
+                                    </v-col>
+                                </v-row>
+                            </v-col>
+                      
+                        
+                          
+                    </v-row>
+                    
+                    <!-- PRIOR YEARS -->
+                    <v-row v-for="Top in PriorYears">
+                        <v-col col ="4">
+                            <h1 class="title">Ranking  <br> {{ Top.year - 1 }} / {{ Top.year }} </h1>
+                        </v-col>
+
+                        <v-col col="8">
+
+                            <v-row v-for="user,i in Top.users">
+                                <v-col col="12">    
+                                    
+                                    {{ i + 1 + 'º' }} {{ userStore.getByID(user.idUser).primeiroNome }} {{ user.ranking }} pts
+                                    
+                                </v-col>
+                            </v-row>
+                        </v-col>
+                    </v-row>
+                    
+
+                     <!-- QUADRO DE HONRA-->
+                    <v-row>
+                        <v-col col ="4">
+                            <h1 class="title">Quadro de honra</h1>
+                        </v-col>
+                        <v-col col="8">
+                            <v-row v-for="top in PriorYears">
+
+                            <br> 
+                            {{  userStore.getByID(top.users[0].idUser).primeiroNome + ' ' + userStore.getByID(top.users[0].idUser).ultimoNome }}
+                            <br>
+                            {{ top.users[0].ranking }} pts
+                            <br>
+                            {{ top.year-1 }} / {{ top.year }}
+                             
+
+
+                            </v-row>
+                        </v-col>
+                    </v-row>
+                </v-container>  
 
             </v-sheet>
-
             
-    </v-app> -->
+    </v-app> 
 </template>
 
 <script>
     import NavBar from '../components/NavBar.vue'
+    import {User} from '../stores/userStore'
+    import {Ranking} from '../stores/rankingStore'
+    import { reactive, toRefs } from 'vue'
+    
     export default {
-        components: {
-            NavBar,
+        components:{
+            NavBar
         },
-        data() {
-            
-        },
+        setup () {
+            const userStore = User()
+            const rankingStore = Ranking()
+
+           
+
+
+            const UsersLists = reactive({
+                AllUsers: userStore.getUsers,
+                TopPresent: userStore.getTop10Present,
+                PriorYears: rankingStore.getTopRankedPlayersAllYears
+            })
+
+           
+
+            const Buttons = reactive({
+                SeeMore: false
+            })
+        
+            return {
+                userStore,
+                ...toRefs(UsersLists),
+                ...toRefs(Buttons),
+            }
+        }
     }
 </script>
 
@@ -115,24 +196,27 @@
 }
 
 #podium1{
-    max-width: 50%;
-    margin-right: 20vw;
+   
+    
 }
 
 #podium2{
-    max-width: 50%;
+    
     
 }
 
 #podium3{
-    max-width: 50%;
+   
     
 }
 
 .background{
+    display: flex;
+    flex-direction: column;
     width:80vw;
-    height:60vh;
+    
     margin:auto;
+    margin-top: 100px;
     border-radius: 30px;
 }
 
