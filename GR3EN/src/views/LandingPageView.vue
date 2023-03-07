@@ -18,8 +18,10 @@ export default {
     }), 
     methods: {
         inscricaoEco(){
+            
             this.User.inscricaoEcoEscolas(this.currentUser.idUser)
             this.currentUser = JSON.parse(localStorage.getItem('currentUser')) 
+            this.$router.go()
         }
     }
 };
