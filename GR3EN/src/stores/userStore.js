@@ -184,6 +184,10 @@ export const User = defineStore('user', {
         password : newPassword
       })
     },
+    resetScores(){
+      this.users.forEach(user => user.ranking = 0)
+    }
+    
 
 
   }

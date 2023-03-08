@@ -59,7 +59,7 @@
                     <!-- CURRENT YEAR -->
                     <v-row >
                             <v-col col ="4">
-                                <h1 class="title">Ranking  <br> {{ new Date().getFullYear()-1 }} / {{ new Date().getFullYear() }} </h1>
+                                <h1 class="title">Ranking  <br> {{ CurrentYear[0] }} / {{ CurrentYear[1] }} </h1>
                             </v-col>
 
                             <v-col col="8">
@@ -80,7 +80,7 @@
                     <!-- PRIOR YEARS -->
                     <v-row v-for="Top in PriorYears">
                         <v-col col ="4">
-                            <h1 class="title">Ranking  <br> {{ Top.year - 1 }} / {{ Top.year }} </h1>
+                            <h1 class="title">Ranking  <br> {{ Top.year[0] }} / {{ Top.year[1] }} </h1>
                         </v-col>
 
                         <v-col col="8">
@@ -97,27 +97,32 @@
                     
 
                      <!-- QUADRO DE HONRA-->
+
                     <v-row>
                         <v-col col ="4">
                             <h1 class="title">Quadro de honra</h1>
                         </v-col>
-                        <v-col col="8">
+                        <v-col col="8" >
                             <v-row v-for="top in PriorYears">
+                                <div class="m-2">
 
-                            <br> 
-                            {{  userStore.getByID(top.users[0].idUser).primeiroNome + ' ' + userStore.getByID(top.users[0].idUser).ultimoNome }}
-                            <br>
-                            {{ top.users[0].ranking }} pts
-                            <br>
-                            {{ top.year-1 }} / {{ top.year }}
-                             
+                                    <br> 
+                                    {{  userStore.getByID(top.users[0].idUser).primeiroNome + ' ' + userStore.getByID(top.users[0].idUser).ultimoNome }}
+                                    <br>
+                                    {{ top.users[0].ranking }} pts
+                                    <br>
+                                    {{ top.year[0] }} / {{ top.year[1] }}
+                                    
 
-
+                                </div>
+                                
+                                
                             </v-row>
                         </v-col>
                     </v-row>
                 </v-container>  
 
+                
             </v-sheet>
             
     </v-app> 
@@ -143,16 +148,18 @@
             const UsersLists = reactive({
                 AllUsers: userStore.getUsers,
                 TopPresent: userStore.getTop10Present,
-                PriorYears: rankingStore.getTopRankedPlayersAllYears
+                PriorYears: rankingStore.getTopRankedPlayersAllYears.reverse(),
+                CurrentYear: rankingStore.CurrentYear
             })
 
-           
+           rankingStore.getTopRankedPlayersAllYears // NECESSARIO PRA DAR REVERSE. PQ ? N SEI LMAO...
 
             const Buttons = reactive({
                 SeeMore: false
             })
         
             return {
+                rankingStore,
                 userStore,
                 ...toRefs(UsersLists),
                 ...toRefs(Buttons),

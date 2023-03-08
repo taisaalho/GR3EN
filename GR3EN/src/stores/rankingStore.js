@@ -8,7 +8,7 @@ let rank
 if (!JSON.parse(localStorage.getItem('rank'))){
   rank = [
     {
-      year: 2022,
+      year: [2021,2022],
       users:[
         {
         idUser:0,
@@ -35,9 +35,19 @@ if (!JSON.parse(localStorage.getItem('rank'))){
   rank = JSON.parse(localStorage.getItem('rank'))
 }
 
+
+let CurrentYear
+if(!JSON.parse(localStorage.getItem('CurrentYear'))){
+    CurrentYear = [2022,2023]
+}else{
+  CurrentYear = JSON.parse(localStorage.getItem('CurrentYear'))
+}
+
+
 export const Ranking = defineStore("ranking", {
   state: () => ({
     rank: rank,
+    CurrentYear:CurrentYear
   }),
   getters: {
     //Get Top Ranked Players de certo ano
@@ -49,13 +59,21 @@ export const Ranking = defineStore("ranking", {
   actions: {
     CreateNewTopRankedPlayers(){
       const userStore = User()
+      const NewYear = this.CurrentYear.map( el => el)
 
       this.rank.push({ 
-        year: new Date().getFullYear(),
+        year: NewYear,
         users: userStore.getTop10Present.map(user => ({idUser: user.idUser, ranking: user.ranking}))
       })
-
+      
+      userStore.resetScores()
+      this.CurrentYear[0]++
+      this.CurrentYear[1]++
+      
+      localStorage.setItem('CurrentYear', JSON.stringify(CurrentYear))
       localStorage.setItem('rank', JSON.stringify(rank))
+      
+      
     }
   }
 })
