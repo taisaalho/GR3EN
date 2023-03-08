@@ -35,6 +35,9 @@
                     </v-col>
                 </v-row>
 
+                <h1>Novo Ano letivo</h1>
+                <v-btn @click="rankingStore.CreateNewTopRankedPlayers()">Mudar</v-btn>
+                {{rankingStore.CurrentYear[0]}} / {{rankingStore.CurrentYear[1]}}
             </v-container>
         
     </div>
@@ -42,14 +45,15 @@
 
 <script>
 import {Ocorrencia} from "../../stores/ocorrenciasStore.js"
-
+import { Ranking } from "../../stores/rankingStore"
 
 export default {
     setup () {
+        const rankingStore = Ranking()
         const OcorrenciaStore = Ocorrencia()
         
 
-        return {OcorrenciaStore}
+        return {OcorrenciaStore,rankingStore}
     }
 }
 </script>
