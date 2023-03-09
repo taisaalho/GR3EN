@@ -11,11 +11,11 @@ if (!JSON.parse(localStorage.getItem('atividades'))){
     idUser: [],
     descAtividade: "Reunião anual com membros do Eco-Escolas para celebrar a continuidade do projeto",
     imagemAtividade: "/src/assets/img/imagemAtividade.png",
-    dataHoraAtividade:"01-01-2024", /* (newDate).toString().split(' '), */
+    dataHoraAtividade:"01-04-2023", /* (newDate).toString().split(' '), */
     localAtividade: "Vila do Conde",
     coordenadorAtividade: "João Pais",
-    pontosAtividades: 0,
-    statusAtivididade: false,
+    pontosAtividades: 20,
+    statusAtividade: true,
 
     },
     {
@@ -27,8 +27,8 @@ if (!JSON.parse(localStorage.getItem('atividades'))){
     dataHoraAtividade:"15-02-2023" /* (newDate).toString().split(' ') */,
     localAtividade: "Porto",
     coordenadorAtividade:"Taísa Alho",
-    pontosAtividades: 0,
-    statusAtivididade: false,
+    pontosAtividades: 15,
+    statusAtividade: true,
 
     },
     {
@@ -37,12 +37,25 @@ if (!JSON.parse(localStorage.getItem('atividades'))){
     idUser: [],
     descAtividade: "Reunião anual com membros do Eco-Escolas para celebrar a continuidade do projeto 2",
     imagemAtividade: "/src/assets/img/imagemAtividade.png",
-    dataHoraAtividade:"27-01-2023" /* (newDate).toString().split(' ') */,
+    dataHoraAtividade:"27-05-2023" /* (newDate).toString().split(' ') */,
     localAtividade: "Porto",
     coordenadorAtividade:"Gaspar Vieira",
-    pontosAtividades: 0,
-    statusAtivididade: false,
+    pontosAtividades: 5,
+    statusAtividade: true,
 
+    },
+    {
+    idAtividade: 3,
+    nomeAtividade:"Teste de atividade passada",
+    idUser: [],
+    descAtividade: "Teste teste",
+    imagemAtividade: "/src/assets/img/imagemAtividade.png",
+    dataHoraAtividade:"27-02-2023" /* (newDate).toString().split(' ') */,
+    localAtividade: "Porto",
+    coordenadorAtividade:"Me",
+    pontosAtividades: 10,
+    statusAtividade: false,
+  
     },
 ]
   localStorage.setItem('atividades', JSON.stringify(atividades))
@@ -89,8 +102,8 @@ export const Atividade = defineStore('atividade',{
     (localAtividade) => state.atividades.filter(atividade => atividade.localAtividade == localAtividade),
     
     //Status da Atividade (A decorrer ou passada)
-    getStatusAtividade: (state) =>
-    (statusAtivididade) => state.atividades.filter(atividade => atividade.statusAtivididade == statusAtivididade),
+    getStatusAtividade: (state) => 
+    (statusAtividade) => state.atividades.filter(atividade => atividade.statusAtividade == statusAtividade),
 
     //Id da Atividade
     getAtividadeByID: (state) =>
@@ -135,10 +148,16 @@ export const Atividade = defineStore('atividade',{
             localAtividade: localAtv,
             coordenadorAtividade: "",
             pontosAtividades: Int(pontosAtv),
-            statusAtivididade: false,
+            statusAtividade: false,
         })
         localStorage.setItem('atividades',JSON.stringify(this.atividades))
       },
+  }, 
+
+  computed:{
+    AtividadesDisponiveis () {
+      return this.atividades.filter(atividade => atividade.statusAtividade == true)
+    }
   }
 })
 

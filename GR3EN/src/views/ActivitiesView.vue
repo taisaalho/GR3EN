@@ -1,6 +1,4 @@
 <template>
-    
-    
     <v-app>
         <NavBar />
         <v-main>
@@ -25,35 +23,33 @@
         </v-carousel>
         </div>
         <v-sheet class="background">
-           
-            
                 <div class="scroll">
-
                     <v-row class="listAtivity" v-for="atividade in atividadesStore.getAtividade">
-                        <v-divider></v-divider>
-                        <v-col class="leftTitles" col="2">
-                            <h3>Atividade Disponível</h3>
-                            <v-img width="200" :src="atividade.imagemAtividade"></v-img>
-                        </v-col>
                         
-                        
-                        <v-col class="verBtn" col="8">
-                            
-                            <h3>{{atividade.nomeAtividade}}</h3>
-                            <h3>{{atividade.dataHoraAtividade}}</h3>
-                            <h3>{{atividade.coordenadorAtividade}}</h3>
-                            <h3>{{atividade.localAtividade}}</h3>
-                            
-                        </v-col>
-                        
-                        <v-col> 
-                            <RouterLink :to="{name: 'activity', params: {id:atividade.idAtividade}}">
+                        <div v-if="atividade.statusAtividade">
+
+                            <v-divider></v-divider>
+                            <v-col class="leftTitles" col="2">
+                                <h3>Atividade Disponível</h3>
+                                <v-img width="200" :src="atividade.imagemAtividade"></v-img>
+                            </v-col>
+                            <v-col class="verBtn" col="8">
                                 
-                                <v-btn size="x-large" color="warning" class="verBtn">
-                                    VER
-                                </v-btn>
-                            </RouterLink>
-                        </v-col>
+                                <h3>{{atividade.nomeAtividade}}</h3>
+                                <h3>{{atividade.dataHoraAtividade}}</h3>
+                                <h3>{{atividade.coordenadorAtividade}}</h3>
+                                <h3>{{atividade.localAtividade}}</h3>
+                                
+                            </v-col>
+                            <v-col> 
+                                <RouterLink :to="{name: 'activity', params: {id:atividade.idAtividade}}">
+                                    
+                                    <v-btn size="x-large" color="warning" class="verBtn">
+                                        VER
+                                    </v-btn>
+                                </RouterLink>
+                            </v-col>
+                        </div>
                     </v-row>
                 </div>
         </v-sheet>
@@ -75,9 +71,14 @@ export default {
         data:() =>({
             userStore: User(),
             atividadesStore: Atividade(),
-            
+            zero: 0
         })
     };
+
+    /* console.log(this.atividadesStore.getAtividade) */
+    /* console.log(this.atividadesStore[0].getStatusAtividadesStore) */
+    /* console.log(this.atividadesStore.getAtividade) */
+
 </script>
 
 <style lang="scss" scoped>
@@ -103,6 +104,10 @@ export default {
     max-height: 80vh;
     margin-top: 10vh;
     margin-bottom: 10vh;
+}
+
+.scroll::-webkit-scrollbar{
+    display: none;
 }
 
 .background{
