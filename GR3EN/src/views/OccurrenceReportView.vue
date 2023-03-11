@@ -81,7 +81,7 @@ export default {
 
     data: () => ({
         ocorrenciasStore: Ocorrencia(),
-        currentUser: localStorage.getItem("currentUser"),
+        currentUser: JSON.parse(localStorage.getItem("currentUser")),
         items:["Fuga","Partido","Em falta","Outro"],
         nome:'',
         desc:'',
@@ -98,8 +98,8 @@ export default {
     }),
     methods: {
         addOcc() {
-
-            if(this.nome && this.local && this.desc && this.select) {
+          if(this.nome && this.local && this.desc && this.select) {
+              console.log(this.currentUser)
               this.ocorrenciasStore.addOcorrencia(this.nome,this.desc,this.local,this.currentUser.idUser,this.img,this.select)
 
               this.$router.push('/')

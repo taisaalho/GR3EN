@@ -122,6 +122,14 @@ export const User = defineStore('user', {
     nomeUser(){
       nome = this.users.primeiroNome + " " + this.users.ultimoNome
     },
+    ChangeUserPassword(id,password){
+      this.users.find(user => user.idUser == id).password=password
+      this.currentUser.password=password
+      console.log("yau")
+      localStorage.setItem('currentUser', JSON.stringify(this.currentUser))
+      localStorage.setItem('users', JSON.stringify(this.users))
+
+    },
 
     //Adicionar User
     addUser(primeiroNome1,ultimoNome1,email1,escola1,password1){

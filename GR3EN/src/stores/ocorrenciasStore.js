@@ -5,17 +5,30 @@ import { defineStore } from 'pinia'
 let ocorrencias
 if (!JSON.parse(localStorage.getItem('ocorrencias'))){
   ocorrencias = [{
-    idOcorrencia: 1,
+    idOcorrencia: 0,
     nomeOcorrencia: "Fuga de Água",
     descriçaoOcorrencia: "Fuga de água num dos lavatórios da cantina). Água constantemente a cair.",
     localOcorrencia: "Cantina da ESMAD",
     dataHoraOcorrencia: "24-1-2023",
-    idUser: 0,
-    fotoOcorrencia:"/src/assets/img/imagemOcorrencia.svg",
+    idUser: 1,
+    fotoOcorrencia:"/src/assets/img/imagemAtividade.png",
     pontosOcorrencias: 0, 
     categoriaOcorrencia: "",
     statusOcorrencia: false,
-  },]
+  },
+  {
+    idOcorrencia: 1,
+    nomeOcorrencia: "Vidro Partido",
+    descriçaoOcorrencia: "Vidro Partido no chao",
+    localOcorrencia: "B205",
+    dataHoraOcorrencia: "24-3-2023",
+    idUser: 1,
+    fotoOcorrencia:"/src/assets/img/imagemAtividade.png",
+    pontosOcorrencias: 0, 
+    categoriaOcorrencia: "",
+    statusOcorrencia: false,
+  }
+  ]
   console.log(ocorrencias);
   localStorage.setItem('ocorrencias', JSON.stringify(ocorrencias))
 }else{
@@ -69,7 +82,10 @@ export const Ocorrencia = defineStore('ocorrencia',{
     getOcorrencias: (state) => state.ocorrencias,
     
     //Get Ocorrencia por id
-    getOcorrenciaById: (state) => (id) => state.ocorrencias.find(ocorrencia => ocorrencia.idOcorrencia = id)
+    getOcorrenciaById: (state) => (id) => state.ocorrencias.find(ocorrencia => ocorrencia.idOcorrencia = id),
+    
+    //Get Ocorrencia por user
+    getOcorrenciaByUser: (state) => (idUser) => state.ocorrencias.find(ocorrencia => ocorrencia.idUser = idUser)
     
   },
 
@@ -81,14 +97,15 @@ export const Ocorrencia = defineStore('ocorrencia',{
             descriçaoOcorrencia: desc,
             localOcorrencia: local,
             dataHoraOcorrencia: new Date().toString().split(' '),
-            idUser:idUser,
+            idUser:idUser, 
             fotoOcorrencia: foto,
             pontosOcorrencias: 0,
             categoriaOcorrencia: categoria,
             statusOcorrencia: false,
-        })
-        localStorage.setItem('ocorrencias',JSON.stringify(this.ocorrencias))
-    },
+          })
+          localStorage.setItem('ocorrencias',JSON.stringify(this.ocorrencias))
+        },
+        
     ChangeOcorrenciaStatus(id){
 
       let ocorrencia = this.ocorrencias.find(ocorrencia => ocorrencia.idOcorrencia == id)

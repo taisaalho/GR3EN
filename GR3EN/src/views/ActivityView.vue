@@ -75,8 +75,8 @@
             userStore: User(),
             atividadesStore: Atividade(),
             atividade:"",
-            
             currentUser: JSON.parse(localStorage.getItem('currentUser'))
+            
         }),
         computed: {
             ToggleButtonText(){
