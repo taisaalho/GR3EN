@@ -47,7 +47,7 @@ if (!JSON.parse(localStorage.getItem('atividades'))){
     {
     idAtividade: 3,
     nomeAtividade:"Teste de atividade passada",
-    idUser: [],
+    idUser: [2],
     descAtividade: "Teste teste",
     imagemAtividade: "/src/assets/img/imagemAtividade.png",
     dataHoraAtividade:"27-02-2023" /* (newDate).toString().split(' ') */,
@@ -137,21 +137,27 @@ export const Atividade = defineStore('atividade',{
     },
 
     //addAtividadeTeste1
-    addAtividade(nomeAt,desAtv,imgAtv,localAtv,pontosAtv,horaAtv){
+    addAtividade(nomeAt,desAtv,imgAtv,localAtv,pontosAtv,horaAtv,coordAtv){
         this.atividades.push({
-            idAtividade: this.users[this.users.length - 1].idUser + 1,
+            idAtividade: this.atividades[this.atividades.length - 1].idAtividade + 1,
             nomeAtividade: nomeAt,
             idUser: [],
             descAtividade: desAtv,
             imagemAtividade: imgAtv,
             dataHoraAtividade:horaAtv, /* (newDate).toString().split(' '), */
             localAtividade: localAtv,
-            coordenadorAtividade: "",
-            pontosAtividades: Int(pontosAtv),
-            statusAtividade: false,
+            coordenadorAtividade: coordAtv,
+            pontosAtividades: pontosAtv,
+            statusAtividade: true,
         })
         localStorage.setItem('atividades',JSON.stringify(this.atividades))
-      },
+    },
+
+    removeAtividade(removerNomeAtv){
+      let atividadeIndex = this.atividades.findIndex(atividade => atividade.nomeAtividade == removerNomeAtv.nomeAtividade)
+      this.atividades.splice(atividadeIndex,1)
+      localStorage.setItem('atividades',JSON.stringify(this.atividades))
+    }
   }, 
 
   computed:{

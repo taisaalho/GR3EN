@@ -124,6 +124,7 @@ export default {
 
     </template>
 
+
 <style lang="scss" scoped>
     @font-face{
         font-family: Norquay;

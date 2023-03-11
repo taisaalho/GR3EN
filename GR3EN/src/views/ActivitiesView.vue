@@ -24,9 +24,9 @@
         </div>
         <v-sheet class="background">
                 <div class="scroll">
-                    <v-row class="listAtivity" v-for="atividade in atividadesStore.getAtividade">
+                    <v-row class="listAtivity" v-for="atividade in this.atividadesStore.getAtividade">
                         
-                        <div v-if="atividade.statusAtividade">
+                        <div v-if="atividade.statusAtividade"> 
 
                             <v-divider></v-divider>
                             <v-col class="leftTitles" col="2">
@@ -94,7 +94,7 @@ export default {
 }
 
 *{
-        text-decoration: none;
+    text-decoration: none;
 }
 
 
@@ -102,6 +102,7 @@ export default {
     overflow: hidden;
     overflow-y: scroll;
     max-height: 80vh;
+    max-width: 200vh;
     margin-top: 10vh;
     margin-bottom: 10vh;
 }

@@ -35,8 +35,38 @@
                                     <v-window-item
                                     :key="1"
                                     :value="1">
-                                    <p>1</p>
-                                </v-window-item>
+
+                                       <!--  <div class="scroll">
+                                            <v-row class="listAtivity" v-for="atividade in this.atividadesStore.getAtividade">
+                                                
+                                                <div v-if="atividade.statusAtividade == false && this.idUser in atividade.idUser">
+
+                                                    <v-divider></v-divider>
+                                                    <v-col class="leftTitles" col="2">
+                                                        <h3>Atividade Participada</h3>
+                                                        <v-img width="200" :src="atividade.imagemAtividade"></v-img>
+                                                    </v-col>
+                                                    <v-col class="verBtn" col="8">
+                                                        
+                                                        <h3>{{atividade.nomeAtividade}}</h3>
+                                                        <h3>{{atividade.dataHoraAtividade}}</h3>
+                                                        <h3>{{atividade.coordenadorAtividade}}</h3>
+                                                        <h3>{{atividade.localAtividade}}</h3>
+                                                        
+                                                    </v-col>
+                                                    <v-col> 
+                                                        <RouterLink :to="{name: 'activity', params: {id:atividade.idAtividade}}">
+                                                            
+                                                            <v-btn size="x-large" color="warning" class="verBtn">
+                                                                VER
+                                                            </v-btn>
+                                                        </RouterLink>
+                                                    </v-col>
+                                                </div>
+                                            </v-row>
+                                        </div> -->
+
+                                    </v-window-item>
                                 
                                 <v-window-item
                                 :key="2"
@@ -125,6 +155,16 @@
 </script>
 
 <style lang="scss" scoped>
+
+.scroll{
+    overflow: hidden;
+    overflow-y: scroll;
+    max-height: 80vh;
+    max-width: 200vh;
+    margin-top: 10vh;
+    margin-bottom: 10vh;
+}
+
 
 @font-face{
         font-family: Norquay;
