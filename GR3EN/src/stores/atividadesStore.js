@@ -76,7 +76,7 @@ export const Atividade = defineStore('atividade',{
     //Nome da Atividade
     getNomeAtividade: (state) =>
     (nomeAtividade) => state.atividades.find(atividade => atividade.nomeAtividade == nomeAtividade),
-
+    
     //Descrição da Ativadade
     getDescAtividade: (state) => 
     (descAtividade) => state.atividades.filter(atividade => atividade.descAtividade == descAtividade),

@@ -21,9 +21,9 @@
                             v-model="tab"
                             color="white"
                             align-tabs="center"
-                            >
-                            <v-tab :value="1">Atividades</v-tab>
-                            <v-tab :value="2">Ocorrências</v-tab>
+                            > 
+                            <v-tab :value="1" @click="checkAtividade">Atividades</v-tab>
+                            <v-tab :value="2" @click="checkOcc">Ocorrências</v-tab>
                             <v-tab :value="3">Info</v-tab>
                             <v-tab :value="4">Conquistas</v-tab>
                             </v-tabs>
@@ -35,43 +35,33 @@
                                     <v-window-item
                                     :key="1"
                                     :value="1">
-
-                                       <!--  <div class="scroll">
-                                            <v-row class="listAtivity" v-for="atividade in this.atividadesStore.getAtividade">
-                                                
-                                                <div v-if="atividade.statusAtividade == false && this.idUser in atividade.idUser">
-
-                                                    <v-divider></v-divider>
-                                                    <v-col class="leftTitles" col="2">
-                                                        <h3>Atividade Participada</h3>
-                                                        <v-img width="200" :src="atividade.imagemAtividade"></v-img>
-                                                    </v-col>
-                                                    <v-col class="verBtn" col="8">
-                                                        
-                                                        <h3>{{atividade.nomeAtividade}}</h3>
-                                                        <h3>{{atividade.dataHoraAtividade}}</h3>
-                                                        <h3>{{atividade.coordenadorAtividade}}</h3>
-                                                        <h3>{{atividade.localAtividade}}</h3>
-                                                        
-                                                    </v-col>
-                                                    <v-col> 
-                                                        <RouterLink :to="{name: 'activity', params: {id:atividade.idAtividade}}">
-                                                            
-                                                            <v-btn size="x-large" color="warning" class="verBtn">
-                                                                VER
-                                                            </v-btn>
-                                                        </RouterLink>
-                                                    </v-col>
-                                                </div>
-                                            </v-row>
-                                        </div> -->
-
-                                    </v-window-item>
+                                    <p>1</p>
+                                </v-window-item>
                                 
                                 <v-window-item
                                 :key="2"
                                 :value="2">
-                                <p>2</p>
+                                    <div class="scroll">
+
+                                        <v-row v-for="occurrence in userFeed" class="flex" >
+                                            <v-divider></v-divider>
+
+                                            <v-col class="leftTitles" col="4">
+                                                
+                                                <v-img  width="200" :src="occurrence.fotoOcorrencia"></v-img>
+                                            </v-col>
+                                            <v-col class="verBtn" col="2">
+                                                <p>{{occurrence.nomeOcorrencia}}</p>
+                                                <p>{{occurrence.dataHoraOcorrencia}}</p>
+                                                
+                                            </v-col>
+                                            
+                                                
+                                            
+                                        </v-row> 
+                                    </div>
+                                    
+                                    
                                 </v-window-item>
                     
                                 <v-window-item
@@ -100,18 +90,18 @@
                                     <div class="changeInfo">
                                         
                                         <v-row>
-                                            <v-text-field label="Estabelecimento de Ensino" variant="solo"></v-text-field>
-                                            <v-btn color="warning" class="attBtn" size="x-large">Atualizar</v-btn>
+                                            <v-text-field label="Estabelecimento de Ensino" variant="solo" v-model="schoolChange"></v-text-field>
+                                            <v-btn color="warning" class="attBtn" size="x-large" @click="changeSchool">Atualizar</v-btn>
                                         </v-row>
                                         
                                         <v-row>
-                                            <v-text-field label="Email" variant="solo"></v-text-field>
-                                            <v-btn class="attBtn" color="warning" size="x-large">Atualizar</v-btn>
+                                            <v-text-field label="Email" variant="solo" v-model="emailChange"></v-text-field>
+                                            <v-btn class="attBtn" color="warning" size="x-large" @click="changeEmail">Atualizar</v-btn>
                                         </v-row>
                                         
                                         <v-row>
-                                            <v-text-field label="Palavra-Passe" variant="solo"></v-text-field>
-                                            <v-btn class="attBtn" color="warning" size="x-large">Atualizar</v-btn>
+                                            <v-text-field label="Palavra-Passe" variant="solo" v-model="passwordChange"></v-text-field>
+                                            <v-btn class="attBtn" color="warning" size="x-large" @click="User.ChangeUserPassword(this.currentUser.idUser,this.passwordChange)">Atualizar</v-btn>
                                         </v-row>
                                     </div>
                                 </v-row>
@@ -133,7 +123,10 @@
 
 <script>
     import {User} from '../stores/userStore.js'
+    import {Atividade} from '../stores/atividadesStore.js'
+    import {Ocorrencia} from '../stores/ocorrenciasStore.js'
     import NavBar from '../components/NavBar.vue'
+    
     export default {
         
         components: {
@@ -144,13 +137,59 @@
                 User: User(),
                 currentUser: JSON.parse(localStorage.getItem('currentUser')),
                 tab:null,
-
+                atividadesStore : Atividade(),
+                ocorrenciasStore : Ocorrencia(),
+                userFeed:[],
+                userFeedAt:[],
             }   
         },
-        created () {
+        computed: {
             
-            console.log(this.currentUser)
+            
         },
+        created () {
+        },
+        methods: {
+            checkOcc() {
+                this.userFeed = []
+                console.log(this.userFeed); 
+                let occurrenceArray = this.ocorrenciasStore.getOcorrencias
+                
+                for (let occurrence of occurrenceArray) {
+                    if(this.currentUser.idUser == occurrence.idUser) this.userFeed.push(occurrence)
+                }
+            },
+
+            checkAtividade(){
+                this.userFeedAt = []
+                let activityArray = this.atividadesStore.getAtividade
+
+                for (let activity of activityArray){
+                    if(this.currentUser.idUser == activity.idUser) this.userFeedAt.push(activity)
+                }
+            },
+
+            changeSchool(){
+                this.User.getByID(this.currentUser.idUser).escola  = this.schoolChange
+                this.currentUser.escola = this.schoolChange
+            },
+            changeEmail(){
+                
+                this.User.getByID(this.currentUser.idUser).email  = this.emailChange
+                this.currentUser.email = this.emailChange
+                
+                
+            },
+            changePassword(){
+
+                this.User.getByID(this.currentUser.idUser).password  = this.passwordChange
+                this.currentUser.password = this.passwordChange
+            },
+
+
+
+        },
+
     }
 </script>
 
@@ -174,6 +213,36 @@
         font-family: Rubik;
         src: url(../assets/Rubik-Regular.ttf);
 }
+
+.subTitle{
+    margin:0;
+    
+}
+
+.scroll{
+    overflow: hidden;
+    overflow-y: scroll;
+    min-width: 80vw;
+    max-height: 50vh;
+    margin-top: 10vh;
+    padding-left:5vw ;
+    padding-right:5vw ;
+}
+
+.flex{
+    display: flex;
+}
+
+.leftTitles{
+    margin-left: 10vw;
+    margin-right: 0vw;
+    
+}
+.verBtn{
+    margin-top: 5vh ;
+}
+
+
 
 #pfp{
     margin:auto;
