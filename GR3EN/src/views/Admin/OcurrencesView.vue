@@ -33,6 +33,9 @@
                     </v-col>
                 </v-row>
 
+                <h1>Novo Ano letivo</h1>
+                <v-btn @click="rankingStore.CreateNewTopRankedPlayers()">Mudar</v-btn>
+                {{rankingStore.CurrentYear[0]}} / {{rankingStore.CurrentYear[1]}}
             </v-container>
         
     </div>
