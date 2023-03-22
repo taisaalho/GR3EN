@@ -127,6 +127,7 @@
 
 <script>
 import {Ocorrencia} from "../../stores/ocorrenciasStore.js"
+import { Ranking } from "../../stores/rankingStore"
 import {Atividade} from '../../stores/atividadesStore.js'
 
 export default {
@@ -140,7 +141,8 @@ export default {
             horaAtv: "",
             coordAtv: "",
             OcorrenciaStore: Ocorrencia(),
-            atividadesStore: Atividade()
+            atividadesStore: Atividade(),
+            rankingStore: Ranking()
         }
     },
 
