@@ -30,7 +30,7 @@ if (!JSON.parse(localStorage.getItem('users'))){
     idBadge: [],
     idTitulo: [],
     questionario: false,
-    ranking: 2000,
+    ranking: 10000,
     idOcorrencia: [], 
     idAtividade: [],
     conselhoEco: false,
@@ -133,13 +133,29 @@ export const User = defineStore('user', {
       nome = this.users.primeiroNome + " " + this.users.ultimoNome
     },
     ChangeUserPassword(id,password){
-      this.users.find(user => user.idUser == id).password=password
-      this.currentUser.password=password
-      console.log("yau")
-      localStorage.setItem('currentUser', JSON.stringify(this.currentUser))
+      let currentUser =this.users.find(user => user.idUser == id)  
+      currentUser.password=password
+      localStorage.setItem('currentUser', JSON.stringify(currentUser))
       localStorage.setItem('users', JSON.stringify(this.users))
 
     },
+
+    ChangeUserEmail(id,email){
+      let currentUser2 = this.users.find(user => user.idUser == id)
+      currentUser2.email = email
+      localStorage.setItem('currentUser', JSON.stringify(currentUser2))
+      localStorage.setItem('users', JSON.stringify(this.users))
+    },
+    attBadges(id,idbadge){
+      let currentUser = this.users.find(user => user.idUser == id)
+      let badges= currentUser.idBadge
+      badges.push(idbadge)
+      localStorage.setItem('currentUser', JSON.stringify(currentUser))
+      localStorage.setItem('users', JSON.stringify(this.users))
+      
+    },
+
+    
 
     //Adicionar User
     addUser(primeiroNome1,ultimoNome1,email1,escola1,password1){

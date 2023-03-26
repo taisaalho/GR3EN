@@ -101,7 +101,6 @@ export default {
           if(this.nome && this.local && this.desc && this.select) {
               console.log(this.currentUser)
               this.ocorrenciasStore.addOcorrencia(this.nome,this.desc,this.local,this.currentUser.idUser,this.img,this.select)
-
               this.$router.push('/')
             }
         },

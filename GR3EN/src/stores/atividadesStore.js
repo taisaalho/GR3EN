@@ -57,6 +57,19 @@ if (!JSON.parse(localStorage.getItem('atividades'))){
     statusAtividade: false,
   
     },
+    {
+    idAtividade: 4,
+    nomeAtividade:"Outro Teste",
+    idUser: [2],
+    descAtividade: "outro teste",
+    imagemAtividade: "/src/assets/img/imagemAtividade.png",
+    dataHoraAtividade:"27-02-2023" /* (newDate).toString().split(' ') */,
+    localAtividade: "Porto",
+    coordenadorAtividade:"Me",
+    pontosAtividades: 10,
+    statusAtividade: false,
+  
+    },
 ]
   localStorage.setItem('atividades', JSON.stringify(atividades))
 }else{

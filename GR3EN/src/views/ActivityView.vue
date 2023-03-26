@@ -83,11 +83,11 @@
                 let atividade = this.atividadesStore.getAtividadeByID(this.atividade.idAtividade)
     
                 if(atividade.idUser.find(user => user == this.currentUser.idUser)){
-                    return 'Inscrever'
+                    return 'Remover Inscrição'
                 }
                 else{
-                    return 'Remover Inscrição'
-    
+                    return 'Inscrever'
+                    
                 }
     
             },
@@ -95,10 +95,10 @@
                 let atividade = this.atividadesStore.getAtividadeByID(this.atividade.idAtividade)
     
                 if(atividade.idUser.find(user => user == this.currentUser.idUser)){
-                    return 'success'
+                    return 'red'
                 }
                 else{
-                    return 'red'
+                    return 'success'
     
                 }
     

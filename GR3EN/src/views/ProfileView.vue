@@ -25,7 +25,7 @@
                             <v-tab :value="1" @click="checkAtividade">Atividades</v-tab>
                             <v-tab :value="2" @click="checkOcc">Ocorrências</v-tab>
                             <v-tab :value="3">Info</v-tab>
-                            <v-tab :value="4">Conquistas</v-tab>
+                            <v-tab :value="4" @click="checkBadges">Conquistas</v-tab>
                             </v-tabs>
                             <v-divider class="dividersHor"></v-divider>
                         </v-row>
@@ -35,7 +35,25 @@
                                     <v-window-item
                                     :key="1"
                                     :value="1">
-                                    <p>1</p>
+                                    <div class="scroll">
+
+                                        <v-row v-for="activity in userFeedAt" class="flex" >
+                                            <v-divider></v-divider>
+
+                                            <v-col class="leftTitles" col="4">
+                                                
+                                                <v-img  width="200" :src="activity.imagemAtividade"></v-img>
+                                            </v-col>
+                                            <v-col class="verBtn" col="2">
+                                                <p>{{activity.nomeAtividade}}</p>
+                                                <p>{{activity.dataHoraAtividade}}</p>
+                                                
+                                            </v-col>
+                                            
+                                                
+                                            
+                                        </v-row> 
+                                    </div>
                                 </v-window-item>
                                 
                                 <v-window-item
@@ -55,8 +73,6 @@
                                                 <p>{{occurrence.dataHoraOcorrencia}}</p>
                                                 
                                             </v-col>
-                                            
-                                                
                                             
                                         </v-row> 
                                     </div>
@@ -82,21 +98,15 @@
                                     
                                     
 
-                                        <h1 id="infoAtt" class="tabsTitles">Info</h1>
+                                        <h1 id="infoAtt" class="tabsTitles">Info</h1>   
                                     
                                     <v-divider class="dividersVer" vertical></v-divider>
                                     
                                     
                                     <div class="changeInfo">
-                                        
-                                        <v-row>
-                                            <v-text-field label="Estabelecimento de Ensino" variant="solo" v-model="schoolChange"></v-text-field>
-                                            <v-btn color="warning" class="attBtn" size="x-large" @click="changeSchool">Atualizar</v-btn>
-                                        </v-row>
-                                        
                                         <v-row>
                                             <v-text-field label="Email" variant="solo" v-model="emailChange"></v-text-field>
-                                            <v-btn class="attBtn" color="warning" size="x-large" @click="changeEmail">Atualizar</v-btn>
+                                            <v-btn class="attBtn" color="warning" size="x-large" @click="User.ChangeUserEmail(this.currentUser.idUser,this.emailChange)">Atualizar</v-btn>
                                         </v-row>
                                         
                                         <v-row>
@@ -110,7 +120,22 @@
                                 <v-window-item
                                 :key="4"
                                 :value="4">
-                                <p>4</p>
+                                <div class="scroll">
+                                    
+                                        <v-row v-for="badge in badgeList">
+                                            <v-divider></v-divider>
+                                            <v-col  class="leftTitles" col="4">
+                                                <v-img  width="200" :src="this.Badge.getByID(badge).imagemBadge"></v-img>
+                                            </v-col>
+                                            <v-col>
+                                                
+                                                <div class="verBtn" col="2">
+                                                    <p>{{this.Badge.getByID(badge).nomeBadge}}</p>
+                                                    <p>{{this.Badge.getByID(badge).descBadge}}</p>
+                                                </div>
+                                            </v-col>
+                                        </v-row> 
+                                </div>
                                 </v-window-item>
                             </v-window>
                         </v-row>
@@ -125,6 +150,7 @@
     import {User} from '../stores/userStore.js'
     import {Atividade} from '../stores/atividadesStore.js'
     import {Ocorrencia} from '../stores/ocorrenciasStore.js'
+    import {Badge} from '../stores/badgesStore.js'
     import NavBar from '../components/NavBar.vue'
     
     export default {
@@ -139,8 +165,11 @@
                 tab:null,
                 atividadesStore : Atividade(),
                 ocorrenciasStore : Ocorrencia(),
+                Badge : Badge(),
                 userFeed:[],
                 userFeedAt:[],
+                badgeList:[],
+                
             }   
         },
         computed: {
@@ -148,8 +177,84 @@
             
         },
         created () {
+            this.badgesStore = this.Badge.getBadges
         },
         methods: {
+            
+            checkBadges(){
+                
+                this.badgeList = this.User.getByID(this.currentUser.idUser).idBadge
+                
+                if ((this.User.getByID(this.currentUser.idUser).idAtividade).length == 1){
+                    if ((this.User.getByID(this.currentUser.idUser).idBadge.find(badge => badge == 3)) == undefined){
+                         this.User.attBadges(this.currentUser.idUser, 3)
+                         badgeList = this.User.getByID(this.currentUser.idUser).idBadge
+                         console.log(badgeList) 
+                    }
+                }   
+                if (((this.User.getByID(this.currentUser.idUser).idAtividade).length) == 5){
+                    if ((this.User.getByID(this.currentUser.idUser).idBadge.find(badge => badge == 2)) == undefined){
+                         this.User.attBadges(this.currentUser.idUser, 2)
+                         badgeList = this.User.getByID(this.currentUser.idUser).idBadge
+                         console.log(badgeList) 
+                    }
+                }   
+                if (((this.User.getByID(this.currentUser.idUser).idOcorrencia).length) == 5){
+                    if ((this.User.getByID(this.currentUser.idUser).idBadge.find(badge => badge == 0)) == undefined){
+                         this.User.attBadges(this.currentUser.idUser, 0)
+                         badgeList = this.User.getByID(this.currentUser.idUser).idBadge
+                         console.log(badgeList) 
+                    }
+                }   
+                        
+                        
+                if(this.User.getByID(this.currentUser.idUser).ranking >=1000){
+                    if ((this.User.getByID(this.currentUser.idUser).idBadge.find(badge => badge == 1)) == undefined){
+                         this.User.attBadges(this.currentUser.idUser, 1)
+                         badgeList = this.User.getByID(this.currentUser.idUser).idBadge
+                         console.log(badgeList) 
+                    }
+                        
+                        
+                }   
+            },
+
+            badgeOcc(){
+                
+                if (length((this.User.getByID(this.currentUser).idOcorrencia)) == 5){
+                    (this.User.getByID(this.currentUser)).idBadge.push(1)
+                    this.currentUser.idBadge.push(1)
+                    
+                    
+                }
+            },
+            
+            badgeAtt(n){
+                let x
+                if (length((this.User.getByID(this.currentUser).idAtividade)) == n){
+                    if (n == 1){
+                        x=3
+                    }else if (n == 5){
+                        x=2
+                    }
+                    
+                    (this.User.getByID(this.currentUser)).idBadge.push(x)
+                    this.currentUser.idBadge.push(x)
+                }
+            },
+            
+            badgePoints(){
+                if(this.User.getByID(this.currentUser).ranking ==1000){
+                    (this.User.getByID(this.currentUser)).idBadge.push(1)
+                    this.currentUser.idBadge.push(1)
+                    
+                }
+
+            }
+
+
+
+            ,
             checkOcc() {
                 this.userFeed = []
                 console.log(this.userFeed); 
@@ -168,23 +273,7 @@
                     if(this.currentUser.idUser == activity.idUser) this.userFeedAt.push(activity)
                 }
             },
-
-            changeSchool(){
-                this.User.getByID(this.currentUser.idUser).escola  = this.schoolChange
-                this.currentUser.escola = this.schoolChange
-            },
-            changeEmail(){
-                
-                this.User.getByID(this.currentUser.idUser).email  = this.emailChange
-                this.currentUser.email = this.emailChange
-                
-                
-            },
-            changePassword(){
-
-                this.User.getByID(this.currentUser.idUser).password  = this.passwordChange
-                this.currentUser.password = this.passwordChange
-            },
+            
 
 
 
