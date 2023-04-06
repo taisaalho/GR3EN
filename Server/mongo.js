@@ -1,6 +1,6 @@
 
 const config = require('./config');
-
+const mongoose = require('mongoose')
 const { MongoClient } = require('mongodb')
 
 let dbConnection 
@@ -8,17 +8,14 @@ let dbConnection
 
 
 module.exports = {
-  connectToDb : (cb) => {
-    MongoClient.connect(config.databaseURL)
-    .then((client) => {
-      dbConnection = client.db()
-      return cb()
-    })
-    .catch(err => {
-      console.log(err)
-      return cb(err)
-    })
-  },
-  getDB: ()=> dbConnection
-
+  connectToDb : async () => {
+    try {
+      await mongoose.connect(config.databaseURL, { useNewUrlParser: true, useUnifiedTopology: true, dbName: 'Green' } )
+      console.log('Connected to database:', mongoose.connection.db.databaseName);
+     
+    } catch (error) {
+      console.log(error)
+    }
+    
+}
 }

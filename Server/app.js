@@ -16,25 +16,16 @@ app.use('/ranking',require('./routes/ranking.router'))
 app.use('/titles',require('./routes/titles.router'))
 
 //MONGO DB STUFF
-const {connectToDb,getDB} = require('./mongo')
+const {connectToDb} = require('./mongo')
 
-let db 
-connectToDb((err) => {
-  if(!err){
-    console.log('great !')
-    db = getDB()
-  }else{
-    console.log(err)
-  }
 
-})
+
+// server creation and listening for any incoming requests
+
+app.listen(config.port, config.hostname, (error) => {
   
-  
-  // server creation and listening for any incoming requests
-
-  app.listen(config.port, config.hostname, (error) => {
-      
-      console.log(`App listening at http://${config.hostname}:${config.port}/`)
+  console.log(`App listening at http://${config.hostname}:${config.port}/`)
+  connectToDb()
 
       
       
