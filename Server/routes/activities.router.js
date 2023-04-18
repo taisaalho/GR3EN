@@ -15,4 +15,8 @@ router.route('/:activityid/users/:userid')
     .post(auth_user,addUserToActivity)
     .delete(auth_user,removeUserFromActivity)
 
+router.route('/:activityid/users/:userid/change-user-state')
+    .post(auth_admin,)
+   
+
 module.exports = router

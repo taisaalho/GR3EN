@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const {auth_user,auth_admin} = require('../controllers/auth.controller') // Authentication Middleware 
-const {createRanking} = require('../controllers/ranking.controller')
+const {createRanking,getRankings} = require('../controllers/ranking.controller')
 
 router.route('/')
 .post(createRanking,(req,res) => {
@@ -24,7 +24,7 @@ router.route('/')
         res.send("Only numbers are allowed") 
     }
 })
-.get((req,res) => {
+.get(getRankings,(req,res) => {
     
     res.status(201);
     res.send("New school year rank created")
@@ -36,7 +36,7 @@ router.route('/')
     
     if(false){
         res.status(403)
-        res.send("You’re not authorized to create a new rankin") 
+        res.send("You’re not authorized to create a new ranking") 
     }
 
     }

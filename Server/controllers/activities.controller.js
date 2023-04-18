@@ -13,7 +13,7 @@ module.exports={
         
         if(length && offset){
     
-            Activity.find().skip(offset).limit(10).then(activities => { res.status(206).json(activities)}).catch(err => { res.status(400).send({err: err.message})})
+            Activity.find().skip(offset).limit(length).then(activities => { res.status(206).json(activities)}).catch(err => { res.status(400).send({err: err.message})})
          
         }else if(activities){
             Activity.find().where('idAtividade').in(activities)
@@ -45,6 +45,9 @@ module.exports={
         Activity.findOneAndUpdate({idAtividade: req.params.activityid }, { $pull: {participantesAtividade : Number(req.params.userid)}})
         .then(result => {res.status(204).send(result)})
         .catch(err => {res.status(400).send(err.message)});
+    },changeUserState: async (req,res) => {
+
     }
+    
 
 }
