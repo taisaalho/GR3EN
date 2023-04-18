@@ -1,10 +1,12 @@
 const mongoose = require('mongoose')
 
 const rankingSchema = mongoose.Schema({
-  id: { type:Number },
-  year: {type: Array },  
-  users: {type: Array }
-})
+    year: [Number] ,  
+    users: {type: Array, required:true }
+  },
+  {
+    timestamps:true
+  })
 
 
 

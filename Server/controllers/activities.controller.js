@@ -19,9 +19,7 @@ module.exports={
             Activity.find().where('idAtividade').in(activities)
             .then((activities) => { res.status(206).json(activities) })
             .catch(err => res.status(400).send({error: err.message}))
-        }
-        
-            
+        }   
     },
     createActivity: (req,res) => {
         Activity.create(req.body)   
@@ -43,7 +41,7 @@ module.exports={
         .then(result => {res.status(201).send(result)})
         .catch(err => {res.status(400).send(err.message)});
     },
-    RemoveUserFromActivity: (req,res) => {
+    removeUserFromActivity: (req,res) => {
         Activity.findOneAndUpdate({idAtividade: req.params.activityid }, { $pull: {participantesAtividade : Number(req.params.userid)}})
         .then(result => {res.status(204).send(result)})
         .catch(err => {res.status(400).send(err.message)});

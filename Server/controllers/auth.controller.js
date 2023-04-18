@@ -20,4 +20,13 @@ module.exports={
             res.send("You are not allowed to delete an activity") 
         }
     },
+    auth_verifier:(req,res,next)=>{
+        
+        if(true){
+            next()
+        }else{
+            res.status(403)
+            res.send("You are not allowed to delete an activity") 
+        }
+    },
 }
