@@ -20,7 +20,34 @@ const reqBoolean = {
   required:true, 
 }
 
+const reqArray = {
+  type: Array,
+}
+
+const reqBoolean = {
+  type: Boolean,
+}
+
+const reqNumber = {
+  type: Number,
+}
+
 const userSchema = mongoose.Schema({
+<<<<<<< HEAD
+  idUser: reqNumber,
+  primeiroNome: reqString,
+  ultimoNome: reqString,
+  escola: reqString,
+  email: reqString,
+  password: reqString,
+  idBadge: reqArray, 
+  idTitulo: reqArray, 
+  questionario: reqBoolean, 
+  ranking: reqNumber, 
+  idOcorrencia: reqArray, 
+  idAtividade: reqArray, 
+  conselhoEco: reqBoolean, 
+=======
   id: reqString,
   username: reqString, // or like this {type: type , required: boolean}
   pontos: {
@@ -29,6 +56,7 @@ const userSchema = mongoose.Schema({
    
    
   }
+>>>>>>> 44e1becf0cba561738ec723b94e3791792923cf3
 })
 
 userSchema.pre('save', function (next) {
@@ -38,4 +66,4 @@ userSchema.pre('save', function (next) {
 
 
 
-module.exports = mongoose.model('users', userSchema)
+module.exports = mongoose.model('Users', userSchema)
