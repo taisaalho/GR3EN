@@ -8,7 +8,7 @@ module.exports={
             next()
         }else{
             res.status(403)
-            res.send("auth key does not match user auth key") 
+            res.send("Auth key does not match user auth key") 
         }
     },
     auth_admin:(req,res,next)=>{
