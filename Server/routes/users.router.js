@@ -1,10 +1,18 @@
 const express = require('express')
 const router = express.Router()
+<<<<<<< HEAD
 const {auth_user,auth_admin} = require('../controllers/auth.controller') // Authentication Middleware 
 
 const User = require('../models/user.model')
 
 /* const user = new User({
+=======
+const User = require('../models/user.model')
+
+const {createUser} = require('../controllers/users.controller')
+
+const user = new User({
+>>>>>>> 44e1becf0cba561738ec723b94e3791792923cf3
     id:1,
     name:'Tiago'
 }) */
@@ -66,5 +74,17 @@ router.route('/users/:userid')
 router.all('*', (req, res) => {
     /* res.status(404).json({ message: 'MOVIES: what???' }); //send a predefined error message */
 })
+<<<<<<< HEAD
         
+=======
+
+router.route('/')
+    .get((req, res) => {
+        
+    }).post(createUser
+
+    )
+
+
+>>>>>>> 44e1becf0cba561738ec723b94e3791792923cf3
 module.exports = router

@@ -28,6 +28,4 @@ app.listen(config.port, config.hostname, (error) => {
   console.log(`App listening at http://${config.hostname}:${config.port}/`)
   connectToDb()
 
-      
-      
 })
