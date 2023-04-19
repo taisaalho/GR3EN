@@ -1,7 +1,7 @@
 const express = require('express')
 const {auth_user,auth_admin} = require('../controllers/auth.controller') // Authentication Middleware 
 const router = express.Router()
-const { getActivities, createActivity, addUserToActivity, editActivity, deleteActivity,removeUserFromActivity } = require('./../controllers/activities.controller') 
+const { getActivities, createActivity, addUserToActivity, editActivity, deleteActivity,removeUserFromActivity, changeUserState } = require('./../controllers/activities.controller') 
 
 router.route('/')
     .get(getActivities)
@@ -16,7 +16,7 @@ router.route('/:activityid/users/:userid')
     .delete(auth_user,removeUserFromActivity)
 
 router.route('/:activityid/users/:userid/change-user-state')
-    .post(auth_admin,)
+    .post(auth_admin,changeUserState)
    
 
 module.exports = router

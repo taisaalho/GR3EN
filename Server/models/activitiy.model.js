@@ -16,13 +16,15 @@ const reqNumber = {
 }
 
 const reqBoolean = {
-  type: Number,
+  type: Boolean,
   required:true, 
+  default:false
 }
 
 const activitySchema = mongoose.Schema({
   idAtividade:reqNumber,
-  participantesAtividade: reqArray,
+  participantesAtividadeNaoExecutado: reqArray,
+  participantesAtividadeExecutado: reqArray,
   nomeAtividade:reqString,
   descAtividade: reqString,
   imagemAtividade: reqString,
