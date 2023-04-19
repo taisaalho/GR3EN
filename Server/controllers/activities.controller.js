@@ -42,13 +42,20 @@ module.exports={
         .catch(err => {res.status(400).send(err.message)});
     },
     removeUserFromActivity: (req,res) => {
-        Activity.findOneAndUpdate({idAtividade: req.params.activityid }, { $pull: {participantesAtividadeNaoExecutado : Number(req.params.userid)}})
-        .then(result => {res.status(204).send(result)})
+
+        Activity.updateOne({idAtividade: req.params.activityid }, { $pull: {participantesAtividadeExecutado : Number(req.params.userid)}})
+        .then(result => {
+            if(result.modifiedCount > 0){
+                res.status(204).send(result)
+            }else{
+                Activity.updateOne({idAtividade: req.params.activityid }, { $pull: {participantesAtividadeNaoExecutado : Number(req.params.userid)}})
+                .then(result => {res.status(204).send(result)})
+                .catch(err => {res.status(400).send(err.message)}); 
+            }
+        
+        })
         .catch(err => {res.status(400).send(err.message)});
 
-        Activity.findOneAndUpdate({idAtividade: req.params.activityid }, { $pull: {participantesAtividadeExecutado : Number(req.params.userid)}})
-        .then(result => {res.status(204).send(result)})
-        .catch(err => {res.status(400).send(err.message)});
     },changeUserState: async (req,res) => {
 
         
