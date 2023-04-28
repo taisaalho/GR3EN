@@ -13,13 +13,13 @@ const reqNumber = {
 const reqBoolean = {
   type: Boolean,
   required:true, 
+  default:false
 }
 
 const reqString = {
   type: String,
   required:true, 
 }
-
 
 
 const userSchema = mongoose.Schema({
@@ -29,25 +29,27 @@ const userSchema = mongoose.Schema({
   escola: reqString,
   email: reqString,
   password: reqString,
-  idBadge: reqArray, 
-  idTitulo: reqArray, 
-  questionario: reqBoolean, 
-  ranking: reqNumber, 
-  idOcorrencia: reqArray, 
-  idAtividade: reqArray, 
-  conselhoEco: reqBoolean, 
+  idBadge: reqArray,
+  idTitulo: reqArray,
+  questionario: reqBoolean,
+  ranking: {
+    type: Number,
+    defaul: 0
+  }, 
+  idOcorrencia: reqArray,  
+  idAtividade: reqArray,  
+  conselhoEco: reqBoolean,
   pontos: {
     type: Number,
-    default: 0,
+    default: 0
   }
   
 })
 
-userSchema.pre('save', function (next) {
+/* userSchema.pre('save', function (next) {
   this.pontos = 0;
   next();
 });
 
-
-
-module.exports = mongoose.model('Users', userSchema)
+ */
+module.exports = mongoose.model('users', userSchema)
