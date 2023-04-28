@@ -1,8 +1,12 @@
-const jwt = require('jsonwebtoken')
-
+const User = require('../models/user.model')
+const {createToken,decodeToken,verifyToken} = require('./Helpers/jwtHelpers')
 
 module.exports={
     auth_user:(req,res,next)=>{
+        //VERIFY TOKEN
+        
+        //THEN DECODE TOKEN
+        
         
         if(true){
             next()
@@ -17,7 +21,7 @@ module.exports={
             next()
         }else{
             res.status(403)
-            res.send("You are not allowed to delete an activity") 
+            res.send("You are not allowed to use this route: You're not an admin") 
         }
     },
     auth_verifier:(req,res,next)=>{
@@ -26,7 +30,7 @@ module.exports={
             next()
         }else{
             res.status(403)
-            res.send("You are not allowed to delete an activity") 
+            res.send("You are not allowed to use this route: You're not a verifier") 
         }
     },
 }

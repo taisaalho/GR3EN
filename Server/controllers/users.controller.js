@@ -1,4 +1,6 @@
 const User = require('./../models/user.model.js')
+const config = require('../config.js')
+
 
 module.exports={
     createUser: (req,res) => {
@@ -20,7 +22,19 @@ module.exports={
         }else if(users){
             User.find().where('idUser').in(users)
             .then((users) => { res.status(206).json(users) })
-            .catch(err => res.status(400).send({error: err.message}))
+            .catch(err => res.status(400).send({error: err.message }))
         }
+    }
+    ,login:() => {
+        User
+    }
+    ,register:() => {
+        User.create(req.body)
+        .then(user => {
+            user.id
+
+            res.status(200).json(user)
+        })
+        .catch(err => res.status(400).json({error: err.message}))
     }
 }

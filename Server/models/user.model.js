@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const bcrypt = require('bcrypt')
 
 const reqArray = {
   type: Array,
@@ -40,14 +41,20 @@ const userSchema = mongoose.Schema({
     type: Number,
     default: 0,
   }
-  
 })
 
-userSchema.pre('save', function (next) {
+userSchema.pre('save', async (next) => {
+  const salt = await bcrypt.genSalt()
+  this.password = await bcrypt.hash(this.password, salt)
+
   this.pontos = 0;
+
   next();
 });
 
 
 
-module.exports = mongoose.model('Users', userSchema)
+
+
+
+module.exports = mongoose.model('Users', userSchema)  

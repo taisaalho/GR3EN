@@ -21,6 +21,8 @@ const reqBoolean = {
   default:false
 }
 
+
+
 const activitySchema = mongoose.Schema({
   idAtividade:reqNumber,
   participantesAtividadeNaoExecutado: reqArray,

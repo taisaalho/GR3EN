@@ -1,12 +1,16 @@
-// import Express
+// imports
 const express = require('express');
+const cookieParser = require('cookie-parser')
+const jwt = require('jsonwebtoken')
 const app = express();
-app.use(express.json())
+
+
+//Middleware
+app.use(express.json()) // ler json
+app.use(cookieParser()) // ler cookies
 
 // import configs
 config = require('./config')
-
-
 
 // Use Routes
 app.use('/users',require('./routes/users.router'))
@@ -18,8 +22,6 @@ app.use('/titles',require('./routes/titles.router'))
 
 //MONGO DB STUFF
 const {connectToDb} = require('./mongo')
-
-
 
 // server creation and listening for any incoming requests
 
