@@ -19,10 +19,10 @@ router.route('/:userid')
     .delete(auth_user,deleteUser)
 
 router.route('/:userid/titles')
-    .post(auth_user,editUser)
+    .post(auth_user,title)
 
 router.route('/:userid/badges')
-    .post(auth_user,editUser)
+    .post(auth_user,badges)
 
 /* router.route('/login')
     .post(auth_user) */
