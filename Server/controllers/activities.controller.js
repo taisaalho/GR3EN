@@ -6,6 +6,7 @@ const isNumber = require('./Helpers/isNumber')
 
 module.exports={
     getActivities:(req, res)=> {
+        
         let {length=null, offset=null, activities = null} = req.query
         
         if(activities) {

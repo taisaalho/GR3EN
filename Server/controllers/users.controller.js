@@ -9,7 +9,7 @@ module.exports={
         .catch(err => res.status(400).json({error: err.message}))
 
     },
-    getUsers:() => {
+    getUsers:(req,res) => {
         let {length=null, offset=null, users = null} = req.query
         
         if(users)  

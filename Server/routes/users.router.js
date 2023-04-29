@@ -4,7 +4,7 @@ const {createUser,getUsers} =require('../controllers/users.controller')
 const {auth_user,auth_admin} = require('../controllers/auth.controller') // Authentication Middleware 
 
 
-router.route('/users')
+router.route('/')
     .get(auth_user,getUsers,(req, res) => {
         req.params = offset,length,activities
         /* res.json(user) */
