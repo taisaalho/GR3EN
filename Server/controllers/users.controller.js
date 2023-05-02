@@ -16,7 +16,7 @@ module.exports={
         if(length && offset){
             User.find().skip(offset).limit(length).then(users => { res.status(206).json(users)}).catch(err => { res.status(400).send({err: err.message})})
         }else if(users){
-            User.find().where('idUser').in(users)
+            User.find().where('_id').in(users)
             .then((users) => { res.status(206).json(users) })
             .catch(err => res.status(500).send({error: err.message}))
         }
@@ -30,7 +30,7 @@ module.exports={
         if(length && offset){
             User.find().skip(offset).limit(length).then(users => { res.status(206).json(users)}).catch(err => { res.status(400).send({err: err.message})})
         }else if(users){
-            User.find().where('idUser').in(users)
+            User.find().where('_id').in(users)
             .select('primeiroNome ultimoNome escola email password')
             .then((users) => { res.status(206).json(users) })
             .catch(err => res.status(500).send({error: err.message}))
@@ -48,27 +48,27 @@ module.exports={
     }, */
 
     editUser: () => {
-        User.findOneAndUpdate({idUser: res.params.userid}, req.params)
+        User.findOneAndUpdate({_id: res.params.userid}, req.params)
         .select('primeiroNome ultimoNome escola email password questionario conselhoEco')
         .then((user) => {res.status(201).send(user)})
         .catch((err) =>{res.status(500).send({err:err.message})})
     },
     
     deleteUser: () =>{
-        User.findOneAndDelete({idUser: res.params.userid}, req.params)
+        User.findOneAndDelete({_id: res.params.userid}, req.params)
         .then(() => {res.status(204).send({message:`Sucessful deleted`})})
         .catch((err) =>{res.status(500).send({err:err.message})})
     },
 
     titles : () => {
-        User.find().where('idUser')
+        User.find().where('_id')
         .select('idTitulo')
         .then((users) => { res.status(200).json(users) })
         .catch(err => res.status(500).send({error: err.message}))
         },
     
     badges: () => {
-        User.find().where('idUser')
+        User.find().where('_id')
         .select('idBadge')
         .then((users) => { res.status(200).json(users) })
         .catch(err => res.status(500).send({error: err.message}))

@@ -24,7 +24,7 @@ const reqString = {
 
 
 const userSchema = mongoose.Schema({
-  idUser: reqNumber,
+  _id: reqNumber,
   primeiroNome: reqString,
   ultimoNome: reqString,
   escola: reqString,
