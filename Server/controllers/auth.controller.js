@@ -2,35 +2,55 @@ const User = require('../models/user.model')
 const {createToken,decodeToken,verifyToken} = require('./Helpers/jwtHelpers')
 
 module.exports={
-    auth_user:(req,res,next)=>{
-        //VERIFY TOKEN
+    auth_user: async (req,res,next)=>{
         
-        //THEN DECODE TOKEN
-        
-        
-        if(true){
+        if(verifyToken(req.cookies.jwt)){
+            //console.log('Token Válido')
             next()
         }else{
-            res.status(403)
-            res.send("Auth key does not match user auth key") 
+            res.status(401)
+            res.send("Client is not authenticated") 
         }
     },
-    auth_admin:(req,res,next)=>{
-        
-        if(true){
-            next()
+    auth_admin: async (req,res,next)=>{
+
+        if(verifyToken(req.cookies.jwt)){
+            console.log('Válido')
+
+            const userId = decodeToken(req.cookies.jwt).id
+            
+            User.findById(userId).then(user => { 
+                if(user.conselhoEco){
+                    //console.log('Admin!')
+                    next()
+                }else{
+                    res.status(403).send("This client is forbidden in this route")
+                }
+            })
         }else{
-            res.status(403)
-            res.send("You are not allowed to use this route: You're not an admin") 
+            res.status(401).send("Client is not authenticated") 
         }
+
     },
-    auth_verifier:(req,res,next)=>{
+    auth_verifier: async (req,res,next)=>{
         
-        if(true){
-            next()
+        if(verifyToken(req.cookies.jwt)){
+            console.log('Válido')
+
+            const userId = decodeToken(req.cookies.jwt).id
+            
+            User.findById(userId).then(user => { 
+                if(user.verifierEco){
+                    //console.log('Verifier!')
+                    next()
+                }else{
+                    res.status(403).send("This client is forbidden in this route")
+                }
+            })
         }else{
-            res.status(403)
-            res.send("You are not allowed to use this route: You're not a verifier") 
+            res.status(401).send("Client is not authenticated") 
         }
+
+
     },
 }

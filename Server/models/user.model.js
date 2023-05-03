@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
-
 const reqArray = {
   type: Array,
   required:true, 
@@ -32,11 +31,11 @@ const userSchema = mongoose.Schema({
   password: reqString,
   idBadge: reqArray, 
   idTitulo: reqArray, 
-  questionario: reqBoolean, 
   ranking: reqNumber, 
   idOcorrencia: reqArray, 
   idAtividade: reqArray, 
   conselhoEco: reqBoolean, 
+  verifierEco: reqBoolean, 
   pontos: {
     type: Number,
     default: 0,
@@ -44,10 +43,11 @@ const userSchema = mongoose.Schema({
 })
 
 userSchema.pre('save', async (next) => {
-  const salt = await bcrypt.genSalt()
-  this.password = await bcrypt.hash(this.password, salt)
-
   this.pontos = 0;
+  
+  
+  
+  
 
   next();
 });

@@ -1,28 +1,11 @@
 const express = require('express')
 const router = express.Router()
-const {createUser,getUsers} =require('../controllers/users.controller')
+const {getUsers,register,login} =require('../controllers/users.controller')
 const {auth_user,auth_admin} = require('../controllers/auth.controller') // Authentication Middleware 
 
 
-router.route('/users')
-    .get(auth_user,getUsers,(req, res) => {
-        req.params = offset,length,activities
-        /* res.json(user) */
-
-        /* if (auth_user){
-            res.status(200).send("Successful request")
-        }else{
-            res.status(206).send("Sucessful request (Partial data)")
-        }
-
-
-        if (false){
-            res.status(500).send("Something went wrong.Please try again later.")
-        }
- */
-
-    }).post(auth_user,(req, res) => {
-        req.params = body
+router.route('/')
+    .post(register)
 
         /* res.status(200).send("Successful request")
 
@@ -33,12 +16,11 @@ router.route('/users')
         if (false){
             res.status(500).send("Something went wrong.Please try again later.")
         } */
+        
+        
+router.route('/login').get(login)
 
-
-    })
-
-
-router.route('/users/:userid')
+router.route('/:userid')
     .get(auth_user,(req,res) => {
         req.params.userid
 
@@ -58,16 +40,7 @@ router.route('/users/:userid')
     })
 
 
-router.all('*', (req, res) => {
-    /* res.status(404).json({ message: 'MOVIES: what???' }); //send a predefined error message */
-})
 
-router.route('/')
-    .get((req, res) => {
-        
-    }).post(createUser
-
-    )
 
 
 module.exports = router
