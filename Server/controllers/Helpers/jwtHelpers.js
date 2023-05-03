@@ -4,14 +4,13 @@ const config = require('../../config')
 module.exports = {
     createToken : (id)=>{
         return jwt.sign({id}, config.jwtSecret, {
-            expiresIn: maxAge,
-            httpOnly:true,
+            expiresIn: config.jwtMaxAge,
         })
     },
     verifyToken:(token)=>{
         return jwt.verify(token,config.jwtSecret)
     },
     decodeToken:(token)=>{
-        jwt.decode(token,config.jwtSecret)
+        return jwt.decode(token,config.jwtSecret)
     }
 }

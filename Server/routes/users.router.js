@@ -1,34 +1,46 @@
 const express = require('express')
 const router = express.Router()
+const {getUsers,register,login} =require('../controllers/users.controller')
 const {auth_user,auth_admin} = require('../controllers/auth.controller') // Authentication Middleware 
-const {getUsers,newUser,editUser,deleteUser,titles,badges} = require('../controllers/users.controller.js')
-const User = require('../models/user.model')
 
-/* const user = new User({
-    id:1,
-    name:'Tiago'
-}) */
 
 router.route('/')
-    .get(auth_user,getUsers)
-    .post(auth_user,newUser)
+    .post(register)
+
+        /* res.status(200).send("Successful request")
+
+        if (false){
+            res.status(401).send(`Missing Fields.The fields are ${}.`)
+        }
+
+        if (false){
+            res.status(500).send("Something went wrong.Please try again later.")
+        } */
+        
+        
+router.route('/login').get(login)
 
 router.route('/:userid')
-    .get(auth_user,getUsers)
-    .put(auth_user,editUser)
-    .delete(auth_user,deleteUser)
+    .get(auth_user,(req,res) => {
+        req.params.userid
 
-router.route('/:userid/titles')
-    .post(auth_user,titles)
+        /* if (auth_user){
+            res.status(200).send("Successful request")
+        }else{
+            res.status(206).send("Sucessful request (Partial data).")
+        }
 
-router.route('/:userid/badges')
-    .post(auth_user,badges)
+        if(false && auth_user == false){
+          res.status(401).send("Auth_key is not valid")
+        }else if(false && auth_user){
+            res.status(403).send("Request user auth_key does not match your auth_key")
+        } */
 
-/* router.route('/login')
-    .post(auth_user) */
+        
+    })
 
-router.all('*', (req, res) => {
-    res.status(404).json({ message: 'Not found' })
-})
+
+
+
 
 module.exports = router
