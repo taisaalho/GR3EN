@@ -24,7 +24,6 @@ const reqString = {
 
 
 const userSchema = mongoose.Schema({
-  _id: reqNumber,
   primeiroNome: reqString,
   ultimoNome: reqString,
   escola: reqString,
@@ -60,4 +59,4 @@ userSchema.pre('save', async (next) => {
 
 
 
-module.exports = mongoose.model('Users', userSchema)  
+module.exports = mongoose.model('users', userSchema)  

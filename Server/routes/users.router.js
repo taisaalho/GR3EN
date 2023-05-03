@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const {auth_user,auth_admin} = require('../controllers/auth.controller') // Authentication Middleware 
-const {getUsers,newUser,editUser,deleteUser,titles,badges} = require('../controllers/users.controller.js')
+const {getUsers,newUser,editUser,deleteUser,titles,badges,getPartUser} = require('../controllers/users.controller.js')
 const User = require('../models/user.model')
 
 /* const user = new User({
@@ -13,8 +13,8 @@ router.route('/')
     .get(auth_user,getUsers)
     .post(auth_user,newUser)
 
+
 router.route('/:userid')
-    .get(auth_user,getUsers)
     .put(auth_user,editUser)
     .delete(auth_user,deleteUser)
 
