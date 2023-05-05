@@ -1,5 +1,10 @@
 const mongoose = require('mongoose')
 
+const reqDate = {
+  type: Date,
+  required:true,
+  default: (Date.now) 
+}
 const reqString = {
   type: String,
   required:true,
@@ -18,11 +23,10 @@ const reqBoolean ={
 }
 
 const occurrenceSchema = mongoose.Schema({
-  idOcorrencia: reqString,
   nomeOcorrencia: reqString,
   descricaoOcorrencia: reqString,
   localOcorrencia: reqString,
-  dataOcorrencia: reqString,
+  dataOcorrencia: reqDate,
   idUser : reqNumber,
   fotoOcorrencia: reqString,
   pontosOcorrencia: {type:Number, required:true},
@@ -32,4 +36,11 @@ const occurrenceSchema = mongoose.Schema({
   
 })
 
+occurrenceSchema.pre(
+  "save", (next)=>{
+    this.dataOcorrencia = Date.now
+    console.log(this.dataOcorrencia);
+    next()
+  }
+)
 module.exports = mongoose.model('occurrences', occurrenceSchema)
