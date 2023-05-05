@@ -2,42 +2,19 @@ const express = require('express')
 const router = express.Router()
 const {getUsers,register,login} =require('../controllers/users.controller')
 const {auth_user,auth_admin} = require('../controllers/auth.controller') // Authentication Middleware 
+const {newUser,editUser,deleteUser,titles,badges} = require('../controllers/users.controller.js')
+const User = require('../models/user.model')
 
 
 router.route('/')
     .post(register)
-
-        /* res.status(200).send("Successful request")
-
-        if (false){
-            res.status(401).send(`Missing Fields.The fields are ${}.`)
-        }
-
-        if (false){
-            res.status(500).send("Something went wrong.Please try again later.")
-        } */
-        
+    .get(auth_user,getUsers)
         
 router.route('/login').get(login)
 
 router.route('/:userid')
-    .get(auth_user,(req,res) => {
-        req.params.userid
-
-        /* if (auth_user){
-            res.status(200).send("Successful request")
-        }else{
-            res.status(206).send("Sucessful request (Partial data).")
-        }
-
-        if(false && auth_user == false){
-          res.status(401).send("Auth_key is not valid")
-        }else if(false && auth_user){
-            res.status(403).send("Request user auth_key does not match your auth_key")
-        } */
-
-        
-    })
+    .put(auth_user,editUser)
+    .delete(auth_user,deleteUser)
 
 
 
