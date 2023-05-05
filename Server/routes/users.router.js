@@ -1,34 +1,34 @@
 const express = require('express')
 const router = express.Router()
+const {getUsers,register,login} =require('../controllers/users.controller')
 const {auth_user,auth_admin} = require('../controllers/auth.controller') // Authentication Middleware 
 const {getUsers,newUser,editUser,deleteUser,titles,badges,getPartUser} = require('../controllers/users.controller.js')
 const User = require('../models/user.model')
 
-/* const user = new User({
-    id:1,
-    name:'Tiago'
-}) */
 
 router.route('/')
-    .get(auth_user,getUsers)
-    .post(auth_user,newUser)
+    .post(register)
+
+        /* res.status(200).send("Successful request")
+
+        if (false){
+            res.status(401).send(`Missing Fields.The fields are ${}.`)
+        }
+
+        if (false){
+            res.status(500).send("Something went wrong.Please try again later.")
+        } */
+        
+        
+router.route('/login').get(login)
 
 
 router.route('/:userid')
     .put(auth_user,editUser)
     .delete(auth_user,deleteUser)
 
-router.route('/:userid/titles')
-    .post(auth_user,titles)
 
-router.route('/:userid/badges')
-    .post(auth_user,badges)
 
-/* router.route('/login')
-    .post(auth_user) */
 
-router.all('*', (req, res) => {
-    res.status(404).json({ message: 'Not found' })
-})
 
 module.exports = router

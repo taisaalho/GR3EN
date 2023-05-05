@@ -4,9 +4,6 @@ const User = require("./../models/user.model")
 module.exports={
     createRanking: async (req,res) => {
         
-         
-
-       
         let topUsers = await User.find()
         .sort({ pontos: -1 }).limit(10).lean()
         .then()
@@ -59,7 +56,7 @@ module.exports={
             .then((rankings) => { res.status(206).json(rankings) })
             .catch(err => res.status(400).send({error: err.message}))
         }else{
-
+            Ranking.find().then(rankings => { res.status(200).json(rankings)}).catch(err => { res.status(400).send({err: err.message})})
         }
     }
     

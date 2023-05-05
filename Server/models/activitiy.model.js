@@ -24,7 +24,6 @@ const reqBoolean = {
 
 
 const activitySchema = mongoose.Schema({
-  idAtividade:reqNumber,
   participantesAtividadeNaoExecutado: reqArray,
   participantesAtividadeExecutado: reqArray,
   nomeAtividade:reqString,
