@@ -1,7 +1,7 @@
 const express = require('express')
 const {auth_user,auth_admin} = require('../controllers/auth.controller') // Authentication Middleware 
 const router = express.Router()
-const { getActivities, createActivity, addUserToActivity, editActivity, deleteActivity,removeUserFromActivity, changeUserState } = require('./../controllers/activities.controller') 
+const { getActivities, createActivity, addUserToActivity, editActivity, deleteActivity,removeUserFromActivity, changeUserState } = require('../controllers/activities.controller') 
 
 router.route('/')
     .get(auth_admin,getActivities)

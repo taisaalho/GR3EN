@@ -31,3 +31,12 @@ app.listen(config.port, config.hostname, (error) => {
   connectToDb()
 
 })
+
+
+
+
+
+
+
+
+
