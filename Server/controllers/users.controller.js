@@ -25,7 +25,7 @@ module.exports={
                 }
             })
             .catch(err => res.status(500).send({error: err.message}))
-        },
+    },
 
     editUser: async (req,res) => {
         if (req.body.password){
@@ -118,6 +118,7 @@ module.exports={
         }).catch(err => res.status(400))
 
     },
+    
     register:async (req,res) => {
         await bcrypt.genSalt().then(
             salt => bcrypt.hash(req.body.password,salt).then( 
