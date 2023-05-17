@@ -25,7 +25,7 @@ module.exports={
             })
             .catch(err => res.status(500).send({error: err.message})) */
 
-        User.findByIdAndUpdate({_id: req.params.userid})
+       /*  User.findByIdAndUpdate({_id: req.params.userid}) */
             
     },
 
