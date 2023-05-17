@@ -1,7 +1,7 @@
 <template>
         
         <v-app-bar color="rgba(0, 115, 98, 1)">
-                <RouterLink to="/"><img class="logo" src="\src\assets\img\Logo 2.svg"></RouterLink>
+                <!-- <RouterLink to="/"><img class="logo" width="100" height="100" src="GR3EN\src\assets\img\Logo 2.svg"></RouterLink> -->
                 <RouterLink to="/activities"><v-btn variant="text" class="navBtn" color="white">Atividades</v-btn></RouterLink>
                 <v-btn @click="checkRouter" variant="text" class="navBtn" color="white">Ocorrências</v-btn>
                 <RouterLink to="/ranking"><v-btn variant="text" class="navBtn" color="white ">Ranking</v-btn></RouterLink>

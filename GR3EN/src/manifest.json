@@ -1,0 +1,90 @@
+{
+    "name": "DevGR3EN",
+    "short_name": "GR3EN",
+    "start_url": "index.html",
+    "display": "standalone",
+    "background_color": "#fdfdfd",
+    "theme_color": "#db4938",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+        "src": "/GR3EN/src/assets/img/Award 1.svg",
+        "type": "image/svg"
+      },
+      {
+        "src": "/GR3EN/src/assets/img/Award 2.svg",
+        "type": "image/svg"
+      },
+      {
+        "src": "/GR3EN/src/assets/img/Award 3.svg",
+        "type": "image/svg"
+      },
+      {
+        "src": "/GR3EN/src/assets/img/Award 4.svg",
+        "type": "image/svg"
+      },
+      {
+        "src": "/GR3EN/src/assets/img/imagemOcorrencia.svg",
+        "type": "image/svg"
+      },
+      {
+        "src": "/GR3EN/src/assets/img/imgAtividade.svg",
+        "type": "image/svg"
+      },
+      {
+        "src": "/GR3EN/src/assets/img/Logo 2.svg",
+        "type": "image/svg"
+      },
+      {
+        "src": "/GR3EN/src/assets/img/main1.svg",
+        "type": "image/svg"
+      },
+      {
+        "src": "/GR3EN/src/assets/img/main2.svg",
+        "type": "image/svg"
+      },
+      {
+        "src": "/GR3EN/src/assets/img/main3.svg",
+        "type": "image/svg"
+      },
+      {
+        "src": "/GR3EN/src/assets/img/Mask group.svg",
+        "type": "image/svg"
+      },
+      {
+        "src": "/GR3EN/src/assets/img/mountains 2.webp",
+        "type": "image/webp"
+      },
+      {
+        "src": "/GR3EN/src/assets/img/mountains.webp",
+        "type": "image/webp"
+      },
+      {
+        "src": "/GR3EN/src/assets/img/podium.svg",
+        "type": "image/svg"
+      },
+      {
+        "src": "/GR3EN/src/assets/img/podium1.svg",
+        "type": "image/svg"
+      },
+      {
+        "src": "/GR3EN/src/assets/img/podium2.svg",
+        "type": "image/svg"
+      },
+      {
+        "src": "/GR3EN/src/assets/img/podium3.svg",
+        "type": "image/svg"
+      },
+      {
+        "src": "/GR3EN/src/assets/img/projeto.jpg",
+        "type": "image/jpg"
+      },
+      {
+        "src": "/GR3EN/src/assets/img/sand.webp",
+        "type": "image/webp"
+      }
+    ]
+  }
+  
+
+  

@@ -32,7 +32,6 @@ module.exports={
                 res.status(200).json(occurrences)
             })
         }
-        console.log(Occurrence.find({'statusOcorrencia': true}))
 
         
         
@@ -47,10 +46,8 @@ module.exports={
 
     editOccurrence: (req,res) => {
                    
-        console.log(req.params.occurrenceid)
         Occurrence.findById(String(req.params.occurrenceid))
         .then(result => { 
-            console.log(result)
             if(result?.statusOcorrencia != req.body?.statusOcorrencia){
                     //addPoints(result.idUser, result.pontosOcorrencia)}
             }else{
@@ -71,7 +68,6 @@ module.exports={
     deleteOccurrence: (req,res) =>{
         Occurrence.deleteOne({_id: req.params.occurrenceid})
         .then((occurrence) => {
-            console.log(occurrence);
             if(occurrence.deletedCount){
                 res.status(204).send({msg:"Successful Delete"})
             }else{
