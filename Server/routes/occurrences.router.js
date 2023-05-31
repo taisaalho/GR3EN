@@ -9,8 +9,8 @@ router.route('/')
     
 
 router.route('/:occurrenceid')
-    .put(editOccurrence)
-    .delete(deleteOccurrence)
+    .put(auth_admin,editOccurrence)
+    .delete(auth_admin,deleteOccurrence)
 
 
 module.exports = router
