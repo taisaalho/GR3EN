@@ -58,13 +58,13 @@ export default {
                             <v-row class="buttons">
 
                                     
-                                    <RouterLink to ="/signup"><v-btn
+                                    <RouterLink to ="/users/register"><v-btn
                                         color="warning"
                                         size="large"
                                         type="submit"
                                         variant="elevated"
                                         >
-                                            Sign Up
+                                            Register
                                         </v-btn></RouterLink>
 
                             

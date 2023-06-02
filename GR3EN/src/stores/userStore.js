@@ -1,5 +1,6 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
+import axios from 'axios'
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //USERS
@@ -128,7 +129,7 @@ export const User = defineStore('user', {
     getByID : (state) => (idUser) => state.users.find(user => user.idUser == idUser)
   },
   actions: {
-    //Nome Completo
+    /* //Nome Completo
     nomeUser(){
       nome = this.users.primeiroNome + " " + this.users.ultimoNome
     },
@@ -139,7 +140,6 @@ export const User = defineStore('user', {
       localStorage.setItem('users', JSON.stringify(this.users))
 
     },
-
     ChangeUserEmail(id,email){
       let currentUser2 = this.users.find(user => user.idUser == id)
       currentUser2.email = email
@@ -154,9 +154,6 @@ export const User = defineStore('user', {
       localStorage.setItem('users', JSON.stringify(this.users))
       
     },
-
-    
-
     //Adicionar User
     addUser(primeiroNome1,ultimoNome1,email1,escola1,password1){
       this.users.push({
@@ -176,32 +173,25 @@ export const User = defineStore('user', {
       })
       localStorage.setItem('users',JSON.stringify(this.users))
     },
-    
-    
     inscricaoEcoEscolas(userId){
       this.users.find(user => user.idUser === userId).conselhoEco = true
 
       localStorage.setItem('users',JSON.stringify(this.users))
 
       localStorage.setItem('currentUser',JSON.stringify(this.users.find(user => user.idUser === userId)))
-
     },
-
-
     //Modificação do Email
     newEmail(newEmail){
       this.users.push({
         email: newEmail
       })
     },
-
     //Modifificação da Escola
     newEscola(newEscola){
       this.users.push({
         escola: newEscola
       })
     },
-
     //Modificação da Password
     newPassword(newPassword){
       this.users.push({
@@ -210,9 +200,31 @@ export const User = defineStore('user', {
     },
     resetScores(){
       this.users.forEach(user => user.ranking = 0)
-    }
+    }, */
     
 
+    //BACKEND
+    async register(primeiroNome1,ultimoNome1,email1,escola1,password1){ 
+      let data = {
+        primeiroNome : primeiroNome1,
+        ultimoNome1 : ultimoNome1,
+        email : email1,
+        escola : escola1,
+        password : password1
+      }
+
+      try{
+        const response = await axios.post('http://127.0.0.1:3000/users/register',data)
+        if (response.ok){
+          this.responseData = response.data
+        }else{
+          alert('HTTP Error: ' + response.status)
+        }
+      }catch(error){
+        console.log(error)
+        throw new Error
+      }
+    },
 
   }
 })

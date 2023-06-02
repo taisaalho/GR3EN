@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LandingPage from '../views/LandingPageView.vue'
 import SignIn from '../views/SignInView.vue'
-import SignUp from '../views/SignUpView.vue'
+import register from '../views/SignUpView.vue'
 import occurrenceReport from '../views/OccurrenceReportView.vue'
 import Profile from '../views/ProfileView.vue'
 import Ranking from '../views/RankingView.vue'
@@ -47,9 +47,10 @@ const router = createRouter({
       beforeEnter: [CheckIfLogged]
     },
     {
-      path: '/signup',
-      name: 'signup',
-      component: SignUp,
+      //Mudado para axios/back-end
+      path: '/users/register',
+      name: 'register',
+      component: register,
     },
     {
       path: '/profile',

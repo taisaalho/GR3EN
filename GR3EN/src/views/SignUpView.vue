@@ -1,5 +1,6 @@
 <script>
 import {User} from '../stores/userStore.js'
+import axios from 'axios'
 export default {
     data(){
         return{
@@ -9,7 +10,7 @@ export default {
             lastName:'',
             school:'',
             password:'',
-            date:'',
+            /* date:'', */
 
         }
     },
@@ -21,16 +22,41 @@ export default {
                 alert('Account Already Exists')
             }       
         }
-    },
-};
 
+
+    },
+    /* actions: {
+        async register(firstName,lastName,email,school,password){ 
+        let data = {
+        primeiroNome : firstName,
+        ultimoNome1 : lastName,
+        email : email,
+        escola : school,
+        password : password
+        }
+    
+      try{
+        const response = await axios.post('http://127.0.0.1:3000/users/register',data)
+        if (response.ok){
+          this.responseData = response.data
+        }else{
+          alert('HTTP Error: ' + response.status)
+        }
+      }catch(error){
+        console.log(error)
+        throw new Error
+      }
+    },
+
+    } */
+};
 </script>
 
 <template >
         <div class="sheet">
             <v-sheet color="rgba(0, 115, 98, 0.8)" class="pa-15 mx-auto my-auto rounded" width="45vw">
                 <div class="card">
-                    <h1>Sign Up</h1>
+                    <h1>Register</h1>
                     <v-card color="rgba(0, 120, 108, 0.8)" class="mx-auto px-6 py-8" >
                         <v-form v-model="form" @submit.prevent="onSubmit">
                             <v-row>
@@ -79,7 +105,7 @@ export default {
                                     ></v-text-field>
                                         
                                     
-                                    <input class="forms green" v-model="date" type="date" >
+                                    <!-- <input class="forms green" v-model="date" type="date" > -->
                                     <v-select
                                     v-model="school"
                                     class="green"
@@ -100,7 +126,7 @@ export default {
                                 type="submit"
                                 variant="elevated"
                                 class="btn1"
-                                @click="createAcc"
+                                @click="register"
                                 >
                                 Confirmar
                                 </v-btn>
