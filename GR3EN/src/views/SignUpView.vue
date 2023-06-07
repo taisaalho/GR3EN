@@ -1,6 +1,8 @@
 <script>
 import {User} from '../stores/userStore.js'
 import axios from 'axios'
+
+
 export default {
     data(){
         return{
@@ -10,48 +12,26 @@ export default {
             lastName:'',
             school:'',
             password:'',
-            /* date:'', */
-
         }
     },
     methods: {
         createAcc() {
             if (!(this.User.getUsers.find(user => user.email == this.email))){
-                this.User.addUser(this.firstName,this.lastName,this.email,this.school,this.password,this.date)
+                let newUser = this.User.register(this.firstName,this.lastName,this.email,this.school,this.password,this.date)
+                if (newUser){
+                    console.log('User created')
+                }else{
+                    console.log('User not created')
+                }
             }else{
                 alert('Account Already Exists')
-            }       
+            }    
         }
-
-
     },
-    /* actions: {
-        async register(firstName,lastName,email,school,password){ 
-        let data = {
-        primeiroNome : firstName,
-        ultimoNome1 : lastName,
-        email : email,
-        escola : school,
-        password : password
-        }
-    
-      try{
-        const response = await axios.post('http://127.0.0.1:3000/users/register',data)
-        if (response.ok){
-          this.responseData = response.data
-        }else{
-          alert('HTTP Error: ' + response.status)
-        }
-      }catch(error){
-        console.log(error)
-        throw new Error
-      }
-    },
-
-    } */
 };
-</script>
 
+
+</script>
 <template >
         <div class="sheet">
             <v-sheet color="rgba(0, 115, 98, 0.8)" class="pa-15 mx-auto my-auto rounded" width="45vw">
@@ -62,20 +42,15 @@ export default {
                             <v-row>
                                 <v-col col="6">
                                     <v-text-field
-                                    v-model="firstName"
-                                    :readonly="loading"
-                                    :rules="[required]"
+                                    :v-model="firstName"
                                     class="mb-2"
                                     clearable
                                     label="Primeiro Nome"
                                     placeholder = "Enter your email address"
-                                    
                                     ></v-text-field>
                                     
                                     <v-text-field
                                     v-model="email"
-                                    :readonly="loading"
-                                    :rules="[required]"
                                     clearable
                                     label="Email"
                                     placeholder="Enter your name"
@@ -85,8 +60,6 @@ export default {
                                     <v-text-field
                                     v-model="password"
                                     type="password"
-                                    :readonly="loading"
-                                    :rules="[required]"
                                     clearable
                                     label="Password"
                                     placeholder="Enter your password"
@@ -96,8 +69,6 @@ export default {
                                 <v-col col="6">
                                     <v-text-field
                                     v-model="lastName"
-                                    :readonly="loading"
-                                    :rules="[required]"
                                     class="mb-2"
                                     clearable
                                     label="Último Nome"
@@ -126,7 +97,7 @@ export default {
                                 type="submit"
                                 variant="elevated"
                                 class="btn1"
-                                @click="register"
+                                @click="createAcc"
                                 >
                                 Confirmar
                                 </v-btn>

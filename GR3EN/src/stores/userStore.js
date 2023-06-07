@@ -1,6 +1,8 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import axios from 'axios'
+import cors from 'cors'
+
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //USERS
@@ -20,51 +22,6 @@ if (!JSON.parse(localStorage.getItem('users'))){
     idOcorrencia: [], 
     idAtividade: [],
     conselhoEco: false,
-  },
-  {
-    idUser: 1,
-    primeiroNome: "João",
-    ultimoNome: "Pais",
-    escola: "ESHT",
-    email: "joao@gmail.com",
-    password: "123",
-    idBadge: [],
-    idTitulo: [],
-    questionario: false,
-    ranking: 10000,
-    idOcorrencia: [], 
-    idAtividade: [],
-    conselhoEco: false,
-  },
-  {
-    idUser:2,
-    primeiroNome: "Gustavo",
-    ultimoNome: "Silva",
-    escola: "ESMAD",
-    email: "gustavo@gmail.com",
-    password: "123",
-    idBadge: [],
-    idTitulo: [],
-    questionario: false,
-    ranking: 1000,
-    idOcorrencia: [], 
-    idAtividade: [],
-    conselhoEco: true,
-  },
-  {
-    idUser:3,
-    primeiroNome: "Bernardo",
-    ultimoNome: "Macedo",
-    escola: "ESMAD",
-    email: "bernardo@gmail.com",
-    password: "123",
-    idBadge: [],
-    idTitulo: [],
-    questionario: false,
-    ranking: 0,
-    idOcorrencia: [], 
-    idAtividade: [],
-    conselhoEco: true,
   },
   ]
   localStorage.setItem('users', JSON.stringify(users))
@@ -204,25 +161,34 @@ export const User = defineStore('user', {
     
 
     //BACKEND
-    async register(primeiroNome1,ultimoNome1,email1,escola1,password1){ 
+    async register(primeiroNome,ultimoNome,email,escola,password){
+      console.log("bom dia") 
       let data = {
-        primeiroNome : primeiroNome1,
-        ultimoNome1 : ultimoNome1,
-        email : email1,
-        escola : escola1,
-        password : password1
+        primeiroNome : primeiroNome,
+        ultimoNome : ultimoNome,
+        email : email,
+        escola : escola,
+        password : password
       }
 
+      const config = { 
+        'content-type': 'application/json' ,
+        "Access-Control-Allow-Headers" : '*' ,
+        "Access-Control-Allow-Origin": '*'
+      };
+     
       try{
-        const response = await axios.post('http://127.0.0.1:3000/users/register',data)
+        const response = await axios.post('http://127.0.0.1:3000/users/register',data,config);
         if (response.ok){
           this.responseData = response.data
+          return true
         }else{
           alert('HTTP Error: ' + response.status)
+          return false
         }
       }catch(error){
         console.log(error)
-        throw new Error
+        return error.message
       }
     },
 
