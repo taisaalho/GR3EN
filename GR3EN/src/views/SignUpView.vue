@@ -1,6 +1,5 @@
 <script>
 import {User} from '../stores/userStore.js'
-import axios from 'axios'
 
 
 export default {
@@ -17,6 +16,7 @@ export default {
     methods: {
         createAcc() {
             if (!(this.User.getUsers.find(user => user.email == this.email))){
+                console.log(this.firstName);
                 let newUser = this.User.register(this.firstName,this.lastName,this.email,this.school,this.password,this.date)
                 if (newUser){
                     console.log('User created')
@@ -42,7 +42,7 @@ export default {
                             <v-row>
                                 <v-col col="6">
                                     <v-text-field
-                                    :v-model="firstName"
+                                    v-model="firstName"
                                     class="mb-2"
                                     clearable
                                     label="Primeiro Nome"
@@ -99,7 +99,7 @@ export default {
                                 class="btn1"
                                 @click="createAcc"
                                 >
-                                Confirmar
+                                Confirm
                                 </v-btn>
                                 <RouterLink to ="/signin"><v-btn class="btn1"
                                     color="warning"

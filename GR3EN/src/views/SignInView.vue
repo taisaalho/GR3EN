@@ -7,20 +7,28 @@ export default {
             User:User(),
             email:'',
             password:'',
-            idUser:''
         }
     },
     
     methods: {
-        checkLogin(){
-            if(this.User.getUsers.find(user => user.email == this.email && user.password == this.password)){
+        async checkLogin(){
+            /* console.log(this.email, this.password);
+            console.log("taisa"); */
+            let Token = this.User.login(this.email,this.password)
+            Token.push(localStorage.setItem("Token",JSON.stringify(Token)))
+            
+            this.$router.push({name :'home'})
+            /* if(this.User.getUsers.find(user => user.email == this.email && user.password == this.password)){
                 this.idUser = this.User.getID(this.email)
                 localStorage.setItem('currentUser',JSON.stringify(this.User.getByID(this.idUser)))
+                User.login(this.email,this.password)
+                localStorage.setItem('token')
                 this.$router.push({name :'home'})
             }else{
-                alert('Wrong email or password')
-            }
+                alert('Wrong email or password.')
+            } */
         }
+
 
     },
 };
@@ -31,28 +39,23 @@ export default {
     <div class="sheet">
         <v-sheet color="rgba(0, 115, 98, 0.8)" class="pa-15 mx-auto my-auto" width="45vw"  rounded>
             <div class="card">
-                <h1>Sign In</h1>
+                <h1>Log In</h1>
                 <v-card color="rgba(0, 120, 108, 0.8)" class="mx-auto px-6 py-8" >
                     <v-form v-model="form" @submit.prevent="onSubmit">
                         <v-text-field
                         v-model="email"
-                        :readonly="loading"
-                        :rules="[required]"
                         class="mb-2"
-                            clearable
-                            label="Email"
-                            placeholder = "Enter your email address"
-                            ></v-text-field>
+                        clearable
+                        label="Email"
+                        placeholder = "Enter your email address"
+                        ></v-text-field>
 
-                            <v-text-field
-                            v-model="password"
-                            type="password"
-                            :readonly="loading"
-                            :rules="[required]"
-                            clearable
-                            label="Password"
-                            placeholder="Enter your password"
-                            ></v-text-field>            
+                        <v-text-field
+                        v-model="password"
+                        type="password"
+                        clearable
+                        label="Password"
+                        placeholder="Enter your password"                            ></v-text-field>            
                             
                             <br>
                             <v-row class="buttons">
@@ -69,14 +72,14 @@ export default {
 
                             
                             
-                                    <RouterLink to ="/"><v-btn class="btn1"
+                                    <RouterLink to ="/users/login"><v-btn class="btn1"
                                     color="warning"
                                     size="large"
                                     type="submit"
                                     variant="elevated"
                                     @click="checkLogin"
                                     >
-                                    Confirmar
+                                    Confirm
                                 </v-btn></RouterLink>
                             </v-row>
                     </v-form>

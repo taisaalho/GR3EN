@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LandingPage from '../views/LandingPageView.vue'
-import SignIn from '../views/SignInView.vue'
+import login from '../views/SignInView.vue'
 import register from '../views/SignUpView.vue'
 import occurrenceReport from '../views/OccurrenceReportView.vue'
 import Profile from '../views/ProfileView.vue'
@@ -36,9 +36,9 @@ const router = createRouter({
       
     },
     {
-      path: '/signin',
-      name: 'signin',
-      component: SignIn,
+      path: '/users/login',
+      name: 'login',
+      component: login,
     },
     {
       path: '/occurrenceReport',

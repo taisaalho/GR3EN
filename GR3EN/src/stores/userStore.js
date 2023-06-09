@@ -23,6 +23,18 @@ if (!JSON.parse(localStorage.getItem('users'))){
     idAtividade: [],
     conselhoEco: false,
   },
+  {
+    primeiroNome: "teste",
+    ultimoNome: "teste",
+    escola: "Superior",
+    email: "teste@",
+    password: "teste",
+    idBadge: [],
+    idTitulo: [],
+    conselhoEco: false,
+    verifierEco: false,
+    pontos: 0
+  }
   ]
   localStorage.setItem('users', JSON.stringify(users))
 }else{
@@ -161,25 +173,37 @@ export const User = defineStore('user', {
     
 
     //BACKEND
+
+    //YES
     async register(primeiroNome,ultimoNome,email,escola,password){
-      console.log("bom dia") 
+      /* console.log("bom dia")  */
       let data = {
-        primeiroNome : primeiroNome,
+        /* password : password,
         ultimoNome : ultimoNome,
         email : email,
         escola : escola,
-        password : password
+        password : password */
+
+        primeiroNome : primeiroNome,
+        password : password,
+        ultimoNome : ultimoNome,
+        escola : escola,
+        email : email,
+        password : password,
+        idBadge: [],
+        idTitulo: [],
+        conselhoEco: false,
+        verifierEco: false,
+        pontos: 0
       }
 
-      const config = { 
-        'content-type': 'application/json' ,
-        "Access-Control-Allow-Headers" : '*' ,
-        "Access-Control-Allow-Origin": '*'
-      };
-     
+      const headers = {
+        'Content-Type': 'application/json'
+      }
+
       try{
-        const response = await axios.post('http://127.0.0.1:3000/users/register',data,config);
-        if (response.ok){
+        const response = await axios.post('http://127.0.0.1:3000/users/register',data,headers);
+        if (response.statusText == "OK"){
           this.responseData = response.data
           return true
         }else{
@@ -191,6 +215,36 @@ export const User = defineStore('user', {
         return error.message
       }
     },
+
+    async login(email, password){
+      
+      let data = {
+        email:email,
+        password:password
+      }
+      console.log(data)
+      const headers = {
+        'Content-Type': 'application/json'
+      }
+
+      try{
+        console.log(data, 1);
+        const response = await axios.post('http://127.0.0.1:3000/users/login', data, headers)
+        console.log(response);
+        if(response.statusText == "OK"){
+          this.responseData = response.data
+          const token = response.data.Token;
+          console.log(token)
+          return true
+        }else{
+          alert('HTTP Error: ' + response.status)
+          return false
+        }
+      }catch(error){
+        console.error(error)
+        return false
+      }
+    }
 
   }
 })
