@@ -123,6 +123,10 @@ export const User = defineStore('user', {
       localStorage.setItem('users', JSON.stringify(this.users))
       
     },
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
     //Adicionar User
     addUser(primeiroNome1,ultimoNome1,email1,escola1,password1){
       this.users.push({
@@ -149,6 +153,10 @@ export const User = defineStore('user', {
 
       localStorage.setItem('currentUser',JSON.stringify(this.users.find(user => user.idUser === userId)))
     },
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
     //Modificação do Email
     newEmail(newEmail){
       this.users.push({
@@ -169,6 +177,7 @@ export const User = defineStore('user', {
     },
     resetScores(){
       this.users.forEach(user => user.ranking = 0)
+<<<<<<< Updated upstream
     }, */
     
 
@@ -244,6 +253,14 @@ export const User = defineStore('user', {
         console.error(error)
         return false
       }
+=======
+    },
+    
+
+    //BACKEND 
+    async register(){
+      
+>>>>>>> Stashed changes
     }
 
   }

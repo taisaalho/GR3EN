@@ -1,6 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LandingPage from '../views/LandingPageView.vue'
+<<<<<<< Updated upstream
 import login from '../views/SignInView.vue'
+=======
+import SignIn from '../views/SignInView.vue'
+>>>>>>> Stashed changes
 import register from '../views/SignUpView.vue'
 import occurrenceReport from '../views/OccurrenceReportView.vue'
 import Profile from '../views/ProfileView.vue'
@@ -47,7 +51,10 @@ const router = createRouter({
       beforeEnter: [CheckIfLogged]
     },
     {
+<<<<<<< Updated upstream
       //Mudado para axios/back-end
+=======
+>>>>>>> Stashed changes
       path: '/users/register',
       name: 'register',
       component: register,
