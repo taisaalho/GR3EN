@@ -17,9 +17,8 @@ export default {
         async checkLogin(){
             /* console.log(this.email, this.password);
             console.log("taisa"); */
-             if(this.User.login(this.email,this.password)){
-                console.log("taisa")
-                await this.$router.push({name :'home'})
+             if(await this.User.login(this.email,this.password)){
+                this.$router.push('/')
              }
         }
     },

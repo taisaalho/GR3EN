@@ -6,15 +6,15 @@ import cors from 'cors'
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //USERS
-let offset = 0
+/* let offset = 0
 
-let length = 10
+let length = 10 */
 
-let users = await axios.get('https://elegant-slug-woolens.cyclic.app//users?offset='+ offset +'&length='+ length ).data
+/* let users = await axios.get('https://elegant-slug-woolens.cyclic.app/users').data */
 
 export const User = defineStore('user', {
   state: () => ({
-    users: users
+    users: []
   }),
   
   getters: {
@@ -149,11 +149,6 @@ export const User = defineStore('user', {
     async register(primeiroNome,ultimoNome,email,escola,password){
       /* console.log("bom dia")  */
       let data = {
-        /* password : password,
-        ultimoNome : ultimoNome,
-        email : email,
-        escola : escola,
-        password : password */
         
         primeiroNome : primeiroNome,
         password : password,
@@ -194,7 +189,7 @@ export const User = defineStore('user', {
         email:email,
         password:password
       }
-      console.log(data)
+      // console.log(data)
       const headers = {
         'Content-Type': 'application/json'
       }
@@ -207,10 +202,8 @@ export const User = defineStore('user', {
           this.responseData = response.data
           localStorage.setItem("Token",response.data.Token)
           localStorage.setItem("Id",response.data.id)
-          this.$router.push('/')
+          console.log("STORE login ended OK"); 
           return true
-        }else{
-          
         }
       }catch(error){
         alert('Login failed: ' + error.response.data.error)
@@ -218,29 +211,31 @@ export const User = defineStore('user', {
       }
     },
     
-    inscricaoEcoEscolas(Id){
+    async inscricaoEcoEscolas(currentUser){
+      console.log(this.users) 
       let data = {
-        conselhoEco : true
+        currentUser: currentUser
       }
 
       let headers = {
         'Content-Type': 'application/json',
-        userId : Id
+        'Authorization': 'Bearer ' + localStorage.getItem('Token')
       }
 
       try{
-        const response = await axios.put('https://elegant-slug-woolens.cyclic.app/' + Id, data, headers)
-        if (dlkDM)
+        const response = await axios.put('https://elegant-slug-woolens.cyclic.app//' + currentUser, data, headers)
+
+        console.log(currentUser.conselhoEco)
+
+        if (currentUser.conselhoEco == false){
+          this.currentUser.conselhoEco = true
+          this.responseData = response.data
+          return true
+        }
       }catch{
-
+        alert('You already are apart of the Council!')
+        return false
       }
-
-
-
-
-      this.users.find(user => user._id === userId).conselhoEco = true
-      
-      localStorage.setItem('currentUser',JSON.stringify(this.users.find(user => user.idUser === userId)))
     },
 
   }

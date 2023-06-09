@@ -14,15 +14,21 @@ export default {
         'mdi-twitter',
         'mdi-linkedin',
         'mdi-instagram',],
-        currentUser: localStorage.getItem('Token') || 'null'
+        currentUser: localStorage.getItem('Id') || 'null'
+        
     }), 
     methods: {
         inscricaoEco(){
+            /* console.log(localStorage.getItem('Id')) */
+            /* console.log(currentUser)
+            console.log('hi')*/
+            this.User.inscricaoEcoEscolas(localStorage.getItem('Id')) 
             
-            this.User.inscricaoEcoEscolas(this.currentUser.idUser)
-            this.currentUser = localStorage.getItem('Id')
-            this.$router.go()
         }
+    
+    },
+    mounted(){
+        
     }
 };
 
