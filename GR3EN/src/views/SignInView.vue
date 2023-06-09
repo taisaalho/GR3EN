@@ -1,5 +1,8 @@
 <script>
 import {User} from '../stores/userStore.js'
+
+
+
 export default {
     data() {
         return {
@@ -14,22 +17,11 @@ export default {
         async checkLogin(){
             /* console.log(this.email, this.password);
             console.log("taisa"); */
-            let Token = this.User.login(this.email,this.password)
-            Token.push(localStorage.setItem("Token",JSON.stringify(Token)))
-            
-            this.$router.push({name :'home'})
-            /* if(this.User.getUsers.find(user => user.email == this.email && user.password == this.password)){
-                this.idUser = this.User.getID(this.email)
-                localStorage.setItem('currentUser',JSON.stringify(this.User.getByID(this.idUser)))
-                User.login(this.email,this.password)
-                localStorage.setItem('token')
-                this.$router.push({name :'home'})
-            }else{
-                alert('Wrong email or password.')
-            } */
+             if(this.User.login(this.email,this.password)){
+                console.log("taisa")
+                await this.$router.push({name :'home'})
+             }
         }
-
-
     },
 };
 

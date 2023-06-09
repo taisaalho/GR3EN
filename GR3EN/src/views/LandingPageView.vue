@@ -14,13 +14,13 @@ export default {
         'mdi-twitter',
         'mdi-linkedin',
         'mdi-instagram',],
-        currentUser: JSON.parse(localStorage.getItem('currentUser')) || 'null'
+        currentUser: localStorage.getItem('Token') || 'null'
     }), 
     methods: {
         inscricaoEco(){
             
             this.User.inscricaoEcoEscolas(this.currentUser.idUser)
-            this.currentUser = JSON.parse(localStorage.getItem('currentUser')) 
+            this.currentUser = localStorage.getItem('Id')
             this.$router.go()
         }
     }

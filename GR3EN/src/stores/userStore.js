@@ -6,40 +6,11 @@ import cors from 'cors'
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //USERS
-let users 
-if (!JSON.parse(localStorage.getItem('users'))){
-  users = [{
-    idUser: 0,
-    primeiroNome: "Taísa",
-    ultimoNome: "Alho",
-    escola: "ESMAD",
-    email: "taisaalho@gmail.com",
-    password: "123",
-    idBadge: [],
-    idTitulo: [],
-    questionario: false,
-    ranking: 1500,
-    idOcorrencia: [], 
-    idAtividade: [],
-    conselhoEco: false,
-  },
-  {
-    primeiroNome: "teste",
-    ultimoNome: "teste",
-    escola: "Superior",
-    email: "teste@",
-    password: "teste",
-    idBadge: [],
-    idTitulo: [],
-    conselhoEco: false,
-    verifierEco: false,
-    pontos: 0
-  }
-  ]
-  localStorage.setItem('users', JSON.stringify(users))
-}else{
-  users = JSON.parse(localStorage.getItem('users'))
-}
+let offset = 0
+
+let length = 10
+
+let users = await axios.get('https://elegant-slug-woolens.cyclic.app//users?offset='+ offset +'&length='+ length ).data
 
 export const User = defineStore('user', {
   state: () => ({
@@ -107,7 +78,7 @@ export const User = defineStore('user', {
       currentUser.password=password
       localStorage.setItem('currentUser', JSON.stringify(currentUser))
       localStorage.setItem('users', JSON.stringify(this.users))
-
+      
     },
     ChangeUserEmail(id,email){
       let currentUser2 = this.users.find(user => user.idUser == id)
@@ -144,9 +115,9 @@ export const User = defineStore('user', {
     },
     inscricaoEcoEscolas(userId){
       this.users.find(user => user.idUser === userId).conselhoEco = true
-
+      
       localStorage.setItem('users',JSON.stringify(this.users))
-
+      
       localStorage.setItem('currentUser',JSON.stringify(this.users.find(user => user.idUser === userId)))
     },
     //Modificação do Email
@@ -171,9 +142,9 @@ export const User = defineStore('user', {
       this.users.forEach(user => user.ranking = 0)
     }, */
     
-
+    
     //BACKEND
-
+    
     //YES
     async register(primeiroNome,ultimoNome,email,escola,password){
       /* console.log("bom dia")  */
@@ -183,7 +154,7 @@ export const User = defineStore('user', {
         email : email,
         escola : escola,
         password : password */
-
+        
         primeiroNome : primeiroNome,
         password : password,
         ultimoNome : ultimoNome,
@@ -200,22 +171,22 @@ export const User = defineStore('user', {
       const headers = {
         'Content-Type': 'application/json'
       }
-
+      
       try{
-        const response = await axios.post('http://127.0.0.1:3000/users/register',data,headers);
-        if (response.statusText == "OK"){
+        const response = await axios.post('https://elegant-slug-woolens.cyclic.app//users',data,headers);
+        if (response.status == 201){
           this.responseData = response.data
+          localStorage.setItem("Token", response.data.Token)
           return true
-        }else{
-          alert('HTTP Error: ' + response.status)
-          return false
         }
       }catch(error){
-        console.log(error)
-        return error.message
+        alert('Register failed: ' + error.response.data.error)
+        return false
       }
-    },
 
+      
+    },
+    
     //YES
     async login(email, password){
       
@@ -227,27 +198,50 @@ export const User = defineStore('user', {
       const headers = {
         'Content-Type': 'application/json'
       }
-
+      
       try{
-        console.log(data, 1);
-        const response = await axios.post('http://127.0.0.1:3000/users/login', data, headers)
-        console.log(response);
-        if(response.statusText == "OK"){
+        
+        const response = await axios.post('https://elegant-slug-woolens.cyclic.app//users/login', data, headers)
+        
+        if(response.status == 200){
           this.responseData = response.data
-          const token = response.data.Token;
-          console.log(token)
+          localStorage.setItem("Token",response.data.Token)
+          localStorage.setItem("Id",response.data.id)
+          this.$router.push('/')
           return true
         }else{
-          alert('HTTP Error: ' + response.status)
-          return false
+          
         }
       }catch(error){
-        console.error(error)
+        alert('Login failed: ' + error.response.data.error)
         return false
       }
     },
+    
+    inscricaoEcoEscolas(Id){
+      let data = {
+        conselhoEco : true
+      }
 
-    async
+      let headers = {
+        'Content-Type': 'application/json',
+        userId : Id
+      }
+
+      try{
+        const response = await axios.put('https://elegant-slug-woolens.cyclic.app/' + Id, data, headers)
+        if (dlkDM)
+      }catch{
+
+      }
+
+
+
+
+      this.users.find(user => user._id === userId).conselhoEco = true
+      
+      localStorage.setItem('currentUser',JSON.stringify(this.users.find(user => user.idUser === userId)))
+    },
 
   }
 })

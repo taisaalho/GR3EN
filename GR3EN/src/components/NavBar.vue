@@ -22,7 +22,7 @@
     export default {
         data() {
             return {
-                currentUser: JSON.parse(localStorage.getItem('currentUser'))
+                currentUser: localStorage.getItem('Token')
             }
         },
 

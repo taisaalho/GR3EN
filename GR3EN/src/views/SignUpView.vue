@@ -52,6 +52,7 @@ export default {
                                     <v-text-field
                                     v-model="email"
                                     clearable
+                                    type="email"
                                     label="Email"
                                     placeholder="Enter your name"
                                     class=""
@@ -77,13 +78,13 @@ export default {
                                         
                                     
                                     <!-- <input class="forms green" v-model="date" type="date" > -->
-                                    <v-select
+                                    <v-text-field
                                     v-model="school"
-                                    class="green"
-                                    label="Select"
-                                    :items="['Primário', 'Secundário', 'Superior']"
-                                    variant="solo"
-                                    ></v-select> 
+                                    class="mb-2"
+                                    clearable
+                                    label="School"
+                                    placeholder = "Your school."
+                                    ></v-text-field> 
                                 </v-col>
                             </v-row>
                             
@@ -101,7 +102,7 @@ export default {
                                 >
                                 Confirm
                                 </v-btn>
-                                <RouterLink to ="/signin"><v-btn class="btn1"
+                                <RouterLink to ="/users/login"><v-btn class="btn1"
                                     color="warning"
                                     size="large"
                                     type="submit"
