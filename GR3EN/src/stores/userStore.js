@@ -144,6 +144,22 @@ export const User = defineStore('user', {
     
     
     //BACKEND
+
+    //USERS
+    async Users(){
+      try {
+        const response = await axios.get('https://elegant-slug-woolens.cyclic.app//users');
+        if (response.ok) {
+          this.responseData = response.data
+          this.users = result.message
+        }
+        else
+          alert("HTTP error: " + response.status)
+      }catch{
+        alert("Couldn't get all Users." + error.response.data.error)
+        return false
+      }
+    }, 
     
     //YES
     async register(primeiroNome,ultimoNome,email,escola,password){
@@ -212,6 +228,10 @@ export const User = defineStore('user', {
     },
     
     async inscricaoEcoEscolas(currentUser){
+      /* this.Users().find(user => user.id === currentUser) */
+      console(this.Users().find(user => user._id === currentUser))
+
+
       console.log(this.users) 
       let data = {
         currentUser: currentUser

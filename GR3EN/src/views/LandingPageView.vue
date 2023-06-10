@@ -20,8 +20,8 @@ export default {
     methods: {
         inscricaoEco(){
             /* console.log(localStorage.getItem('Id')) */
-            /* console.log(currentUser)
-            console.log('hi')*/
+            /* console.log(currentUser)*/
+            console.log('hi')
             this.User.inscricaoEcoEscolas(localStorage.getItem('Id')) 
             
         }
