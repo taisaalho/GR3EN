@@ -1,4 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import axios from 'axios'
+
+
+
 import LandingPage from '../views/LandingPageView.vue'
 import SignIn from '../views/SignInView.vue'
 import SignUp from '../views/SignUpView.vue'
@@ -14,15 +18,44 @@ import Ocurrences from '../views/Admin/OcurrencesView.vue'
 
 //Validation Functions
 
-function CheckIfAdmin() {
-  if(!JSON.parse(localStorage.getItem('currentUser')).conselhoEco){
+async function CheckIfAdmin() {
+  const res = await tokenChecker()
+  
+  if(res.data.conselhoEco == true){
+    return true
+  }else{
     return '/'
   }
+ 
 }
 
-function CheckIfLogged(){
-  if(!localStorage.getItem('currentUser')){
+async function CheckIfLogged(){
+  if(tokenChecker()){
+    return true
+  }else{
     return '/'
+  }
+
+}
+
+async function tokenChecker(){
+  if(!localStorage.getItem('Token')){
+    return false
+  }
+
+  try {
+    console.log(localStorage.getItem('Token'))
+
+    const res = await axios.get('https://elegant-slug-woolens.cyclic.app/users/user-profile',{
+      headers:{
+        Authorization: 'Bearer ' + localStorage.getItem('Token')
+      }  
+    })
+
+    return res
+    
+  } catch (error) {
+    return false 
   }
 }
 
@@ -77,13 +110,13 @@ const router = createRouter({
       path: '/ocurrence/:id',
       name: 'ocurrence',
       component:Ocurrence ,
-      beforeEnter: [CheckIfLogged,CheckIfAdmin]
+      beforeEnter: [CheckIfAdmin]
     },
     {
-      path: '/ocurrences/',
+      path: '/ocurrences',
       name: 'ocurrences',
       component:Ocurrences ,
-      beforeEnter: [CheckIfLogged,CheckIfAdmin]
+      beforeEnter: [CheckIfAdmin]
     },
 
 
