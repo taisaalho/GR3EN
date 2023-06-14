@@ -1,4 +1,7 @@
+import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
+import axios from 'axios'
+import cors from 'cors'
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //OCORRÊNCIAS
@@ -90,7 +93,7 @@ export const Ocorrencia = defineStore('ocorrencia',{
   },
 
   actions: {
-    addOcorrencia(nome,desc,local,idUser,foto,categoria){
+  /*   addOcorrencia(nome,desc,local,idUser,foto,categoria){
         this.ocorrencias.push({
             idOcorrencia: this.ocorrencias[this.ocorrencias.length - 1].idOcorrencia +   1 ,
             nomeOcorrencia: nome,
@@ -114,7 +117,37 @@ export const Ocorrencia = defineStore('ocorrencia',{
 
       localStorage.setItem('ocorrencias',JSON.stringify(this.ocorrencias))
     }
-
+ */
+  //BACKEND
+  
+  async addOcorrencia(nomeOcorrencia,descricaoOcorrencia,localOcorrencia,fotoOcorrencia,categoriaOcorrencia){
+    const data ={
+      nomeOcorrencia: nomeOcorrencia,
+      descricaoOcorrencia: descricaoOcorrencia,
+      localOcorrencia: localOcorrencia,
+      dataOcorrencia: new Date(),
+      fotoOcorrencia: fotoOcorrencia,
+      pontosOcorrencia:10,
+      categoriaOcorrencia: categoriaOcorrencia,
+      statusOcorrencia:false ,
     
+    }
+    
+    const headers = {
+      'Content-Type': 'application/json',
+       Authorization: 'Bearer ' + localStorage.getItem('Token')
+    }
+    const config = { 
+      'content-type': 'application/json' ,
+      "Access-Control-Allow-Headers" : '*' ,
+      "Access-Control-Allow-Origin": '*'
+    };
+    try{
+      const response = await axios.post('https://elegant-slug-woolens.cyclic.app//occurrenceReport',headers,data);
+      return response
+    }catch(error){
+      return false
+    }
+
   },
-})
+  }})
