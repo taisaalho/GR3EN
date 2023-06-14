@@ -1,5 +1,7 @@
 <script>
 import {User} from '../stores/userStore.js'
+
+
 export default {
     data(){
         return{
@@ -9,48 +11,48 @@ export default {
             lastName:'',
             school:'',
             password:'',
-            date:'',
-
         }
     },
     methods: {
         createAcc() {
             if (!(this.User.getUsers.find(user => user.email == this.email))){
-                this.User.addUser(this.firstName,this.lastName,this.email,this.school,this.password,this.date)
+                console.log(this.firstName);
+                let newUser = this.User.register(this.firstName,this.lastName,this.email,this.school,this.password,this.date)
+                if (newUser){
+                    console.log('User created')
+                }else{
+                    console.log('User not created')
+                }
             }else{
                 alert('Account Already Exists')
-            }       
+            }    
         }
     },
 };
 
-</script>
 
+</script>
 <template >
         <div class="sheet">
             <v-sheet color="rgba(0, 115, 98, 0.8)" class="pa-15 mx-auto my-auto rounded" width="45vw">
                 <div class="card">
-                    <h1>Sign Up</h1>
+                    <h1>Register</h1>
                     <v-card color="rgba(0, 120, 108, 0.8)" class="mx-auto px-6 py-8" >
                         <v-form v-model="form" @submit.prevent="onSubmit">
                             <v-row>
                                 <v-col col="6">
                                     <v-text-field
                                     v-model="firstName"
-                                    :readonly="loading"
-                                    :rules="[required]"
                                     class="mb-2"
                                     clearable
                                     label="Primeiro Nome"
                                     placeholder = "Enter your email address"
-                                    
                                     ></v-text-field>
                                     
                                     <v-text-field
                                     v-model="email"
-                                    :readonly="loading"
-                                    :rules="[required]"
                                     clearable
+                                    type="email"
                                     label="Email"
                                     placeholder="Enter your name"
                                     class=""
@@ -59,8 +61,6 @@ export default {
                                     <v-text-field
                                     v-model="password"
                                     type="password"
-                                    :readonly="loading"
-                                    :rules="[required]"
                                     clearable
                                     label="Password"
                                     placeholder="Enter your password"
@@ -70,8 +70,6 @@ export default {
                                 <v-col col="6">
                                     <v-text-field
                                     v-model="lastName"
-                                    :readonly="loading"
-                                    :rules="[required]"
                                     class="mb-2"
                                     clearable
                                     label="Último Nome"
@@ -79,14 +77,14 @@ export default {
                                     ></v-text-field>
                                         
                                     
-                                    <input class="forms green" v-model="date" type="date" >
-                                    <v-select
+                                    <!-- <input class="forms green" v-model="date" type="date" > -->
+                                    <v-text-field
                                     v-model="school"
-                                    class="green"
-                                    label="Select"
-                                    :items="['Primário', 'Secundário', 'Superior']"
-                                    variant="solo"
-                                    ></v-select> 
+                                    class="mb-2"
+                                    clearable
+                                    label="School"
+                                    placeholder = "Your school."
+                                    ></v-text-field> 
                                 </v-col>
                             </v-row>
                             
@@ -102,9 +100,9 @@ export default {
                                 class="btn1"
                                 @click="createAcc"
                                 >
-                                Confirmar
+                                Confirm
                                 </v-btn>
-                                <RouterLink to ="/signin"><v-btn class="btn1"
+                                <RouterLink to ="/users/login"><v-btn class="btn1"
                                     color="warning"
                                     size="large"
                                     type="submit"
