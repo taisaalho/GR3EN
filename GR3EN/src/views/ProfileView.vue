@@ -2,146 +2,96 @@
     <v-app >
         
             
-            <NavBar/>
+    <NavBar/>
             
-            <v-main>
-                <v-container>
+    <v-main>
+        <v-sheet class="background" color="rgba(0, 115, 98, 0.8)">
+            <v-row>
 
-                    <v-sheet class="background" color="rgba(0, 115, 98, 0.8)">
-                        <v-row>
-
-                            <v-avatar id="pfp" image="..\src\assets\img\Elise.svg" size="300"></v-avatar>
-                        </v-row>
-                        <v-row>
-                            <h1 class="userName">{{currentUser.primeiroNome}} {{currentUser.ultimoNome}}</h1>
-                        </v-row>
-                        <v-row>
-                            <v-divider class="dividersHor"></v-divider>
-                            <v-tabs class="tabs"
-                            v-model="tab"
-                            color="white"
-                            align-tabs="center"
-                            > 
-                            <v-tab :value="1" @click="checkAtividade">Atividades</v-tab>
-                            <v-tab :value="2" @click="checkOcc">Ocorrências</v-tab>
-                            <v-tab :value="3">Info</v-tab>
-                            <v-tab :value="4" @click="checkBadges">Conquistas</v-tab>
-                            </v-tabs>
-                            <v-divider class="dividersHor"></v-divider>
-                        </v-row>
-                        <v-row>
-                            
-                                <v-window v-model="tab">
-                                    <v-window-item
-                                    :key="1"
-                                    :value="1">
-                                    <div class="scroll">
-
-                                        <v-row v-for="activity in userFeedAt" class="flex" >
-                                            <v-divider></v-divider>
-
-                                            <v-col class="leftTitles" col="4">
-                                                
-                                                <v-img  width="200" :src="activity.imagemAtividade"></v-img>
-                                            </v-col>
-                                            <v-col class="verBtn" col="2">
-                                                <p>{{activity.nomeAtividade}}</p>
-                                                <p>{{activity.dataHoraAtividade}}</p>
-                                                
-                                            </v-col>
-                                            
-                                                
-                                            
-                                        </v-row> 
-                                    </div>
-                                </v-window-item>
-                                
-                                <v-window-item
-                                :key="2"
-                                :value="2">
-                                    <div class="scroll">
-
-                                        <v-row v-for="occurrence in userFeed" class="flex" >
-                                            <v-divider></v-divider>
-
-                                            <v-col class="leftTitles" col="4">
-                                                
-                                                <v-img  width="200" :src="occurrence.fotoOcorrencia"></v-img>
-                                            </v-col>
-                                            <v-col class="verBtn" col="2">
-                                                <p>{{occurrence.nomeOcorrencia}}</p>
-                                                <p>{{occurrence.dataHoraOcorrencia}}</p>
-                                                
-                                            </v-col>
-                                            
-                                        </v-row> 
-                                    </div>
-                                    
-                                    
-                                </v-window-item>
-                    
-                                <v-window-item
-                                :key="3"
-                                :value="3">
-                                <v-row class="tabWindow">
-                                    <h1 class="tabsTitles">Questionário</h1>
-                                    
-                                    <v-divider class="dividersVer" vertical></v-divider>
-                                    <a href="https://docs.google.com/forms/d/e/1FAIpQLScWbU2S4SZAoyH25BrU0SXLisDfWPFnr-IDyP7dH5FB3_KBBA/viewform?usp=sf_link"><v-btn size="x-large"  id="registerButton">Fazer</v-btn></a>
-                                </v-row>
-                                <v-row class="tabWindow">
-                                    <h1 class="tabsTitles">Crachás</h1>
-                                    
-                                    <v-divider class="dividersVer" vertical></v-divider>
-                                </v-row>
-                                <v-row class="tabWindow">
-                                    
-                                    
-
-                                        <h1 id="infoAtt" class="tabsTitles">Info</h1>   
-                                    
-                                    <v-divider class="dividersVer" vertical></v-divider>
-                                    
-                                    
-                                    <div class="changeInfo">
-                                        <v-row>
-                                            <v-text-field label="Email" variant="solo" v-model="emailChange"></v-text-field>
-                                            <v-btn class="attBtn" color="warning" size="x-large" @click="User.ChangeUserEmail(this.currentUser.idUser,this.emailChange)">Atualizar</v-btn>
-                                        </v-row>
-                                        
-                                        <v-row>
-                                            <v-text-field label="Palavra-Passe" variant="solo" v-model="passwordChange"></v-text-field>
-                                            <v-btn class="attBtn" color="warning" size="x-large" @click="User.ChangeUserPassword(this.currentUser.idUser,this.passwordChange)">Atualizar</v-btn>
-                                        </v-row>
-                                    </div>
-                                </v-row>
-                                </v-window-item>
-                                
-                                <v-window-item
-                                :key="4"
-                                :value="4">
-                                <div class="scroll">
-                                    
-                                        <v-row v-for="badge in badgeList">
-                                            <v-divider></v-divider>
-                                            <v-col  class="leftTitles" col="4">
-                                                <v-img  width="200" :src="this.Badge.getByID(badge).imagemBadge"></v-img>
-                                            </v-col>
-                                            <v-col>
-                                                
-                                                <div class="verBtn" col="2">
-                                                    <p>{{this.Badge.getByID(badge).nomeBadge}}</p>
-                                                    <p>{{this.Badge.getByID(badge).descBadge}}</p>
-                                                </div>
-                                            </v-col>
-                                        </v-row> 
-                                </div>
-                                </v-window-item>
-                            </v-window>
-                        </v-row>
-                    </v-sheet>
+            <v-avatar id="pfp" image="..\src\assets\img\Elise.svg" size="300"></v-avatar>
+            </v-row>
+            <v-row>
+            <h1 class="userName">{{currentUser.primeiroNome}} {{currentUser.ultimoNome}}</h1>
+            </v-row>
+            <v-row>
+            <v-container>
+                <h3 class="">Pontos : {{currentUser.pontos}} </h3>
+                <h3 class="">Escola : {{currentUser.escola}} </h3>
+            </v-container>
+            </v-row>
+            <v-row>
+               <v-container>
+                    <h1>Badges</h1>
+                
+                    <div  v-for="badge in userBadges" :key="badge._id">
+                        {{ badge }}
+                    </div>
                 </v-container>
-            </v-main>
+            </v-row>
+            <v-row>
+               <v-container>
+                    <h1>Titles</h1>
+                
+                    <div  v-for="title in userTitles" :key="title._id">
+                        {{ title }}
+                    </div>
+                </v-container>
+            </v-row>
+            <v-row>
+                <v-container>
+                    <h1>Activities</h1>
+                    <div  v-for="atividade in atividades_do_user" :key="atividade._id">
+                        {{ atividade.nomeAtividade }}
+                        {{ atividade.fotoAtividade }}
+                    </div>
+                    
+                    
+                </v-container>
+            </v-row>
+            <v-row>
+                <v-container>
+                    <h1>Occurrences</h1>
+                    <div  v-for="ocorrencia in ocorrencias_do_user" :key="ocorrencia._id">
+                        {{ ocorrencia.nomeOcorrencia }}
+                        {{ ocorrencia.fotoOcorrencia }}
+                        Estado:
+                        <span v-if="ocorrencia.statusOcorrencia">Verificada</span>
+                        <span v-else>Não Verificada</span>
+                    </div>
+                    
+                    
+               </v-container>
+            </v-row>
+            <v-row>
+               <v-container>
+                    <h1>Change Profile</h1>
+                    <v-btn v-if="!MudarPerfil" @click="MudarPerfil = !MudarPerfil">Mudar Perfil</v-btn>
+                    <v-form  @submit.prevent="changeProfile()" v-if="MudarPerfil">
+                        <v-text-field v-model="EditUserForm.Primeiro_Nome" label="Primeiro Nome" ></v-text-field>
+                        <v-text-field v-model="EditUserForm.Ultimo_Nome" label="Ultimo Nome"></v-text-field>
+                        <v-text-field v-model="EditUserForm.Escola" label="Escola"></v-text-field>
+                        <v-checkbox @click="changePassword = !changePassword" label="Mudar Password"></v-checkbox>
+                        <div v-if="changePassword">
+                            <v-text-field  v-model="EditUserForm.Password" type="password" label="Password"></v-text-field>
+                            <v-text-field  v-model="EditUserForm.Password_Confirm" type="password" label="Confirm Password"></v-text-field>
+                        </div>
+
+                       <v-btn type="submit" color="green">Mudar</v-btn>
+                       <v-btn @click="MudarPerfil = !MudarPerfil" color="red">x</v-btn>
+                    </v-form>
+               </v-container>
+            </v-row>
+            <v-alert
+                v-model="alert"
+                border="start"
+               
+                closable
+                close-label="Close Alert"
+                :type="alertType"
+                title="Closable Alert"
+                >{{ alertText }}</v-alert>
+        </v-sheet>
+        </v-main>
     </v-app>
             
 </template>
@@ -152,6 +102,7 @@
     import {Ocorrencia} from '../stores/ocorrenciasStore.js'
     import {Badge} from '../stores/badgesStore.js'
     import NavBar from '../components/NavBar.vue'
+    import axios from 'axios'
     
     export default {
         
@@ -161,121 +112,122 @@
         data() {
             return {
                 User: User(),
-                currentUser: JSON.parse(localStorage.getItem('currentUser')),
-                tab:null,
                 atividadesStore : Atividade(),
                 ocorrenciasStore : Ocorrencia(),
                 Badge : Badge(),
-                userFeed:[],
-                userFeedAt:[],
-                badgeList:[],
-                
+                currentUser: Object,
+                userBadges:Array,
+                userTitles:Array,
+                atividades_do_user:Array,
+                ocorrencias_do_user:Array,
+                changePassword:false,
+                MudarPerfil:false,
+                alert:false,
+                alertText:'',
+                alertType:'error',
+                EditUserForm:
+                {
+                    Primeiro_Nome:'',
+                    Ultimo_Nome:'',
+                    Escola:'',
+                    Password:'',
+                    Password_Confirm:'',
+                }
             }   
         },
         computed: {
             
             
         },
-        created () {
-            this.badgesStore = this.Badge.getBadges
-        },
-        methods: {
-            
-            checkBadges(){
-                
-                this.badgeList = this.User.getByID(this.currentUser.idUser).idBadge
-                
-                if ((this.User.getByID(this.currentUser.idUser).idAtividade).length == 1){
-                    if ((this.User.getByID(this.currentUser.idUser).idBadge.find(badge => badge == 3)) == undefined){
-                         this.User.attBadges(this.currentUser.idUser, 3)
-                         badgeList = this.User.getByID(this.currentUser.idUser).idBadge
-                         console.log(badgeList) 
-                    }
-                }   
-                if (((this.User.getByID(this.currentUser.idUser).idAtividade).length) == 5){
-                    if ((this.User.getByID(this.currentUser.idUser).idBadge.find(badge => badge == 2)) == undefined){
-                         this.User.attBadges(this.currentUser.idUser, 2)
-                         badgeList = this.User.getByID(this.currentUser.idUser).idBadge
-                         console.log(badgeList) 
-                    }
-                }   
-                if (((this.User.getByID(this.currentUser.idUser).idOcorrencia).length) == 5){
-                    if ((this.User.getByID(this.currentUser.idUser).idBadge.find(badge => badge == 0)) == undefined){
-                         this.User.attBadges(this.currentUser.idUser, 0)
-                         badgeList = this.User.getByID(this.currentUser.idUser).idBadge
-                         console.log(badgeList) 
-                    }
-                }   
-                        
-                        
-                if(this.User.getByID(this.currentUser.idUser).ranking >=1000){
-                    if ((this.User.getByID(this.currentUser.idUser).idBadge.find(badge => badge == 1)) == undefined){
-                         this.User.attBadges(this.currentUser.idUser, 1)
-                         badgeList = this.User.getByID(this.currentUser.idUser).idBadge
-                         console.log(badgeList) 
-                    }
-                        
-                        
-                }   
-            },
+         async created() {
 
-            badgeOcc(){
-                
-                if (length((this.User.getByID(this.currentUser).idOcorrencia)) == 5){
-                    (this.User.getByID(this.currentUser)).idBadge.push(1)
-                    this.currentUser.idBadge.push(1)
-                    
-                    
-                }
-            },
-            
-            badgeAtt(n){
-                let x
-                if (length((this.User.getByID(this.currentUser).idAtividade)) == n){
-                    if (n == 1){
-                        x=3
-                    }else if (n == 5){
-                        x=2
-                    }
-                    
-                    (this.User.getByID(this.currentUser)).idBadge.push(x)
-                    this.currentUser.idBadge.push(x)
-                }
-            },
-            
-            badgePoints(){
-                if(this.User.getByID(this.currentUser).ranking ==1000){
-                    (this.User.getByID(this.currentUser)).idBadge.push(1)
-                    this.currentUser.idBadge.push(1)
-                    
-                }
+            try {
+                let res = await axios.get('https://elegant-slug-woolens.cyclic.app/users/user-profile',{
+                    headers:{
+                        Authorization: 'Bearer ' + localStorage.getItem('Token')
+                    }}) 
 
+                this.currentUser = res.data
+                
+                this.EditUserForm.Primeiro_Nome = res.data.primeiroNome
+                this.EditUserForm.Ultimo_Nome = res.data.ultimoNome
+                this.EditUserForm.Escola = res.data.escola
+               
+
+                
+                let badgeStr = ''
+
+                this.currentUser.idBadge.forEach(idBadge => badgeStr = badgeStr + idBadge + ',')
+                
+                badgeStr = badgeStr.slice(0, badgeStr.length - 1)
+                
+                res = await axios.get('https://elegant-slug-woolens.cyclic.app/badges?badges=' + badgeStr)
+                this.userBadges = res.data
+                
+                let titleStr = ''
+                
+                this.currentUser.idTitulo.forEach(idBadge => badgeStr = badgeStr + idBadge + ',')
+                
+                titleStr = titleStr.slice(0, titleStr.length - 1)
+                
+                res = await axios.get('https://elegant-slug-woolens.cyclic.app/titles?titles=' + titleStr)
+                this.userTitles = res.data
+                
+                res = await axios.get('https://elegant-slug-woolens.cyclic.app/activities?userid=' + this.currentUser._id)
+                this.atividades_do_user = res.data
+                
+                res = await axios.get('https://elegant-slug-woolens.cyclic.app/occurrences?userid=' + this.currentUser._id)
+                this.ocorrencias_do_user = res.data
+
+            } catch (error) {
+                
             }
 
+    
 
-
-            ,
-            checkOcc() {
-                this.userFeed = []
-                console.log(this.userFeed); 
-                let occurrenceArray = this.ocorrenciasStore.getOcorrencias
-                
-                for (let occurrence of occurrenceArray) {
-                    if(this.currentUser.idUser == occurrence.idUser) this.userFeed.push(occurrence)
+          
+         
+        },
+        methods: {
+            async changeProfile(){
+                const data = {
+                    primeiroNome:this.EditUserForm.Primeiro_Nome,
+                    ultimoNome:this.EditUserForm.Ultimo_Nome,
+                    escola:this.EditUserForm.Escola,
                 }
-            },
 
-            checkAtividade(){
-                this.userFeedAt = []
-                let activityArray = this.atividadesStore.getAtividade
 
-                for (let activity of activityArray){
-                    if(this.currentUser.idUser == activity.idUser) this.userFeedAt.push(activity)
+                if(this.changePassword){
+                    if(this.EditUserForm.Password != this.EditUserForm.Password_Confirm){
+                        this.alert = true
+                        this.alertType = 'error'
+                        this.alertText = 'Passwords do not match.'
+                        return
+                    }else{
+                        data.password = this.EditUserForm.Password
+                    }
                 }
-            },
+              
+                try {
+                    let res = await axios.put('https://elegant-slug-woolens.cyclic.app/users/user-profile', data , {
+                    headers: {
+                        'Authorization': 'Bearer '+ localStorage.getItem('Token'),
+                        'Content-Type': 'application/json'
+                    }})
+                    this.alertType = 'success'
+                    this.alertText = res.data.message
+                    this.alert = true
+                    location.reload()
+                } catch (error) {
+
+                    console.log(error.response)
+                    this.alertType = 'error'
+                    this.alertText = error.response.data
+                    this.alert = true
+                }
             
-
-
+            }
+            
 
         },
 
@@ -395,7 +347,7 @@
     margin: auto;
     margin-top:10vh;
     width:80vw;
-    height:150vh;
+    height:fit-content;
     border-radius: 30px;
 }
 

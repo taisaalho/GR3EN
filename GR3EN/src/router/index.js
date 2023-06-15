@@ -30,9 +30,10 @@ async function CheckIfAdmin() {
 }
 
 async function CheckIfLogged(){
-  if(tokenChecker()){
+  if(await tokenChecker()){
     return true
   }else{
+    console.log('ca')
     return '/'
   }
 
@@ -40,7 +41,7 @@ async function CheckIfLogged(){
 
 async function tokenChecker(){
   if(!localStorage.getItem('Token')){
-    return false
+    return false 
   }
 
   try {
@@ -51,7 +52,7 @@ async function tokenChecker(){
         Authorization: 'Bearer ' + localStorage.getItem('Token')
       }  
     })
-
+   
     return res
     
   } catch (error) {

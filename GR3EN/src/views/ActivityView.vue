@@ -5,6 +5,7 @@
         <v-sheet class="background">
             <v-row>
 
+                
                 <h1 class="center title">{{atividade.nomeAtividade}}</h1>
             </v-row>
             <div >
@@ -35,7 +36,7 @@
                 
                 <v-divider class="top" vertical></v-divider>
                 <v-col class="top">
-                    <h1 class="bottom">{{ atividade.dataHoraAtividade }}</h1>
+                    <h1 class="bottom">{{ new Date(atividade.dataHoraAtividade).toLocaleDateString() }}</h1>
                     <h1>{{ atividade.localAtividade }}</h1>
                 </v-col>
                 <v-divider class="top">{{ atividade.descAtividade }}</v-divider>
@@ -55,18 +56,21 @@
                 </v-col>
             </v-row>
             
+            
+                <v-btn v-if="Coordinator" @click="toggleAtt" class="top btnInscrever">Mudar o estado da ativade</v-btn>
 
-                <v-btn @click="toggleAtt" class="top btnInscrever" :color=" ToggleButtonClass">{{ ToggleButtonText }}</v-btn>
 
         </v-sheet>
     </v-app>
 </template>
-
+    
 <script>
 
     import {User} from '../stores/userStore.js'
     import {Atividade} from '../stores/atividadesStore.js'
     import NavBar from '../components/NavBar.vue'
+    import axios from 'axios';    
+
     export default {
         components: {
             NavBar,
@@ -74,8 +78,8 @@
         data:() =>({
             userStore: User(),
             atividadesStore: Atividade(),
-            atividade:"",
-            currentUser: JSON.parse(localStorage.getItem('currentUser'))
+            atividade:Object,
+            Coordinator:false
             
         }),
         computed: {
@@ -106,29 +110,44 @@
 
         },
         
-        created () {
-            this.atividade = this.atividadesStore.getAtividadeByID(this.$route.params.id);
+        async created () {
+            try {
 
+                let id = this.$route.params.id
+           
+                let res = await axios.get('https://elegant-slug-woolens.cyclic.app/activities?activities=' + id);
+                
+                this.atividade = res.data[0]
+
+                res = await axios.get('https://elegant-slug-woolens.cyclic.app/users?users=' +  this.atividade.coordenadorAtividade)
+                
+                let CoordinatorId = this.atividade.coordenadorAtividade
+
+                this.atividade.coordenadorAtividade = res.data[0].primeiroNome + ' ' + res.data[0].ultimoNome
+                
+                res = await axios.get('https://elegant-slug-woolens.cyclic.app/users/user-profile',{
+                    headers:{
+                        Authorization:'Bearer '+ localStorage.getItem('Token')
+                    }
+                })
+               
+                if(CoordinatorId == res.data._id){
+                    this.Coordinator = true
+                }
+
+            } catch (error) {
+                
+            }
             
         },
 
         methods: {
 
-            toggleAtt(){
-                let atividade = this.atividadesStore.getAtividadeByID(this.atividade.idAtividade)
-                if(!!this.currentUser){
+            async toggleAtt(){
+                try {
+                    let res = await axios.patch('https://elegant-slug-woolens.cyclic.app/'+ this.$route.params.id +'/change-activity-state')
+                } catch (error) {
                     
-                    if(!atividade.idUser.find(user => user == this.currentUser.idUser)){
-
-                        
-                        this.atividadesStore.inscricaoUser(this.currentUser.idUser, this.atividade.idAtividade)
-
-                    }else if(atividade.idUser.find(user => user == this.currentUser.idUser)){
-
-                        this.atividadesStore.removerUser(this.currentUser.idUser, this.atividade.idAtividade)                   
-                    }
-                }else{
-                    alert('É necessário login')
                 }
             },
             

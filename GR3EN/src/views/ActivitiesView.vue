@@ -24,9 +24,9 @@
         </div>
         <v-sheet class="background">
                 <div class="scroll">
-                    <v-row class="listAtivity" v-for="atividade in this.atividadesStore.getAtividade">
-                        
-                        <div v-if="atividade.statusAtividade"> 
+                    <v-row class="listAtivity" v-for="atividade in activities">
+
+                        <div v-if="!atividade.statusAtividade"> 
 
                             <v-divider></v-divider>
                             <v-col class="leftTitles" col="2">
@@ -35,14 +35,14 @@
                             </v-col>
                             <v-col class="verBtn" col="8">
                                 
-                                <h3>{{atividade.nomeAtividade}}</h3>
-                                <h3>{{atividade.dataHoraAtividade}}</h3>
-                                <h3>{{atividade.coordenadorAtividade}}</h3>
-                                <h3>{{atividade.localAtividade}}</h3>
+                                <h3>Atividade: {{atividade.nomeAtividade}}</h3>
+                                <h3>Data: {{new Date(atividade.dataHoraAtividade).toLocaleDateString()}}</h3>
+                                <h3>Coordenador: {{atividade.coordenadorAtividade}}</h3>
+                                <h3>Local: {{atividade.localAtividade}}</h3>
                                 
                             </v-col>
                             <v-col> 
-                                <RouterLink :to="{name: 'activity', params: {id:atividade.idAtividade}}">
+                                <RouterLink :to="{name: 'activity', params: {id:atividade._id}}">
                                     
                                     <v-btn size="x-large" color="warning" class="verBtn">
                                         VER
@@ -63,21 +63,57 @@
 import {User} from '../stores/userStore.js'
 import {Atividade} from '../stores/atividadesStore.js'
 import NavBar from '../components/NavBar.vue'
+import axios from 'axios'
 
 export default {
-    components: {
-        NavBar,
-        },
+    components: { NavBar },
         data:() =>({
             userStore: User(),
             atividadesStore: Atividade(),
-            zero: 0
-        })
-    };
+            zero: 0,
+            activities:Array,
+            coordenadores:Array
+        }),
+        methods:{
+             GetUserName: async (id)=> {
+                
 
-    /* console.log(this.atividadesStore.getAtividade) */
-    /* console.log(this.atividadesStore[0].getStatusAtividadesStore) */
-    /* console.log(this.atividadesStore.getAtividade) */
+            }
+        },
+        async created() {
+            try {
+
+                let res = await axios.get('https://elegant-slug-woolens.cyclic.app/activities')
+    
+                this.activities = res.data
+                
+                let UsersIdStr = ''
+
+                this.activities.forEach(async activity => {
+
+                    UsersIdStr = UsersIdStr + activity.coordenadorAtividade
+                    
+                    UsersIdStr = UsersIdStr + ','
+                    
+                } )
+
+                UsersIdStr = UsersIdStr.slice(0, UsersIdStr.length - 1)
+                
+                res = await axios.get('https://elegant-slug-woolens.cyclic.app/users?users=' +  UsersIdStr)
+                
+                this.coordenadores = res.data
+
+                this.activities.forEach(activity => {
+                    const coordenador = this.coordenadores.find(coordenador => coordenador._id == activity.coordenadorAtividade)
+                    activity.coordenadorAtividade = coordenador.primeiroNome + ' ' + coordenador.ultimoNome
+                })           
+
+            } catch (error) {
+                      
+            }
+            
+        }
+    }
 
 </script>
 
