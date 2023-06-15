@@ -10,7 +10,7 @@
                     <RouterLink to="/profile"><v-btn variant="text" color="white" class="navBtn">Perfil</v-btn></RouterLink>
                 </template>
                 <template v-else v-slot:append>
-                    <RouterLink to="/signin"><v-btn variant="text" color="white" class="navBtn">Sign In</v-btn></RouterLink>
+                    <RouterLink to="/users/login"><v-btn variant="text" color="white" class="navBtn">Sign In</v-btn></RouterLink>
                 </template>
                 
         </v-app-bar>    
@@ -22,7 +22,7 @@
     export default {
         data() {
             return {
-                currentUser: JSON.parse(localStorage.getItem('currentUser'))
+                currentUser: localStorage.getItem('Token')
             }
         },
 

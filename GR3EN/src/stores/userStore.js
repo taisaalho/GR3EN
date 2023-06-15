@@ -1,79 +1,20 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
+import axios from 'axios'
+import cors from 'cors'
+
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //USERS
-let users 
-if (!JSON.parse(localStorage.getItem('users'))){
-  users = [{
-    idUser: 0,
-    primeiroNome: "Taísa",
-    ultimoNome: "Alho",
-    escola: "ESMAD",
-    email: "taisaalho@gmail.com",
-    password: "123",
-    idBadge: [],
-    idTitulo: [],
-    questionario: false,
-    ranking: 1500,
-    idOcorrencia: [], 
-    idAtividade: [],
-    conselhoEco: false,
-  },
-  {
-    idUser: 1,
-    primeiroNome: "João",
-    ultimoNome: "Pais",
-    escola: "ESHT",
-    email: "joao@gmail.com",
-    password: "123",
-    idBadge: [],
-    idTitulo: [],
-    questionario: false,
-    ranking: 10000,
-    idOcorrencia: [], 
-    idAtividade: [],
-    conselhoEco: false,
-  },
-  {
-    idUser:2,
-    primeiroNome: "Gustavo",
-    ultimoNome: "Silva",
-    escola: "ESMAD",
-    email: "gustavo@gmail.com",
-    password: "123",
-    idBadge: [],
-    idTitulo: [],
-    questionario: false,
-    ranking: 1000,
-    idOcorrencia: [], 
-    idAtividade: [],
-    conselhoEco: true,
-  },
-  {
-    idUser:3,
-    primeiroNome: "Bernardo",
-    ultimoNome: "Macedo",
-    escola: "ESMAD",
-    email: "bernardo@gmail.com",
-    password: "123",
-    idBadge: [],
-    idTitulo: [],
-    questionario: false,
-    ranking: 0,
-    idOcorrencia: [], 
-    idAtividade: [],
-    conselhoEco: true,
-  },
-  ]
-  localStorage.setItem('users', JSON.stringify(users))
-}else{
-  users = JSON.parse(localStorage.getItem('users'))
-}
+/* let offset = 0
+
+let length = 10 */
+
+/* let users = await axios.get('https://elegant-slug-woolens.cyclic.app/users').data */
 
 export const User = defineStore('user', {
   state: () => ({
-    users: users
+    users: []
   }),
   
   getters: {
@@ -128,7 +69,7 @@ export const User = defineStore('user', {
     getByID : (state) => (idUser) => state.users.find(user => user.idUser == idUser)
   },
   actions: {
-    //Nome Completo
+    /* //Nome Completo
     nomeUser(){
       nome = this.users.primeiroNome + " " + this.users.ultimoNome
     },
@@ -137,9 +78,8 @@ export const User = defineStore('user', {
       currentUser.password=password
       localStorage.setItem('currentUser', JSON.stringify(currentUser))
       localStorage.setItem('users', JSON.stringify(this.users))
-
+      
     },
-
     ChangeUserEmail(id,email){
       let currentUser2 = this.users.find(user => user.idUser == id)
       currentUser2.email = email
@@ -154,9 +94,6 @@ export const User = defineStore('user', {
       localStorage.setItem('users', JSON.stringify(this.users))
       
     },
-
-    
-
     //Adicionar User
     addUser(primeiroNome1,ultimoNome1,email1,escola1,password1){
       this.users.push({
@@ -176,32 +113,25 @@ export const User = defineStore('user', {
       })
       localStorage.setItem('users',JSON.stringify(this.users))
     },
-    
-    
     inscricaoEcoEscolas(userId){
       this.users.find(user => user.idUser === userId).conselhoEco = true
-
+      
       localStorage.setItem('users',JSON.stringify(this.users))
-
+      
       localStorage.setItem('currentUser',JSON.stringify(this.users.find(user => user.idUser === userId)))
-
     },
-
-
     //Modificação do Email
     newEmail(newEmail){
       this.users.push({
         email: newEmail
       })
     },
-
     //Modifificação da Escola
     newEscola(newEscola){
       this.users.push({
         escola: newEscola
       })
     },
-
     //Modificação da Password
     newPassword(newPassword){
       this.users.push({
@@ -210,9 +140,123 @@ export const User = defineStore('user', {
     },
     resetScores(){
       this.users.forEach(user => user.ranking = 0)
-    }
+    }, */
     
+    
+    //BACKEND
 
+    //USERS
+    async Users(){
+      try {
+        const response = await axios.get('https://elegant-slug-woolens.cyclic.app//users');
+        if (response.ok) {
+          this.responseData = response.data
+          this.users = result.message
+        }
+        else
+          alert("HTTP error: " + response.status)
+      }catch{
+        alert("Couldn't get all Users." + error.response.data.error)
+        return false
+      }
+    }, 
+    
+    //YES
+    async register(primeiroNome,ultimoNome,email,escola,password){
+      /* console.log("bom dia")  */
+      let data = {
+        
+        primeiroNome : primeiroNome,
+        password : password,
+        ultimoNome : ultimoNome,
+        escola : escola,
+        email : email,
+        password : password,
+        idBadge: [],
+        idTitulo: [],
+        conselhoEco: false,
+        verifierEco: false,
+        pontos: 0
+      }
+
+      const headers = {
+        'Content-Type': 'application/json'
+      }
+      
+      try{
+        const response = await axios.post('https://elegant-slug-woolens.cyclic.app//users',data,headers);
+        if (response.status == 201){
+          this.responseData = response.data
+          localStorage.setItem("Token", response.data.Token)
+          return true
+        }
+      }catch(error){
+        alert('Register failed: ' + error.response.data.error)
+        return false
+      }
+
+      
+    },
+    
+    //YES
+    async login(email, password){
+      
+      let data = {
+        email:email,
+        password:password
+      }
+      // console.log(data)
+      const headers = {
+        'Content-Type': 'application/json'
+      }
+      
+      try{
+        
+        const response = await axios.post('https://elegant-slug-woolens.cyclic.app//users/login', data, headers)
+        
+        if(response.status == 200){
+          this.responseData = response.data
+          localStorage.setItem("Token",response.data.Token)
+          localStorage.setItem("Id",response.data.id)
+          console.log("STORE login ended OK"); 
+          return true
+        }
+      }catch(error){
+        alert('Login failed: ' + error.response.data.error)
+        return false
+      }
+    },
+    
+    async inscricaoEcoEscolas(currentUser){
+      /* this.Users().find(user => user.id === currentUser) */
+      console(this.Users().find(user => user._id === currentUser))
+
+
+      console.log(this.users) 
+      let data = {
+        currentUser: currentUser
+      }
+
+      let headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('Token')
+      }
+
+      try{
+        const response = await axios.put('https://elegant-slug-woolens.cyclic.app//' + currentUser, data, headers)
+
+        console.log(currentUser.conselhoEco)
+
+        if (currentUser.conselhoEco == false){
+          this.currentUser.conselhoEco = true
+          this.responseData = response.data
+          return true
+        }
+      }catch{
+        alert('You already are apart of the Council!')
+        return false
+      }
+    },
 
   }
 })

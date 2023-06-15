@@ -7,14 +7,26 @@ export default {
     },
     data:() =>({
         User: User(),
-        currentUser: JSON.parse(localStorage.getItem('currentUser')) || 'null'
+        icons: [
+        'mdi-facebook',
+        'mdi-twitter',
+        'mdi-linkedin',
+        'mdi-instagram',],
+        currentUser: localStorage.getItem('Id') || 'null'
+        
     }), 
     methods: {
         inscricaoEco(){
-            this.User.inscricaoEcoEscolas(this.currentUser.idUser)
-            this.currentUser = JSON.parse(localStorage.getItem('currentUser')) 
-            this.$router.go()
+            /* console.log(localStorage.getItem('Id')) */
+            /* console.log(currentUser)*/
+            console.log('hi')
+            this.User.inscricaoEcoEscolas(localStorage.getItem('Id')) 
+            
         }
+    
+    },
+    mounted(){
+        
     }
 };
 
