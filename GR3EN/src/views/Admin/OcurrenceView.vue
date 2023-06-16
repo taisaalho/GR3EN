@@ -57,9 +57,9 @@
                 
                 
             </v-row>
-            <v-row class="d-flex justify-center  top">
-                    <v-btn @click="OcorrenciaStore.ChangeOcorrenciaStatus(this.ocorrencia._id) " v-if="ocorrencia.statusOcorrencia == false" tonal color="green">Aprovar</v-btn>
-                    <v-btn @click="this.$router.push('/ocurrences')">Voltar</v-btn>
+            <v-row class="d-flex justify-center top">
+                    <v-btn size="x-large" @click="OcorrenciaStore.ChangeOcorrenciaStatus(this.ocorrencia._id) " v-if="ocorrencia.statusOcorrencia == false" tonal color="green">Aprovar</v-btn>
+                    <v-btn size="x-large" @click="this.$router.push('/ocurrences')">Voltar</v-btn>
                 
             </v-row>
                 <!-- <v-btn to="/ocurrences">Voltar</v-btn> -->
@@ -128,7 +128,7 @@ export default {
 .background{
     background-color:rgba(0, 115, 98, 0.8);
     border-radius: 30px;
-    min-height:155vh;
+    min-height:120vh;
     width:80vw;
     margin: auto;
     margin-top:10vh;
@@ -178,6 +178,7 @@ export default {
 
 .imgOcc{
     max-width: 30vw;
+    max-height: 50vh;
     margin: auto;
     border-radius: 20px;
 }

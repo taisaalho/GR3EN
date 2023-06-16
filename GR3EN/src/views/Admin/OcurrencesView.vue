@@ -11,7 +11,7 @@
                     variant="tonal">
         
                     <v-card-subtitle>
-                        {{new Date(ocorrencia.dataHoraOcorrencia).toLocaleString()}}
+                        Data: {{ocorrencia.dataOcorrencia.substr(0,4) + '/' + ocorrencia.dataOcorrencia.substr(5,2) + '/' + ocorrencia.dataOcorrencia.substr(8,2) + ' ' + ocorrencia.dataOcorrencia.substr(11,5)}}
                         <br>
                         Categoria: {{ocorrencia.categoriaOcorrencia}}
                         
@@ -25,8 +25,8 @@
                     </v-card-text>
         
                     <v-card-actions>
-                        <v-btn @click="OcorrenciaStore.ChangeOcorrenciaStatus(ocorrencia._id);hideCard(ocorrencia)  "  v-if="ocorrencia.statusOcorrencia == false" tonal color="green">Aprovar</v-btn>
-                        <v-btn @click="OcorrenciaStore.ChangeOcorrenciaStatus(ocorrencia._id) " v-if="ocorrencia.statusOcorrencia == true" tonal color="red">Remover Aprovação</v-btn>
+                        <v-btn size="x-large" @click="OcorrenciaStore.ChangeOcorrenciaStatus(ocorrencia._id);hideCard(ocorrencia)  "  v-if="ocorrencia.statusOcorrencia == false" tonal color="green">Aprovar</v-btn>
+                        <v-btn size="x-large" @click="OcorrenciaStore.ChangeOcorrenciaStatus(ocorrencia._id) " v-if="ocorrencia.statusOcorrencia == true" tonal color="red">Remover Aprovação</v-btn>
                         <!-- //:to="'/ocurrence/'+ocorrencia._id" -->
                         <RouterLink :to="{name: 'ocurrence' ,params: {id:ocorrencia._id}}" >
                             <v-btn >
