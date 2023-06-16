@@ -10,8 +10,8 @@
                 <h1 class="center title">{{atividade.nomeAtividade}}</h1>
             </v-row>
             <div >
-
-                <v-img class="center" width="300" :src="atividade.imagemAtividade"></v-img>
+               
+                <v-img class="center" width="300" :src="`data:image/webp;jpg;png;jpeg;base64,${atividade.imagemAtividade}`"></v-img>
             </div>
 
             <v-divider class="top"></v-divider>
@@ -61,7 +61,7 @@
                 
                     <v-btn v-if="atividade.statusAtividade" color="red" @click="toggleAtt" class="top btnInscrever">Em Andamento</v-btn>
                     <v-btn v-if="!atividade.statusAtividade" color="success" @click="toggleAtt" class="top btnInscrever">Encerrar</v-btn>
-             
+                    <v-btn :to="`/Admin/EditActivity/${$route.params.id}`" append-icon="pencil">Editar Atividade</v-btn>
             </v-row>
             <v-row>
                 <v-table >
@@ -74,7 +74,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="user in atividade.participantesAtividadeNaoExecutado"><td>{{user.primeiroNome + ' ' + user.ultimoNome}} <v-btn v-if="Coordinator"  @click="changeUserState(user,false)" rounded flat>✔️</v-btn></td></tr>
+                        <tr v-for="user in atividade.participantesAtividadeNaoExecutado"><td>{{user.primeiroNome + ' ' + user.ultimoNome}}
+                            <v-btn v-if="Coordinator"  @click="changeUserState(user,false)" rounded flat>✔️</v-btn>
+                            <v-btn v-if="Coordinator" @click="removeUser(user)" flat>remover</v-btn>
+                            </td></tr>
                     </tbody>
                 </v-table>
 
@@ -88,7 +91,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="user in atividade.participantesAtividadeExecutado"><td>{{user.primeiroNome + ' ' + user.ultimoNome}} <v-btn v-if="Coordinator" @click="changeUserState(user,true)" rounded flat>❌</v-btn></td></tr>
+                        <tr v-for="user in atividade.participantesAtividadeExecutado"><td>{{user.primeiroNome + ' ' + user.ultimoNome}} 
+                            <v-btn v-if="Coordinator" @click="changeUserState(user,true)" rounded flat>❌</v-btn>
+                        
+                        </td></tr>
                     </tbody>
                 </v-table>
                 
@@ -96,8 +102,8 @@
                 
             </v-row>
             <v-row>
-                <v-btn v-if="!enrolledState" @click="Enroll">Enroll</v-btn>
-                <v-btn v-if="enrolledState" @click="unEnroll">UnEnroll</v-btn>
+                <v-btn v-if="!enrolledState && !Coordinator"  @click="Enroll">Enroll</v-btn>
+                <v-btn v-if="enrolledState && !Coordinator" @click="unEnroll">UnEnroll</v-btn>
             </v-row>
         </v-col>
 
@@ -196,7 +202,7 @@
 
                 try {
 
-                    let res = await axios.patch('https://elegant-slug-woolens.cyclic.app/activities/'+ this.$route.params.id +'/change-activity-state',null,{
+                    let res = await axios.patch('http://127.0.0.1:3000/activities/'+ this.$route.params.id +'/change-activity-state',null,{
                     headers:{
                         Authorization:'Bearer ' + localStorage.getItem('Token')
                     }
@@ -217,7 +223,7 @@
                     
                     const userid = user._id
                     
-                    let res = await axios.patch(`https://elegant-slug-woolens.cyclic.app/activities/${activityid}/users/${userid}/change-user-state`,null,{headers:{Authorization:'Bearer '+localStorage.getItem('Token')}})
+                    let res = await axios.patch(`http://127.0.0.1:3000/activities/${activityid}/users/${userid}/change-user-state`,null,{headers:{Authorization:'Bearer '+localStorage.getItem('Token')}})
 
                     if(change){
                         this.atividade.participantesAtividadeExecutado = this.atividade.participantesAtividadeExecutado.filter(u => u._id != userid)
@@ -228,6 +234,28 @@
                         this.atividade.participantesAtividadeNaoExecutado = this.atividade.participantesAtividadeNaoExecutado.filter(u => u._id != userid)
                         
                         this.atividade.participantesAtividadeExecutado.push(user)
+                        
+                    }
+                } catch (error) {
+                    
+                }
+                
+                
+            },
+            async removeUser(user,change){
+                try {
+                    
+                    const activityid = this.$route.params.id
+                    
+                    const userid = user._id
+                    
+                    let res = await axios.delete(`http://127.0.0.1:3000/activities/${activityid}/users/${userid}`,{headers:{Authorization:'Bearer '+localStorage.getItem('Token')}})
+
+                    if(change){
+                        this.atividade.participantesAtividadeExecutado = this.atividade.participantesAtividadeExecutado.filter(u => u._id != userid)
+                        
+                    }else{
+                        this.atividade.participantesAtividadeNaoExecutado = this.atividade.participantesAtividadeNaoExecutado.filter(u => u._id != userid)
                         
                     }
                 } catch (error) {
@@ -284,7 +312,7 @@
 .background{
     background-color:rgba(0, 115, 98, 0.8);
     border-radius: 30px;
-    height:110vh;
+    height:fit-content;
     width:80vw;
     margin: auto;
     margin-top:10vh;

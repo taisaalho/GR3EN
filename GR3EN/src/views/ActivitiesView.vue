@@ -31,10 +31,10 @@
                             <v-divider></v-divider>
                             <v-col class="leftTitles" col="2">
                                 <h3>Atividade Disponível</h3>
-                                <v-img width="200" :src="atividade.imagemAtividade"></v-img>
+                                
                             </v-col>
                             <v-col class="verBtn" col="8">
-                                
+                                <v-img :src="`data:image/webp;jpg;png;jpeg;base64,${atividade.imagemAtividade}`" class="imgOcc" ></v-img>
                                 <h3>Atividade: {{atividade.nomeAtividade}}</h3>
                                 <h3>Data: {{new Date(atividade.dataHoraAtividade).toLocaleDateString()}}</h3>
                                 <h3>Coordenador: {{atividade.coordenadorAtividade}}</h3>
@@ -83,7 +83,8 @@ export default {
         async created() {
             try {
 
-                let res = await axios.get('https://elegant-slug-woolens.cyclic.app/activities')
+                let res = await axios.get('http://127.0.0.1:3000/activities') 
+                //let res = await axios.get('https://elegant-slug-woolens.cyclic.app/activities') nao da n sei pq
     
                 this.activities = res.data
                 
@@ -102,14 +103,15 @@ export default {
                 res = await axios.get('https://elegant-slug-woolens.cyclic.app/users?users=' +  UsersIdStr)
                 
                 this.coordenadores = res.data
-
+                
                 this.activities.forEach(activity => {
                     const coordenador = this.coordenadores.find(coordenador => coordenador._id == activity.coordenadorAtividade)
                     activity.coordenadorAtividade = coordenador.primeiroNome + ' ' + coordenador.ultimoNome
                 })           
-
+                
             } catch (error) {
-                      
+                console.log(error)
+                
             }
             
         }

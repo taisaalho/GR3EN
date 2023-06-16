@@ -21,6 +21,7 @@
           <v-text-field v-model="localAtividade" label="LocalAtividade" :rules="localAtividadeRules"></v-text-field>
           <v-text-field v-model="pontosAtividade" label="Pontos Atividade" :rules="pontosAtividadeRules"></v-text-field>
           <v-btn type="submit" :disabled="!isFormValid">Editar Atividade</v-btn>
+          <v-btn @click="RemoveActivity" >Remover Atividade</v-btn>
         </v-form>
       </v-container>
 
@@ -174,6 +175,15 @@ import axios from 'axios';
         } else {
           console.log('Please fill in all the required fields correctly');
         }
+      },
+      async RemoveActivity(){
+        try {
+          await axios.delete('http://127.0.0.1:3000/activities/'+ this.$route.params.id, {headers:{Authorization:'Bearer '+ localStorage.getItem('Token')}});
+          this.$router.push('/')
+        } catch (error) {
+          
+        }
+
       }
     },
     async beforeMount(){

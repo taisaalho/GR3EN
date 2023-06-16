@@ -24,7 +24,8 @@
                     <h1>Badges</h1>
                 
                     <div  v-for="badge in userBadges" :key="badge._id">
-                        {{ badge }}
+                        <v-img :src="`data:image/webp;jpg;png;jpeg;base64,${badge.imagemBadge}`"></v-img>
+                        {{ badge.nomeBadge }}
                     </div>
                 </v-container>
             </v-row>
@@ -33,7 +34,7 @@
                     <h1>Titles</h1>
                 
                     <div  v-for="title in userTitles" :key="title._id">
-                        {{ title }}
+                        {{ title.name }}
                     </div>
                 </v-container>
             </v-row>
