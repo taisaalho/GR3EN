@@ -15,11 +15,13 @@ import Atividade from '../views/ActivityView.vue'
 //Admin 
 import Ocurrence from '../views/Admin/OcurrenceView.vue'
 import Ocurrences from '../views/Admin/OcurrencesView.vue'
-
+import CreateActivity from '../views/Admin/CreateActivityView.vue'
+import EditActivity from '../views/Admin/EditActivityView.vue'
 //Validation Functions
 
 async function CheckIfAdmin() {
   const res = await tokenChecker()
+  console.log(res)
   
   if(res.data.conselhoEco == true){
     return true
@@ -81,7 +83,6 @@ const router = createRouter({
       beforeEnter: [CheckIfLogged]
     },
     {
-      //Mudado para axios/back-end
       path: '/users/register',
       name: 'register',
       component: register,
@@ -118,6 +119,18 @@ const router = createRouter({
       path: '/ocurrences',
       name: 'ocurrences',
       component:Ocurrences ,
+      beforeEnter: [CheckIfAdmin]
+    },
+    {
+      path: '/Admin/CreateActivity',
+      name: 'CreateActivity',
+      component:CreateActivity ,
+      beforeEnter: [CheckIfAdmin]
+    },
+    {
+      path: '/Admin/EditActivity/:id',
+      name: 'EditActivity',
+      component:EditActivity ,
       beforeEnter: [CheckIfAdmin]
     },
 

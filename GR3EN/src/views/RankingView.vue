@@ -6,27 +6,48 @@
             
             <v-sheet class="background" color="rgba(0, 115, 98, 0.8)">
                 
-                <v-row class="title">
-                    <h1 class="title">Top 3</h1>
+        
+                <v-row class="title" >
+                    <h1 class="title">Top 3 do momento</h1>
                 </v-row>
                 
-             
+                <v-row id="podium" >
+
+                  
+                <v-col col="4">
+                    2º
+                </v-col>
+
+                <v-col col="4">
+                    1º
+                </v-col>
+
+
+                <v-col col="4">
+                    3º
+                </v-col>
+                </v-row>
+
                  <v-row>
-                     <v-col col="4" class="center">
-                         <p id="number2" class="">{{TopPresent[1].primeiroNome}} || {{TopPresent[1].ranking}} pts</p>
-                         
-                     </v-col>
-                     
-                     
-                     <v-col col="4">
-                         <p id="number1" class="center">{{TopPresent[0].primeiroNome}} || {{TopPresent[0].ranking}} pts</p>
-                     </v-col>
-                     
-                     <v-col col="4">
+
+
+    <v-col col="4" class="center">
+        <p id="number2" class="">{{ Rankings[0].users[1].primeiroNome }} || {{ Rankings[0].users[1].pontos }} pts</p>
+        
+    </v-col>
     
-                         <p id="number3" class="center">{{TopPresent[2].primeiroNome}} || {{TopPresent[2].ranking}} pts</p>
-                         
-                     </v-col>    
+    
+    <v-col col="4">
+        <p id="number1" class="center"> {{ Rankings[0].users[0].primeiroNome }} || {{ Rankings[0].users[0].pontos }}</p>
+    </v-col>
+    
+    <v-col col="4">
+
+        <p id="number3" class="center">{{ Rankings[0].users[2].primeiroNome }} || {{ Rankings[0].users[2].pontos }}</p>
+        
+    </v-col>    
+
+
                      
 
                  </v-row>   
@@ -35,40 +56,25 @@
                     
                     
                
-              <v-row id="podium" >
-
-                  
-                  <v-col col="4">
-                        2º
-                  </v-col>
-                  
-                    <v-col col="4">
-                        1º
-                    </v-col>
-
-
-                    <v-col col="4">
-                        3º
-                    </v-col>
-                </v-row>
+              
 
                 <v-container>
                     
 
 
                     <!-- CURRENT YEAR -->
-                    <v-row >
+                    <v-row v-for="year in Rankings">
                             <v-col col ="4">
-                                <h1 class="title">Ranking  <br> {{ CurrentYear[0] }} / {{ CurrentYear[1] }} </h1>
+                                <h1 class="title">Ranking  <br> {{ year.year[0] }} / {{ year.year[1] }}   </h1>
                             </v-col>
-
+                               
                             <v-col col="8">
-
-                                <v-row v-for="user,i in TopPresent">
+                                
+                                <v-row v-for="user in year.users" >
                                     <v-col col="12">
-                                        
-                                        {{ i + 1 + 'º' }} {{ user.primeiroNome }} {{ user.ranking }} pts
-                                        
+                                        <h3>    </h3>
+                                        {{ user.primeiroNome }} {{ user.ultimoNome }} - {{ user.pontos }} pts
+                                    
                                     </v-col>
                                 </v-row>
                             </v-col>
@@ -78,48 +84,9 @@
                     </v-row>
                     
                     <!-- PRIOR YEARS -->
-                    <v-row v-for="Top in PriorYears">
-                        <v-col col ="4">
-                            <h1 class="title">Ranking  <br> {{ Top.year[0] }} / {{ Top.year[1] }} </h1>
-                        </v-col>
+                  
 
-                        <v-col col="8">
-
-                            <v-row v-for="user,i in Top.users">
-                                <v-col col="12">    
-                                    
-                                    {{ i + 1 + 'º' }} {{ userStore.getByID(user.idUser).primeiroNome }} {{ user.ranking }} pts
-                                    
-                                </v-col>
-                            </v-row>
-                        </v-col>
-                    </v-row>
                     
-
-                     <!-- QUADRO DE HONRA-->
-
-                    <v-row>
-                        <v-col col ="4">
-                            <h1 class="title">Quadro de honra</h1>
-                        </v-col>
-                        <v-col col="8" >
-                            <v-row v-for="top in PriorYears">
-                                <div class="m-2">
-
-                                    <br> 
-                                    {{  userStore.getByID(top.users[0].idUser).primeiroNome + ' ' + userStore.getByID(top.users[0].idUser).ultimoNome }}
-                                    <br>
-                                    {{ top.users[0].ranking }} pts
-                                    <br>
-                                    {{ top.year[0] }} / {{ top.year[1] }}
-                                    
-
-                                </div>
-                                
-                                
-                            </v-row>
-                        </v-col>
-                    </v-row>
                 </v-container>  
 
                 
@@ -132,37 +99,27 @@
     import NavBar from '../components/NavBar.vue'
     import {User} from '../stores/userStore'
     import {Ranking} from '../stores/rankingStore'
-    import { reactive, toRefs } from 'vue'
+    import axios from 'axios'
     
     export default {
         components:{
             NavBar
         },
-        setup () {
-            const userStore = User()
-            const rankingStore = Ranking()
+         data(){
+            return{
+                Rankings:Array
 
-           
+            }
+        },
+        async beforeMount(){
+            try {
 
-
-            const UsersLists = reactive({
-                AllUsers: userStore.getUsers,
-                TopPresent: userStore.getTop10Present,
-                PriorYears: rankingStore.getTopRankedPlayersAllYears.reverse(),
-                CurrentYear: rankingStore.CurrentYear
-            })
-
-           rankingStore.getTopRankedPlayersAllYears // NECESSARIO PRA DAR REVERSE. PQ ? N SEI LMAO...
-
-            const Buttons = reactive({
-                SeeMore: false
-            })
-        
-            return {
-                rankingStore,
-                userStore,
-                ...toRefs(UsersLists),
-                ...toRefs(Buttons),
+                let res = await axios.get('https://elegant-slug-woolens.cyclic.app/rankings')
+                
+                this.Rankings = res.data
+                
+            } catch (error) {
+                
             }
         }
     }
