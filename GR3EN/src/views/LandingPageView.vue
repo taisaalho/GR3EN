@@ -15,14 +15,18 @@ export default {
         'mdi-instagram',],
         currentUser: localStorage.getItem('Id') || 'null',
         conselhoEco:false,
+        verifierEco:false,
     }), 
     methods: {
         async inscricaoEco(){
             /* console.log(localStorage.getItem('Id')) */
             /* console.log(currentUser)*/
             const res = await axios.put('https:/elegant-slug-woolens.cyclic.app/users/user-profile',{conselhoEco:true},{headers:{'Authorization': 'Bearer ' + localStorage.getItem('Token')}})
+        },
+
+        async giveVerifier(){
+            const res = await axios.put('https:/elegant-slug-woolens.cyclic.app/users/user-profile',{verifierEco:true},{headers:{'Authorization': 'Bearer ' + localStorage.getItem('Token')}})
         }
-    
     },
     mounted(){
         
@@ -46,6 +50,7 @@ export default {
             let res = await axios.get('https://elegant-slug-woolens.cyclic.app/users/user-profile',{headers:{'Authorization': 'Bearer ' + localStorage.getItem('Token')}});
             console.log(res.data);
             this.conselhoEco = res.data.conselhoEco
+            this.verifierEco = res.data.verifierEco
         }catch(error){
             console.log(error)
         }
@@ -113,17 +118,25 @@ export default {
                     </v-row>
 
                     <v-row class="background">
-                        <v-col  cols="4">
+                        <v-col  cols="3">
                             <img rel="preload" loading="lazy" width="200" height="200" src="/src/assets/img/main1.svg" class="homeIMG" alt="">
                         </v-col>
-                        <v-col cols="8"  class="">
+                        <v-col cols="9"  class="">
                             <div class="">
                                 <h1 class="title">Junta-te ao conselho Eco-Escolas!</h1>
                             </div>
-                            <v-btn size="x-large" v-if="!checkToken" to="/signin" class="buttons" id="mainPageButton">Inscrever</v-btn>
-                            <v-btn size="x-large" v-else-if="!conselhoEco" @click="inscricaoEco()" class="buttons" id="mainPageButton">Inscrever</v-btn>
-                            <v-btn size="x-large" v-else disabled class="buttons" id="mainPageButton">Inscrito</v-btn>
+                            <div class="mx-auto d-flex">
+
+                                <v-btn size="x-large" v-if="!checkToken" to="/signin" class="buttons" id="mainPageButton">Inscrever</v-btn>
+                                <v-btn size="x-large" v-else-if="!conselhoEco" @click="inscricaoEco()" class="buttons" id="mainPageButton">Inscrever</v-btn>
+                                <v-btn size="x-large" v-else disabled class="buttons" id="mainPageButton">Inscrito</v-btn>
+                                
+                                <v-btn size="x-large" v-if="!checkToken" to="/signin" class="buttons" id="mainPageButton">Verifier</v-btn>
+                                <v-btn size="x-large" v-else-if="!verifierEco" @click="giveVerifier()" class="buttons" id="mainPageButton">Verifier</v-btn>
+                                <v-btn size="x-large" v-else disabled class="buttons" id="mainPageButton">Verifier</v-btn>
+                            </div>
                         </v-col>
+                        
                     </v-row>
                 </v-container>
             </v-main>
