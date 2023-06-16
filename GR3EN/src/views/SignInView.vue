@@ -52,7 +52,8 @@ export default {
                             <v-row class="buttons">
 
                                     
-                                    <RouterLink to ="/users/register"><v-btn
+                                    <RouterLink to ="/users/register">
+                                        <v-btn
                                         color="warning"
                                         size="large"
                                         type="submit"

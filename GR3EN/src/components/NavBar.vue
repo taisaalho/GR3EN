@@ -19,17 +19,27 @@
 
 <script>
     import {RouterLink, RouterView} from 'vue-router'
+    import axios from 'axios'
     export default {
         data() {
             return {
                 currentUser: localStorage.getItem('Token')
             }
+
+
         },
 
+        async created () {
+            let res = await axios.get('https://elegant-slug-woolens.cyclic.app/users/user-profile',{headers:{'Authorization': 'Bearer ' + localStorage.getItem('Token')}});
+            console.log(res.data.conselhoEco);
+            this.conselhoEco = res.data.conselhoEco
+        },
         methods: {
             checkRouter() {
-                if(!!this.currentUser){
+                if(!!this.currentUser && !this.conselhoEco){
                     this.$router.push('/occurrenceReport')
+                }else if(!!this.currentUser && this.conselhoEco){
+                    this.$router.push('/ocurrences')
                 }else{
                     alert("Login Necessário")
                 }

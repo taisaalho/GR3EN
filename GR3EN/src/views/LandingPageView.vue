@@ -1,6 +1,7 @@
 <script>
 import {User} from '../stores/userStore.js'
 import NavBar from '../components/NavBar.vue'
+import axios from 'axios'
 export default {
     components: {
         NavBar,
@@ -12,22 +13,43 @@ export default {
         'mdi-twitter',
         'mdi-linkedin',
         'mdi-instagram',],
-        currentUser: localStorage.getItem('Id') || 'null'
-        
+        currentUser: localStorage.getItem('Id') || 'null',
+        conselhoEco:false,
     }), 
     methods: {
-        inscricaoEco(){
+        async inscricaoEco(){
             /* console.log(localStorage.getItem('Id')) */
             /* console.log(currentUser)*/
-            console.log('hi')
-            this.User.inscricaoEcoEscolas(localStorage.getItem('Id')) 
-            
+            const res = await axios.put('https:/elegant-slug-woolens.cyclic.app/users/user-profile',{conselhoEco:true},{headers:{'Authorization': 'Bearer ' + localStorage.getItem('Token')}})
         }
     
     },
     mounted(){
         
-    }
+    },
+    computed: {
+        
+        checkToken() {
+            if(localStorage.getItem('Token')){
+                
+                return true
+            } else{
+
+                return false
+            }
+        },
+    },
+
+    async created () {
+        try{
+
+            let res = await axios.get('https://elegant-slug-woolens.cyclic.app/users/user-profile',{headers:{'Authorization': 'Bearer ' + localStorage.getItem('Token')}});
+            console.log(res.data);
+            this.conselhoEco = res.data.conselhoEco
+        }catch(error){
+            console.log(error)
+        }
+    },
 };
 
 </script>
@@ -98,8 +120,8 @@ export default {
                             <div class="">
                                 <h1 class="title">Junta-te ao conselho Eco-Escolas!</h1>
                             </div>
-                            <v-btn size="x-large" v-if="currentUser == 'null'" to="/signin" class="buttons" id="mainPageButton">Inscrever</v-btn>
-                            <v-btn size="x-large" v-else-if="!currentUser.conselhoEco" @click="inscricaoEco()" class="buttons" id="mainPageButton">Inscrever</v-btn>
+                            <v-btn size="x-large" v-if="!checkToken" to="/signin" class="buttons" id="mainPageButton">Inscrever</v-btn>
+                            <v-btn size="x-large" v-else-if="!conselhoEco" @click="inscricaoEco()" class="buttons" id="mainPageButton">Inscrever</v-btn>
                             <v-btn size="x-large" v-else disabled class="buttons" id="mainPageButton">Inscrito</v-btn>
                         </v-col>
                     </v-row>

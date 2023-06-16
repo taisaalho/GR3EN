@@ -15,20 +15,20 @@
                                 :rules="rules"
                                 class="inputOcc"
                                 label="Nome"
-                                v-model="nome"
+                                v-model="this.nome"
                                 variant="solo"
                             ></v-text-field>
               
                             <v-text-field
                               :rules="rules"
-                                v-model="local"
+                                v-model="this.local"
                                 class="inputOcc"
                                 label="Local"
                                 variant="solo"
                             ></v-text-field>
                             <v-select
                                 :rules="rules"
-                                v-model="select"
+                                v-model="this.select"
                                 class="inputOcc"
                                 label="Categoria"
                                 :items="items"
@@ -40,7 +40,8 @@
                             <v-file-input
                                 class="fileInput inputOcc"
                                 label="Imagem"
-                                v-mode="img"
+                                ref="file"
+                                v-model="this.img"
                                 variant="solo"
                             ></v-file-input>
                         </v-row>
@@ -53,7 +54,7 @@
                                 <v-textarea
                                 :rules="rules"
                                 autogrow
-                                v-model="desc"
+                                v-model="this.desc"
                                 class="inputOcc description"
                                 label="Label"
                                 variant="solo"
@@ -97,10 +98,13 @@ export default {
         
     }),
     methods: {
-        addOcc() {
+        async addOcc() {
+          console.log('chama botao');
+          const file = this.$refs.file.files[0]
+          console.log(file)
           if(this.nome && this.local && this.desc && this.select) {
-              console.log(this.currentUser)
-              this.ocorrenciasStore.addOcorrencia(this.nome,this.desc,this.local,this.currentUser.idUser,this.img,this.select)
+              let res = await this.ocorrenciasStore.addOcorrencia(this.nome,this.desc,this.local,file,this.select)
+              console.log('chamou func store', res);
               this.$router.push('/')
             }
         },

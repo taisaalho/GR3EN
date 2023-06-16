@@ -14,8 +14,11 @@ export default {
         }
     },
     methods: {
-        createAcc() {
-            if (!(this.User.getUsers.find(user => user.email == this.email))){
+        /* createAcc() {
+            console.log("VIEW - registo")
+            console.log(this.User)
+            console.log(this.User)
+            if (!(this.User.Users.find(user => user.email == this.email))){
                 console.log(this.firstName);
                 let newUser = this.User.register(this.firstName,this.lastName,this.email,this.school,this.password,this.date)
                 if (newUser){
@@ -26,6 +29,12 @@ export default {
             }else{
                 alert('Account Already Exists')
             }    
+        } */
+
+        async createAcc(){
+            if(await this.User.register(this.firstName,this.lastName,this.email,this.school,this.password)){
+                this.$router.push('/users/login')
+            }
         }
     },
 };
@@ -91,7 +100,7 @@ export default {
                                 
                             <v-row class="buttons">
                                 
-                                
+                                <RouterLink to ="/">
                                 <v-btn
                                 color="warning"
                                 size="large"
@@ -101,8 +110,11 @@ export default {
                                 @click="createAcc"
                                 >
                                 Confirm
-                                </v-btn>
-                                <RouterLink to ="/users/login"><v-btn class="btn1"
+                                </v-btn></RouterLink>
+
+
+                                <RouterLink to ="/users/login">
+                                    <v-btn class="btn1"
                                     color="warning"
                                     size="large"
                                     type="submit"
@@ -150,7 +162,7 @@ export default {
     width: 100vw !important;
     // background-attachment: fixed !important;
     }
-    
+
     
     .buttons{
         display:flex;

@@ -109,7 +109,7 @@ const router = createRouter({
       component:Atividade ,
     },
     {
-      path: '/ocurrence/:id',
+      path: '/ocurrences/:id',
       name: 'ocurrence',
       component:Ocurrence ,
       beforeEnter: [CheckIfAdmin]

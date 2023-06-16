@@ -3,11 +3,11 @@
         <v-container>
                 <v-row gutters>
                     <v-col
-                    v-for="ocorrencia in OcorrenciaStore.getOcorrencias"
+                    v-for="ocorrencia in this.asll"
                     cols="12"
                     sm="4">
                     
-                    <v-card  :title="ocorrencia.nomeOcorrencia" 
+                    <v-card v-if="!ocorrencia.statusOcorrencia"  :title="ocorrencia.nomeOcorrencia" 
                     variant="tonal">
         
                     <v-card-subtitle>
@@ -18,15 +18,21 @@
                     </v-card-subtitle>
                     <v-card-text>
                         <h3>Foto</h3>
-                        <v-img :src="ocorrencia.fotoOcorrencia"></v-img>
+                        <!-- <v-img :src="ocorrencia.fotoOcorrencia" -->
+                        <img :src="`data:image/webp;jpg;png;jpeg;base64,${ocorrencia.fotoOcorrencia}`" class="imgOcc" ><!-- </v-img> -->
                         <h3>Descricao</h3>
-                        {{ocorrencia.descriçaoOcorrencia}}
+                        {{ocorrencia.descricaoOcorrencia}}
                     </v-card-text>
         
                     <v-card-actions>
-                        <v-btn @click="OcorrenciaStore.ChangeOcorrenciaStatus(ocorrencia.idOcorrencia) " v-if="ocorrencia.statusOcorrencia == false" tonal color="green">Aprovar</v-btn>
-                        <v-btn @click="OcorrenciaStore.ChangeOcorrenciaStatus(ocorrencia.idOcorrencia) " v-if="ocorrencia.statusOcorrencia == true" tonal color="red">Remover Aprovação</v-btn>
-                        <v-btn :to="'/ocurrence/'+ocorrencia.idOcorrencia">Ver</v-btn>
+                        <v-btn @click="OcorrenciaStore.ChangeOcorrenciaStatus(ocorrencia._id);hideCard(ocorrencia)  "  v-if="ocorrencia.statusOcorrencia == false" tonal color="green">Aprovar</v-btn>
+                        <v-btn @click="OcorrenciaStore.ChangeOcorrenciaStatus(ocorrencia._id) " v-if="ocorrencia.statusOcorrencia == true" tonal color="red">Remover Aprovação</v-btn>
+                        <!-- //:to="'/ocurrence/'+ocorrencia._id" -->
+                        <RouterLink :to="{name: 'ocurrence' ,params: {id:ocorrencia._id}}" >
+                            <v-btn >
+                                Ver
+                            </v-btn>
+                        </RouterLink>    
                     </v-card-actions>
                     </v-card>
                     
@@ -133,6 +139,8 @@ import {Atividade} from '../../stores/atividadesStore.js'
 export default {
     data() {
         return {
+            showcard:true,
+            asll: "",
             nomeAtv: "",
             descAtv: "",
             imgAtv: "",
@@ -142,11 +150,28 @@ export default {
             coordAtv: "",
             OcorrenciaStore: Ocorrencia(),
             atividadesStore: Atividade(),
+            occurrences:Array,
             rankingStore: Ranking()
         }
     },
 
+    async beforeMount () {
+        const AllOcs =await this.OcorrenciaStore.getOcorrencias
+            console.log(AllOcs)
+            this.asll= AllOcs ;
+    },
+
     methods: {
+        hideCard(ocorrencia){
+            ocorrencia.statusOcorrencia = !ocorrencia.statusOcorrencia
+        },
+        
+        async getOcorrencias() {
+            const AllOcs =await this.OcorrenciaStore.getOcorrencias
+            console.log(AllOcs)
+            this.asll= AllOcs ;
+        },
+    
         verificarAtividade(){
             if(this.atividadesStore.getAtividade.find(atividade => atividade.nomeAtividade == this.nomeAtv)){
                 alert('Esta atividade já existe!')
@@ -196,6 +221,13 @@ export default {
 
 button{
     background-color:"green"
+}
+
+
+.imgOcc {
+    max-width: 20vw;
+    object-fit: cover;
+    border-radius: 15px;
 }
 
 </style>

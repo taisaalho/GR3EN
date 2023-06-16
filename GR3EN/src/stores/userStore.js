@@ -14,11 +14,11 @@ let length = 10 */
 
 export const User = defineStore('user', {
   state: () => ({
-    users: []
+    /* users: [] */
   }),
   
   getters: {
-    //Get de toda a informação
+    /* //Get de toda a informação
     getUsers: (state) => state.users, //Não deverá ser usar
 
     //Get top 10 users no presente
@@ -66,7 +66,7 @@ export const User = defineStore('user', {
     },
 
     // BY ID
-    getByID : (state) => (idUser) => state.users.find(user => user.idUser == idUser)
+    getByID : (state) => (idUser) => state.users.find(user => user.idUser == idUser) */
   },
   actions: {
     /* //Nome Completo
@@ -148,7 +148,7 @@ export const User = defineStore('user', {
     //USERS
     async Users(){
       try {
-        const response = await axios.get('https://elegant-slug-woolens.cyclic.app//users');
+        const response = await axios.get('https://elegant-slug-woolens.cyclic.app/users');
         if (response.ok) {
           this.responseData = response.data
           this.users = result.message
@@ -157,20 +157,18 @@ export const User = defineStore('user', {
           alert("HTTP error: " + response.status)
       }catch{
         alert("Couldn't get all Users." + error.response.data.error)
-        return false
       }
     }, 
     
     //YES
     async register(primeiroNome,ultimoNome,email,escola,password){
-      /* console.log("bom dia")  */
+      console.log("bom dia")
       let data = {
         
         primeiroNome : primeiroNome,
-        password : password,
         ultimoNome : ultimoNome,
-        escola : escola,
         email : email,
+        escola : escola,
         password : password,
         idBadge: [],
         idTitulo: [],
@@ -184,7 +182,7 @@ export const User = defineStore('user', {
       }
       
       try{
-        const response = await axios.post('https://elegant-slug-woolens.cyclic.app//users',data,headers);
+        const response = await axios.post('https://elegant-slug-woolens.cyclic.app/users',data,headers);
         if (response.status == 201){
           this.responseData = response.data
           localStorage.setItem("Token", response.data.Token)
@@ -212,7 +210,7 @@ export const User = defineStore('user', {
       
       try{
         
-        const response = await axios.post('https://elegant-slug-woolens.cyclic.app//users/login', data, headers)
+        const response = await axios.post('https://elegant-slug-woolens.cyclic.app//users/login', data, {headers:headers})
         
         if(response.status == 200){
           this.responseData = response.data
@@ -222,7 +220,7 @@ export const User = defineStore('user', {
           return true
         }
       }catch(error){
-        alert('Login failed: ' + error.response.data.error)
+        //alert('Login failed: ' + error.response.data.error)
         return false
       }
     },
@@ -234,7 +232,7 @@ export const User = defineStore('user', {
 
       console.log(this.users) 
       let data = {
-        currentUser: currentUser
+        conselhoEco: true
       }
 
       let headers = {
@@ -243,7 +241,7 @@ export const User = defineStore('user', {
       }
 
       try{
-        const response = await axios.put('https://elegant-slug-woolens.cyclic.app//' + currentUser, data, headers)
+        const response = await axios.put('https:/elegant-slug-woolens.cyclic.app/users/user-profile',data, headers)
 
         console.log(currentUser.conselhoEco)
 
