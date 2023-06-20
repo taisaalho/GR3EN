@@ -8,6 +8,7 @@ import login from '../views/SignInView.vue'
 import register from '../views/SignUpView.vue'
 import occurrenceReport from '../views/OccurrenceReportView.vue'
 import Profile from '../views/ProfileView.vue'
+import ProfileOther from '../views/ProfileOtherView.vue'
 import Ranking from '../views/RankingView.vue'
 import Activities from '../views/ActivitiesView.vue'
 import Atividade from '../views/ActivityView.vue'
@@ -98,7 +99,12 @@ const router = createRouter({
       component: Profile,
       beforeEnter: [CheckIfLogged]
     },
-    
+    {
+      path: '/profile/:id',
+      name: 'profilOther',
+      component: ProfileOther,
+      beforeEnter: [CheckIfLogged]
+    },
     {
       path: '/ranking',
       name: 'ranking',

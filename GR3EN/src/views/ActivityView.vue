@@ -74,7 +74,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="user in atividade.participantesAtividadeNaoExecutado"><td>{{user.primeiroNome + ' ' + user.ultimoNome}}
+                        <tr v-for="user in atividade.participantesAtividadeNaoExecutado"><td>
+                        <RouterLink href="" :to="'/profile/'+user._id">
+                            {{user.primeiroNome + ' ' + user.ultimoNome}}
+                        </RouterLink> 
                             <v-btn v-if="Coordinator"  @click="changeUserState(user,false)" rounded flat>✔️</v-btn>
                             <v-btn v-if="Coordinator" @click="removeUser(user)" flat>remover</v-btn>
                             </td></tr>
@@ -91,7 +94,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="user in atividade.participantesAtividadeExecutado"><td>{{user.primeiroNome + ' ' + user.ultimoNome}} 
+                        <tr v-for="user in atividade.participantesAtividadeExecutado"><td>
+                            <RouterLink href="" :to="'/profile/'+user._id">
+                            {{user.primeiroNome + ' ' + user.ultimoNome}}
+                            </RouterLink>  
                             <v-btn v-if="Coordinator" @click="changeUserState(user,true)" rounded flat>❌</v-btn>
                         
                         </td></tr>
@@ -309,6 +315,8 @@
     font-family: Rubik;
     src: url(../assets/Rubik-Regular.ttf);
 }
+
+a { color: inherit; } 
 .background{
     background-color:rgba(0, 115, 98, 0.8);
     border-radius: 30px;

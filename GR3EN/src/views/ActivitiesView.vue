@@ -40,6 +40,7 @@
                                 <h3>Data: {{new Date(atividade.dataHoraAtividade).toLocaleDateString()}}</h3>
                                 <h3>Coordenador: {{atividade.coordenadorAtividade}}</h3>
                                 <h3>Local: {{atividade.localAtividade}}</h3>
+                                
                             </v-col> 
                             <v-col cols="2">
 

@@ -27,7 +27,8 @@
                        
                        
                        <div  v-for="badge in userBadges" :key="badge._id">
-                            <div class="d-flex flex-column ">
+                            <div class="d-flex">
+                              
                                 <img class="imgBadges" :src="`data:image/webp;jpg;png;jpeg;base64,${badge.imagemBadge}`">
                                 <p class="d-flex badgeName">{{badge.nomeBadge}}</p>
                             </div>
@@ -63,11 +64,9 @@
                                 <img class="imgAtt" :src="`data:image/webp;jpg;png;jpeg;base64,${atividade.imagemAtividade}`"> 
                                 <p class="d-flex badgeName">{{atividade.nomeAtividade}}</p>
                                 <p class="d-flex badgeName">{{atividade.localAtividade}}</p>
-                                <div class="flex align-center ml-8">
-                                    <v-btn :to="{name: 'activity', params: {id:atividade._id}}" size="x-large" color="warning" class="verBtn">
+                                <v-btn :to="{name: 'activity', params: {id:atividade._id}}" size="x-large" color="warning" class="verBtn">
                                         VER
-                                    </v-btn>
-                                </div>
+                                </v-btn>
                                 
                              </div>
                          </div>
@@ -93,25 +92,6 @@
                      </v-container>
                  </div>
                 
-            </v-row>
-            <v-row>
-               <v-container>
-                    <h1>Change Profile</h1>
-                    <v-btn v-if="!MudarPerfil" @click="MudarPerfil = !MudarPerfil">Mudar Perfil</v-btn>
-                    <v-form  @submit.prevent="changeProfile()" v-if="MudarPerfil">
-                        <v-text-field v-model="EditUserForm.Primeiro_Nome" label="Primeiro Nome" ></v-text-field>
-                        <v-text-field v-model="EditUserForm.Ultimo_Nome" label="Ultimo Nome"></v-text-field>
-                        <v-text-field v-model="EditUserForm.Escola" label="Escola"></v-text-field>
-                        <v-checkbox @click="changePassword = !changePassword" label="Mudar Password"></v-checkbox>
-                        <div v-if="changePassword">
-                            <v-text-field  v-model="EditUserForm.Password" type="password" label="Password"></v-text-field>
-                            <v-text-field  v-model="EditUserForm.Password_Confirm" type="password" label="Confirm Password"></v-text-field>
-                        </div>
-
-                       <v-btn type="submit" color="green">Mudar</v-btn>
-                       <v-btn @click="MudarPerfil = !MudarPerfil" color="red">x</v-btn>
-                    </v-form>
-               </v-container>
             </v-row>
             <v-alert
                 v-model="alert"
@@ -174,11 +154,11 @@
          async created() {
 
             try {
-                let res = await axios.get('https://elegant-slug-woolens.cyclic.app/users/user-profile',{
+                let res = await axios.get('https://elegant-slug-woolens.cyclic.app/users?users=' + this.$route.params.id ,{
                     headers:{
                         Authorization: 'Bearer ' + localStorage.getItem('Token')
                     }})
-                this.currentUser = res.data
+                this.currentUser = res.data[0]
                 
                 this.EditUserForm.Primeiro_Nome = res.data.primeiroNome
                 this.EditUserForm.Ultimo_Nome = res.data.ultimoNome
@@ -189,9 +169,9 @@
                 let badgeStr = ''
 
                 this.currentUser.idBadge.forEach(idBadge => badgeStr = badgeStr + idBadge + ',')
-
+                console.log(this.currentUser.idBadge)
                 badgeStr = badgeStr.slice(0, badgeStr.length - 1)
-     
+                console.log(badgeStr)
                 res = await axios.get('https://elegant-slug-woolens.cyclic.app/badges?badges=' + badgeStr)
                 this.userBadges = res.data
                 console.log(this.userBadges)
@@ -219,49 +199,6 @@
           
          
         },
-        methods: {
-            async changeProfile(){
-                const data = {
-                    primeiroNome:this.EditUserForm.Primeiro_Nome,
-                    ultimoNome:this.EditUserForm.Ultimo_Nome,
-                    escola:this.EditUserForm.Escola,
-                }
-
-
-                if(this.changePassword){
-                    if(this.EditUserForm.Password != this.EditUserForm.Password_Confirm){
-                        this.alert = true
-                        this.alertType = 'error'
-                        this.alertText = 'Passwords do not match.'
-                        return
-                    }else{
-                        data.password = this.EditUserForm.Password
-                    }
-                }
-              
-                try {
-                    let res = await axios.put('https://elegant-slug-woolens.cyclic.app/users/user-profile', data , {
-                    headers: {
-                        'Authorization': 'Bearer '+ localStorage.getItem('Token'),
-                        'Content-Type': 'application/json'
-                    }})
-                    this.alertType = 'success'
-                    this.alertText = res.data.message
-                    this.alert = true
-                    location.reload()
-                } catch (error) {
-
-                    console.log(error.response)
-                    this.alertType = 'error'
-                    this.alertText = error.response.data
-                    this.alert = true
-                }
-            
-            }
-            
-
-        },
-
     }
 </script>
 
