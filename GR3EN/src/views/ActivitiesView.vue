@@ -25,31 +25,33 @@
         <v-sheet class="background">
                 <div class="scroll">
                     <v-row class="listAtivity" v-for="atividade in activities">
+                       
 
-                        <div v-if="!atividade.statusAtividade"> 
-
+                           <div class="d-flex justify-space-evenly"  v-if="!atividade.statusAtividade"> 
+                            
                             <v-divider></v-divider>
-                            <v-col class="leftTitles" col="2">
-                                <h3>Atividade Disponível</h3>
-                                
+                            
+                            <v-col class="verBtn" cols="2">
+                                <img :src="`data:image/webp;jpg;png;jpeg;base64,${atividade.imagemAtividade}`" class="imgOcc">
                             </v-col>
-                            <v-col class="verBtn" col="8">
-                                <v-img :src="`data:image/webp;jpg;png;jpeg;base64,${atividade.imagemAtividade}`" class="imgOcc" ></v-img>
+                            <v-col class="leftTitles verBtn" cols="4">
+
                                 <h3>Atividade: {{atividade.nomeAtividade}}</h3>
                                 <h3>Data: {{new Date(atividade.dataHoraAtividade).toLocaleDateString()}}</h3>
                                 <h3>Coordenador: {{atividade.coordenadorAtividade}}</h3>
                                 <h3>Local: {{atividade.localAtividade}}</h3>
-                                
-                            </v-col>
-                            <v-col> 
+                            </v-col> 
+                            <v-col cols="2">
+
                                 <RouterLink :to="{name: 'activity', params: {id:atividade._id}}">
                                     
                                     <v-btn size="x-large" color="warning" class="verBtn">
                                         VER
                                     </v-btn>
                                 </RouterLink>
-                            </v-col>
-                        </div>
+                            </v-col>   
+                                
+                        </div> 
                     </v-row>
                 </div>
         </v-sheet>
@@ -121,6 +123,14 @@ export default {
 
 <style lang="scss" scoped>
 
+.imgOcc{
+    margin-left: -10vw;
+    margin-right: 50vw;
+    max-width:10vw;
+    object-fit: cover;
+    border-radius: 15px;
+    
+}
 .v-main{
     background-image: url('/src/assets/img/Mask group.svg') !important;
     background-repeat: no-repeat !important;
@@ -159,14 +169,14 @@ export default {
 
 
 .leftTitles{
-    margin-left: 10vw;
+    margin-left: 2vw;
 }
 .verBtn{
-    margin-top: 5vh ;
+    margin-top: 10vh ;
 }
 
 .listAtivity{
-    margin-bottom:10vh ;
+    margin-bottom:5vh ;
 }
 
 #searchBtn{

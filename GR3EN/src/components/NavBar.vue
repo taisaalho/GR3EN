@@ -30,7 +30,7 @@
         },
 
         async created () {
-            let res = await axios.get('https://elegant-slug-woolens.cyclic.app/users/user-profile',{headers:{'Authorization': 'Bearer ' + localStorage.getItem('Token')}});
+            let res = await axios.get('http://127.0.0.1:3000/users/user-profile',{headers:{'Authorization': 'Bearer ' + localStorage.getItem('Token')}});
             console.log(res.data.conselhoEco);
             this.conselhoEco = res.data.conselhoEco
         },
@@ -39,7 +39,7 @@
                 if(!!this.currentUser && !this.conselhoEco){
                     this.$router.push('/occurrenceReport')
                 }else if(!!this.currentUser && this.conselhoEco){
-                    this.$router.push('/ocurrences')
+                    this.$router.push('/Admin/Ocurrences')
                 }else{
                     alert("Login Necessário")
                 }

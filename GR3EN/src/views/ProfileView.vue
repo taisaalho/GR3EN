@@ -14,54 +14,81 @@
             <h1 class="userName">{{currentUser.primeiroNome}} {{currentUser.ultimoNome}}</h1>
             </v-row>
             <v-row>
-            <v-container>
-                <h3 class="">Pontos : {{currentUser.pontos}} </h3>
-                <h3 class="">Escola : {{currentUser.escola}} </h3>
+            <v-container class="d-flex infos">
+                <h3 class="points">Pontos : {{currentUser.pontos}} </h3>
+                <h3 class="school">Ensino : {{currentUser.escola}} </h3>
             </v-container>
             </v-row>
             <v-row>
-               <v-container>
-                    <h1>Badges</h1>
+               <div class="scroll">
+                   <h1>Badges</h1>
+
+                   <v-container class=" ">
+                       
+                       
+                       <div  v-for="badge in userBadges" :key="badge._id">
+                            <div class="d-flex">
+                                
+                                <img class="imgBadges" :src="`data:image/webp;jpg;png;jpeg;base64,${badge.imagemBadge}`">
+                                <p class="d-flex badgeName">{{badge.nomeBadge}}</p>
+                            </div>
+                        </div>
+                    </v-container>
+                </div>
+            </v-row>
+            <v-row>
+                <div class="scroll">
+    
+                    <v-container class=" ">
+                        
+                        <h1 class="">Titles</h1>
+                        
+                        <div v-for="title in userTitles" :key="title._id">
+                             <div class="d-flex">
+                                 <p class="d-flex badgeName">{{title.name}}</p>
+
+                             </div>
+                         </div>
+                     </v-container>
+                 </div>
+                </v-row>
+                <v-row>
+                <div class="scroll">
+    
+                    <v-container class=" ">
+                        
+                        <h1 class="">Activities</h1>
+
+                        <div v-for="atividade in atividades_do_user" :key="atividade._id">
+                             <div class="d-flex">
+                                <img class="imgAtt" :src="`data:image/webp;jpg;png;jpeg;base64,${atividade.imagemAtividade}`"> 
+                                <p class="d-flex badgeName">{{atividade.nomeAtividade}}</p>
+                                <p class="d-flex badgeName">{{atividade.localAtividade}}</p>
+                                
+                             </div>
+                         </div>
+                     </v-container>
+                 </div>
+                </v-row>
+                <v-row>
+                <div class="scroll">
+    
+                    <v-container class="">
+                        
+                        <h1 class="">Ocorrências</h1>
+
+                        <div v-for="ocorrencia in ocorrencias_do_user" :key="ocorrencia._id">
+                            <div class="d-flex">
+                                <img class="imgAtt" :src="`data:image/webp;jpg;png;jpeg;base64,${ocorrencia.fotoOcorrencia}`"> 
+                                <p class=" badgeName">{{ocorrencia.nomeOcorrencia}}</p>
+                                <p class="badgeName">Estado:</p> 
+                                <p class="badgeName" v-if="ocorrencia.statusOcorrencia"> Verificada</p>
+                                <p class="badgeName" v-else> Não Verificada</p>
+                            </div>
+                         </div>
+                     </v-container>
+                 </div>
                 
-                    <div  v-for="badge in userBadges" :key="badge._id">
-                        <v-img :src="`data:image/webp;jpg;png;jpeg;base64,${badge.imagemBadge}`"></v-img>
-                        {{ badge.nomeBadge }}
-                    </div>
-                </v-container>
-            </v-row>
-            <v-row>
-               <v-container>
-                    <h1>Titles</h1>
-                
-                    <div  v-for="title in userTitles" :key="title._id">
-                        {{ title.name }}
-                    </div>
-                </v-container>
-            </v-row>
-            <v-row>
-                <v-container>
-                    <h1>Activities</h1>
-                    <div  v-for="atividade in atividades_do_user" :key="atividade._id">
-                        {{ atividade.nomeAtividade }}
-                        {{ atividade.fotoAtividade }}
-                    </div>
-                    
-                    
-                </v-container>
-            </v-row>
-            <v-row>
-                <v-container>
-                    <h1>Occurrences</h1>
-                    <div  v-for="ocorrencia in ocorrencias_do_user" :key="ocorrencia._id">
-                        {{ ocorrencia.nomeOcorrencia }}
-                        {{ ocorrencia.fotoOcorrencia }}
-                        Estado:
-                        <span v-if="ocorrencia.statusOcorrencia">Verificada</span>
-                        <span v-else>Não Verificada</span>
-                    </div>
-                    
-                    
-               </v-container>
             </v-row>
             <v-row>
                <v-container>
@@ -146,8 +173,7 @@
                 let res = await axios.get('https://elegant-slug-woolens.cyclic.app/users/user-profile',{
                     headers:{
                         Authorization: 'Bearer ' + localStorage.getItem('Token')
-                    }}) 
-
+                    }})
                 this.currentUser = res.data
                 
                 this.EditUserForm.Primeiro_Nome = res.data.primeiroNome
@@ -159,12 +185,12 @@
                 let badgeStr = ''
 
                 this.currentUser.idBadge.forEach(idBadge => badgeStr = badgeStr + idBadge + ',')
-                
+                console.log(this.currentUser.idBadge)
                 badgeStr = badgeStr.slice(0, badgeStr.length - 1)
-                
+                console.log(badgeStr)
                 res = await axios.get('https://elegant-slug-woolens.cyclic.app/badges?badges=' + badgeStr)
                 this.userBadges = res.data
-                
+                console.log(this.userBadges)
                 let titleStr = ''
                 
                 this.currentUser.idTitulo.forEach(idBadge => badgeStr = badgeStr + idBadge + ',')
@@ -237,14 +263,48 @@
 
 <style lang="scss" scoped>
 
+.infos{
+    margin-left:30vw;
+
+        
+}
+
+.imgAtt{
+    margin-top: 5vh;
+    margin-left: 5vh;
+    max-width:10vw;
+    object-fit: cover;
+    
+}
+.attName{
+    align-items: center;
+    margin-left: 5vw;
+    margin-top: 10vh;
+}
+.imgBadges{
+    margin-top: 5vh;
+    max-width:10vw;
+    object-fit: cover;
+    
+}
+.badgeName{
+    align-items: center;
+    margin-left: 5vw;
+    margin-top: 5vh;
+}
 .scroll{
     overflow: hidden;
     overflow-y: scroll;
-    max-height: 80vh;
+    max-height: 50vwvh;
     max-width: 200vh;
     margin-top: 10vh;
     margin-bottom: 10vh;
 }
+
+.scroll::-webkit-scrollbar{
+    display: none;
+}
+
 
 
 @font-face{
@@ -260,7 +320,9 @@
     margin:0;
     
 }
-
+.school{
+    margin-left:10vw;  
+}
 .scroll{
     overflow: hidden;
     overflow-y: scroll;
