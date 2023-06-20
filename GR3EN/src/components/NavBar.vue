@@ -5,7 +5,7 @@
                 <RouterLink to="/activities"><v-btn variant="text" class="navBtn" color="white">Atividades</v-btn></RouterLink>
                 <v-btn @click="checkRouter" variant="text" class="navBtn" color="white">Ocorrências</v-btn>
                 <RouterLink to="/ranking"><v-btn variant="text" class="navBtn" color="white ">Ranking</v-btn></RouterLink>
-                <v-btn v-if="checkAdmin()" color="white" to="/ocurrences">Conselho Eco-Escolas</v-btn>
+                <v-btn v-if="checkAdmin()" color="white" to="/Admin">Conselho Eco-Escolas</v-btn>
                 <template v-if="(!!currentUser)" v-slot:append>
                     <RouterLink to="/profile"><v-btn variant="text" color="white" class="navBtn">Perfil</v-btn></RouterLink>
                 </template>
@@ -30,7 +30,7 @@
         },
 
         async created () {
-            let res = await axios.get('https://elegant-slug-woolens.cyclic.app/users/user-profile',{headers:{'Authorization': 'Bearer ' + localStorage.getItem('Token')}});
+            let res = await axios.get('http://127.0.0.1:3000/users/user-profile',{headers:{'Authorization': 'Bearer ' + localStorage.getItem('Token')}});
             console.log(res.data.conselhoEco);
             this.conselhoEco = res.data.conselhoEco
         },
@@ -39,7 +39,7 @@
                 if(!!this.currentUser && !this.conselhoEco){
                     this.$router.push('/occurrenceReport')
                 }else if(!!this.currentUser && this.conselhoEco){
-                    this.$router.push('/ocurrences')
+                    this.$router.push('/Admin/Ocurrences')
                 }else{
                     alert("Login Necessário")
                 }
